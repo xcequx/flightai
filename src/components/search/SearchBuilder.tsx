@@ -19,7 +19,6 @@ interface SearchBuilderProps {
 export interface SearchParams {
   origins: string[];
   destinations: string[];
-  originCountries: string[];
   dateRange: DateRange | undefined;
   departureFlex: number;
   returnFlex: number;
@@ -40,13 +39,13 @@ export interface SearchParams {
     allowPositioningFlights: boolean;
   };
   autoRecommendStopovers: boolean;
+  includeNeighboringCountries: boolean;
 }
 
 export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProps) {
   const [params, setParams] = useState<SearchParams>({
     origins: [],
     destinations: [],
-    originCountries: [],
     dateRange: undefined,
     departureFlex: 3,
     returnFlex: 3,
@@ -58,6 +57,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       allowPositioningFlights: false,
     },
     autoRecommendStopovers: true,
+    includeNeighboringCountries: false,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -67,29 +67,34 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Origin Country & Destination */}
+      {/* Origin & Destination */}
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-2">
-              Z jakiego kraju lecisz?
-            </label>
-            <CountrySelect
-              value={params.originCountries}
-              onChange={(originCountries) => setParams({ ...params, originCountries })}
-              placeholder="Wybierz kraj..."
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Konkretne lotniska (opcjonalnie)
+              Skąd lecisz?
             </label>
             <AirportMultiSelect
               value={params.origins}
               onChange={(origins) => setParams({ ...params, origins })}
-              placeholder="Warszawa, Kraków..."
+              placeholder="Polska, Warszawa, Europa..."
             />
+          </div>
+          
+          <div className="flex items-center space-x-2 p-3 bg-muted/30 rounded-lg">
+            <Checkbox
+              id="includeNeighbors"
+              checked={params.includeNeighboringCountries}
+              onCheckedChange={(checked) => 
+                setParams({ ...params, includeNeighboringCountries: !!checked })
+              }
+            />
+            <label htmlFor="includeNeighbors" className="text-sm font-medium">
+              Uwzględnij kraje sąsiednie
+            </label>
+            <div className="text-xs text-muted-foreground">
+              (może być taniej z Berlina niż z Warszawy)
+            </div>
           </div>
         </div>
         
@@ -100,7 +105,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           <AirportMultiSelect
             value={params.destinations}
             onChange={(destinations) => setParams({ ...params, destinations })}
-            placeholder="Bangkok, Tokio..."
+            placeholder="Bangkok, Tokio, Azja..."
           />
         </div>
       </div>
@@ -179,7 +184,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           <Button
             type="submit"
             size="lg"
-            disabled={isLoading || (params.origins.length === 0 && params.originCountries.length === 0) || params.destinations.length === 0 || !params.dateRange?.from}
+            disabled={isLoading || params.origins.length === 0 || params.destinations.length === 0 || !params.dateRange?.from}
             className="h-14 text-lg bg-gradient-to-r from-primary to-primary-hover hover:from-primary-hover hover:to-primary"
           >
             {isLoading ? (

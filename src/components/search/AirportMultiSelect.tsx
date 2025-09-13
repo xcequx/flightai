@@ -17,19 +17,38 @@ const mockAirports = [
   { code: "WAW", name: "Warszawa (Chopin)", city: "Warszawa", country: "PL" },
   { code: "KRK", name: "Kraków (Balice)", city: "Kraków", country: "PL" },
   { code: "GDN", name: "Gdańsk (Rębiechowo)", city: "Gdańsk", country: "PL" },
+  { code: "LHR", name: "Heathrow", city: "Londyn", country: "GB" },
+  { code: "CDG", name: "Charles de Gaulle", city: "Paryż", country: "FR" },
+  { code: "FRA", name: "Frankfurt am Main", city: "Frankfurt", country: "DE" },
   { code: "DXB", name: "Dubai International", city: "Dubai", country: "AE" },
   { code: "DOH", name: "Hamad International", city: "Doha", country: "QA" },
   { code: "AUH", name: "Abu Dhabi International", city: "Abu Dhabi", country: "AE" },
+  { code: "IST", name: "Istanbul Airport", city: "Stambuł", country: "TR" },
   { code: "BKK", name: "Suvarnabhumi", city: "Bangkok", country: "TH" },
   { code: "NRT", name: "Narita International", city: "Tokio", country: "JP" },
   { code: "SIN", name: "Changi Airport", city: "Singapur", country: "SG" },
   { code: "ICN", name: "Incheon International", city: "Seul", country: "KR" },
 ];
 
+const countries = [
+  { code: "PL", name: "Polska", flag: "🇵🇱" },
+  { code: "DE", name: "Niemcy", flag: "🇩🇪" },
+  { code: "FR", name: "Francja", flag: "🇫🇷" },
+  { code: "GB", name: "Wielka Brytania", flag: "🇬🇧" },
+  { code: "IT", name: "Włochy", flag: "🇮🇹" },
+  { code: "ES", name: "Hiszpania", flag: "🇪🇸" },
+  { code: "NL", name: "Holandia", flag: "🇳🇱" },
+  { code: "CZ", name: "Czechy", flag: "🇨🇿" },
+  { code: "AT", name: "Austria", flag: "🇦🇹" },
+  { code: "CH", name: "Szwajcaria", flag: "🇨🇭" },
+];
+
 const regions = [
   { code: "CEU", name: "Europa Środkowa", icon: Globe },
+  { code: "WEU", name: "Europa Zachodnia", icon: Globe },
   { code: "ME", name: "Bliski Wschód", icon: Globe },
   { code: "SEA", name: "Azja Południowo-Wschodnia", icon: Globe },
+  { code: "EA", name: "Azja Wschodnia", icon: Globe },
 ];
 
 export function AirportMultiSelect({
@@ -48,6 +67,12 @@ export function AirportMultiSelect({
       (airport.name.toLowerCase().includes(inputValue.toLowerCase()) ||
         airport.code.toLowerCase().includes(inputValue.toLowerCase()) ||
         airport.city.toLowerCase().includes(inputValue.toLowerCase()))
+  );
+
+  const filteredCountries = countries.filter(
+    (country) =>
+      !value.includes(country.code) &&
+      country.name.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const filteredRegions = regions.filter(
@@ -69,6 +94,9 @@ export function AirportMultiSelect({
   const getDisplayName = (code: string) => {
     const airport = mockAirports.find((a) => a.code === code);
     if (airport) return `${airport.code} - ${airport.city}`;
+    
+    const country = countries.find((c) => c.code === code);
+    if (country) return `${country.flag} ${country.name}`;
     
     const region = regions.find((r) => r.code === code);
     if (region) return region.name;
@@ -140,10 +168,33 @@ export function AirportMultiSelect({
             </div>
           )}
 
+          {/* Countries */}
+          {filteredCountries.length > 0 && (
+            <div className="p-2 border-b border-border">
+              <div className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
+                <Globe className="h-3 w-3" />
+                Kraje
+              </div>
+              {filteredCountries.map((country) => (
+                <button
+                  key={country.code}
+                  type="button"
+                  className="w-full text-left px-2 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm"
+                  onClick={() => addItem(country.code)}
+                >
+                  <div className="font-medium">
+                    {country.flag} {country.name}
+                  </div>
+                  <div className="text-xs text-muted-foreground">{country.code}</div>
+                </button>
+              ))}
+            </div>
+          )}
+
           {/* Airports */}
           {filteredAirports.length > 0 && (
             <div className="p-2">
-              {filteredRegions.length > 0 && (
+              {(filteredRegions.length > 0 || filteredCountries.length > 0) && (
                 <div className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
                   <MapPin className="h-3 w-3" />
                   Lotniska
@@ -167,9 +218,9 @@ export function AirportMultiSelect({
             </div>
           )}
 
-          {filteredAirports.length === 0 && filteredRegions.length === 0 && inputValue && (
+          {filteredAirports.length === 0 && filteredRegions.length === 0 && filteredCountries.length === 0 && inputValue && (
             <div className="p-4 text-sm text-muted-foreground text-center">
-              Nie znaleziono pasujących lotnisk lub regionów
+              Nie znaleziono pasujących lokalizacji
             </div>
           )}
         </div>
