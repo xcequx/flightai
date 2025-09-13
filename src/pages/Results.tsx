@@ -3,7 +3,36 @@ import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ParetoTabs } from "@/components/results/ParetoTabs";
 import { SearchProgress } from "@/components/results/SearchProgress";
+import { StopoverRecommendations } from "@/components/results/StopoverRecommendations";
 import { ArrowLeft, RefreshCw } from "lucide-react";
+
+// Mock stopover recommendations
+const mockRecommendations = [
+  {
+    hub: "Dubaj",
+    hubCode: "DXB",
+    country: "Zjednoczone Emiraty Arabskie",
+    minDays: 2,
+    maxDays: 5,
+    savings: 450,
+    savingsPercent: 25,
+    totalPrice: 1350,
+    originalPrice: 1800,
+    popularRoutes: ["Emirates", "flydubai", "Air Arabia"]
+  },
+  {
+    hub: "Stambuł",
+    hubCode: "IST",
+    country: "Turcja",
+    minDays: 2,
+    maxDays: 4,
+    savings: 380,
+    savingsPercent: 22,
+    totalPrice: 1420,
+    originalPrice: 1800,
+    popularRoutes: ["Turkish Airlines", "Pegasus"]
+  }
+];
 
 // Mock results data
 const mockResults = [
@@ -110,7 +139,11 @@ export default function Results() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 space-y-8">
+        <StopoverRecommendations 
+          recommendations={mockRecommendations}
+          route="Europa → Azja"
+        />
         <ParetoTabs results={results} />
       </main>
     </div>

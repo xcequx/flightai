@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { AirportMultiSelect } from "./AirportMultiSelect";
 import { StopoverEditor } from "./StopoverEditor";
 import { ConstraintSliders } from "./ConstraintSliders";
-import { Search } from "lucide-react";
+import { DateRangePicker } from "./DateRangePicker";
+import { Search, Lightbulb } from "lucide-react";
+import { DateRange } from "react-day-picker";
 
 interface SearchBuilderProps {
   onSearch: (params: any) => void;
@@ -14,6 +17,7 @@ interface SearchBuilderProps {
 export interface SearchParams {
   origins: string[];
   destinations: string[];
+  dateRange: DateRange | undefined;
   stopovers: Array<{
     location: string;
     minDays: number;
@@ -30,12 +34,14 @@ export interface SearchParams {
     allowSelfTransfer: boolean;
     allowPositioningFlights: boolean;
   };
+  autoRecommendStopovers: boolean;
 }
 
 export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProps) {
   const [params, setParams] = useState<SearchParams>({
     origins: [],
     destinations: [],
+    dateRange: undefined,
     stopovers: [],
     preferences: { price: 60, time: 25, risk: 15 },
     constraints: {
@@ -43,6 +49,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       allowSelfTransfer: true,
       allowPositioningFlights: false,
     },
+    autoRecommendStopovers: true,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -77,10 +84,44 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         </div>
       </div>
 
-      {/* Stopovers */}
+      {/* Date Range */}
       <div>
         <label className="block text-sm font-medium mb-2">
-          Przesiadki (2-6 dni)
+          Kiedy chcesz lecieć?
+        </label>
+        <DateRangePicker
+          dateRange={params.dateRange}
+          onChange={(dateRange) => setParams({ ...params, dateRange })}
+          placeholder="Wybierz zakres dat podróży"
+        />
+      </div>
+
+      {/* Auto-recommend Stopovers */}
+      <div className="flex items-center space-x-2 p-4 bg-muted/50 rounded-lg border">
+        <Lightbulb className="h-5 w-5 text-primary" />
+        <div className="flex-1">
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="autoRecommend"
+              checked={params.autoRecommendStopovers}
+              onCheckedChange={(checked) => 
+                setParams({ ...params, autoRecommendStopovers: !!checked })
+              }
+            />
+            <label htmlFor="autoRecommend" className="text-sm font-medium">
+              Automatycznie sugeruj przesiadki obniżające cenę
+            </label>
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            Znajdziemy najlepsze opcje przesiadek w Dubaju, Turcji i innych hubbach, które mogą znacznie obniżyć koszt podróży
+          </p>
+        </div>
+      </div>
+
+      {/* Manual Stopovers */}
+      <div>
+        <label className="block text-sm font-medium mb-2">
+          Własne przesiadki (opcjonalnie)
         </label>
         <StopoverEditor
           stopovers={params.stopovers}
@@ -108,7 +149,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           <Button
             type="submit"
             size="lg"
-            disabled={isLoading || params.origins.length === 0 || params.destinations.length === 0}
+            disabled={isLoading || params.origins.length === 0 || params.destinations.length === 0 || !params.dateRange.from}
             className="h-14 text-lg bg-gradient-to-r from-primary to-primary-hover hover:from-primary-hover hover:to-primary"
           >
             {isLoading ? (
