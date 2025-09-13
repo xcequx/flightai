@@ -41,6 +41,20 @@ const countries = [
   { code: "CZ", name: "Czechy", flag: "🇨🇿" },
   { code: "AT", name: "Austria", flag: "🇦🇹" },
   { code: "CH", name: "Szwajcaria", flag: "🇨🇭" },
+  { code: "TH", name: "Tajlandia", flag: "🇹🇭" },
+  { code: "JP", name: "Japonia", flag: "🇯🇵" },
+  { code: "SG", name: "Singapur", flag: "🇸🇬" },
+  { code: "AE", name: "ZEA", flag: "🇦🇪" },
+  { code: "TR", name: "Turcja", flag: "🇹🇷" },
+  { code: "US", name: "USA", flag: "🇺🇸" },
+  { code: "CA", name: "Kanada", flag: "🇨🇦" },
+  { code: "AU", name: "Australia", flag: "🇦🇺" },
+  { code: "IN", name: "Indie", flag: "🇮🇳" },
+  { code: "CN", name: "Chiny", flag: "🇨🇳" },
+  { code: "KR", name: "Korea Południowa", flag: "🇰🇷" },
+  { code: "VN", name: "Wietnam", flag: "🇻🇳" },
+  { code: "ID", name: "Indonezja", flag: "🇮🇩" },
+  { code: "MY", name: "Malezja", flag: "🇲🇾" },
 ];
 
 const regions = [
