@@ -24,7 +24,9 @@ const Index = () => {
     // Simulate brief delay then redirect
     setTimeout(() => {
       setIsSearching(false);
-      navigate(`/results/${searchId}`);
+      navigate(`/results/${searchId}`, {
+        state: searchParams.realFlightData ? { realFlightData: searchParams.realFlightData } : undefined,
+      });
     }, 1000);
   };
 
