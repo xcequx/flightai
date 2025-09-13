@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { AirportMultiSelect } from "./AirportMultiSelect";
+import { CountrySelect } from "./CountrySelect";
 import { StopoverEditor } from "./StopoverEditor";
 import { ConstraintSliders } from "./ConstraintSliders";
 import { DateRangePicker } from "./DateRangePicker";
+import { DateFlexibility } from "./DateFlexibility";
 import { Search, Lightbulb } from "lucide-react";
 import { DateRange } from "react-day-picker";
 
@@ -17,7 +19,10 @@ interface SearchBuilderProps {
 export interface SearchParams {
   origins: string[];
   destinations: string[];
+  originCountries: string[];
   dateRange: DateRange | undefined;
+  departureFlex: number;
+  returnFlex: number;
   stopovers: Array<{
     location: string;
     minDays: number;
@@ -41,7 +46,10 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
   const [params, setParams] = useState<SearchParams>({
     origins: [],
     destinations: [],
+    originCountries: [],
     dateRange: undefined,
+    departureFlex: 3,
+    returnFlex: 3,
     stopovers: [],
     preferences: { price: 60, time: 25, risk: 15 },
     constraints: {
@@ -59,17 +67,30 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Origin & Destination */}
+      {/* Origin Country & Destination */}
       <div className="grid md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium mb-2">
-            Skąd lecisz?
-          </label>
-          <AirportMultiSelect
-            value={params.origins}
-            onChange={(origins) => setParams({ ...params, origins })}
-            placeholder="Warszawa, Kraków..."
-          />
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Z jakiego kraju lecisz?
+            </label>
+            <CountrySelect
+              value={params.originCountries}
+              onChange={(originCountries) => setParams({ ...params, originCountries })}
+              placeholder="Wybierz kraj..."
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Konkretne lotniska (opcjonalnie)
+            </label>
+            <AirportMultiSelect
+              value={params.origins}
+              onChange={(origins) => setParams({ ...params, origins })}
+              placeholder="Warszawa, Kraków..."
+            />
+          </div>
         </div>
         
         <div>
@@ -84,15 +105,24 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         </div>
       </div>
 
-      {/* Date Range */}
-      <div>
-        <label className="block text-sm font-medium mb-2">
-          Kiedy chcesz lecieć?
-        </label>
-        <DateRangePicker
-          dateRange={params.dateRange}
-          onChange={(dateRange) => setParams({ ...params, dateRange })}
-          placeholder="Wybierz zakres dat podróży"
+      {/* Date Range & Flexibility */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium mb-2">
+            Kiedy chcesz lecieć?
+          </label>
+          <DateRangePicker
+            dateRange={params.dateRange}
+            onChange={(dateRange) => setParams({ ...params, dateRange })}
+            placeholder="Wybierz zakres dat podróży"
+          />
+        </div>
+        
+        <DateFlexibility
+          departureFlex={params.departureFlex}
+          returnFlex={params.returnFlex}
+          onDepartureFlexChange={(departureFlex) => setParams({ ...params, departureFlex })}
+          onReturnFlexChange={(returnFlex) => setParams({ ...params, returnFlex })}
         />
       </div>
 
@@ -149,7 +179,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           <Button
             type="submit"
             size="lg"
-            disabled={isLoading || params.origins.length === 0 || params.destinations.length === 0 || !params.dateRange.from}
+            disabled={isLoading || (params.origins.length === 0 && params.originCountries.length === 0) || params.destinations.length === 0 || !params.dateRange?.from}
             className="h-14 text-lg bg-gradient-to-r from-primary to-primary-hover hover:from-primary-hover hover:to-primary"
           >
             {isLoading ? (
