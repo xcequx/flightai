@@ -27,10 +27,12 @@ interface FlightResult {
     arrival: string;
     carrier: string;
     flight: string;
+    duration?: string;
   }>;
   stopovers: Array<{ city: string; days: number }>;
   selfTransfer: boolean;
   badges: string[];
+  rawData?: any; // Store original API data for booking
 }
 
 interface ItineraryCardProps {
@@ -41,6 +43,37 @@ interface ItineraryCardProps {
 
 export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
   const [showPriceBreakdown, setShowPriceBreakdown] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const handleBooking = () => {
+    // In a real implementation, this would redirect to booking page with flight data
+    const bookingData = {
+      flightOffer: result.rawData,
+      searchId: result.id,
+      price: result.price
+    };
+    
+    // For now, open a new window with booking information
+    const bookingWindow = window.open('', '_blank');
+    if (bookingWindow) {
+      bookingWindow.document.write(`
+        <html>
+          <head><title>Rezerwacja lotu - ${result.id}</title></head>
+          <body style="font-family: Arial, sans-serif; padding: 20px;">
+            <h1>Rezerwacja lotu</h1>
+            <p>Cena: ${result.price} PLN</p>
+            <p>Trasa: ${result.segments.map(s => `${s.from} → ${s.to}`).join(', ')}</p>
+            <p>W prawdziwej aplikacji tutaj byłby formularz rezerwacji</p>
+            <pre>${JSON.stringify(bookingData, null, 2)}</pre>
+          </body>
+        </html>
+      `);
+    }
+  };
+
+  const handleShowDetails = () => {
+    setShowDetails(!showDetails);
+  };
 
   const formatDuration = (hours: number) => {
     const days = Math.floor(hours / 24);
@@ -190,14 +223,45 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
 
         {/* Action buttons */}
         <div className="flex gap-2">
-          <Button className="flex-1" size="lg">
+          <Button className="flex-1" size="lg" onClick={handleBooking}>
             <ExternalLink className="h-4 w-4 mr-2" />
             Zarezerwuj teraz
           </Button>
-          <Button variant="outline" size="lg">
-            Zobacz szczegóły
+          <Button variant="outline" size="lg" onClick={handleShowDetails}>
+            {showDetails ? 'Ukryj szczegóły' : 'Zobacz szczegóły'}
           </Button>
         </div>
+
+        {/* Detailed flight information */}
+        {showDetails && (
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <h4 className="font-medium mb-3">Szczegóły lotu</h4>
+            <div className="space-y-3 text-sm">
+              {result.segments.map((segment, index) => (
+                <div key={index} className="border-l-2 border-primary pl-3">
+                  <div className="font-medium">Segment {index + 1}</div>
+                  <div className="grid grid-cols-2 gap-2 text-muted-foreground">
+                    <div>Odlot: {new Date(segment.departure).toLocaleString('pl-PL')}</div>
+                    <div>Przylot: {new Date(segment.arrival).toLocaleString('pl-PL')}</div>
+                    <div>Linia: {segment.carrier}</div>
+                    <div>Numer lotu: {segment.flight}</div>
+                    {segment.duration && <div>Czas lotu: {segment.duration}</div>}
+                  </div>
+                </div>
+              ))}
+              {result.rawData && (
+                <div className="mt-4 pt-3 border-t">
+                  <div className="font-medium mb-2">Informacje techniczne</div>
+                  <div className="text-xs text-muted-foreground">
+                    ID lotu: {result.rawData.id}<br/>
+                    Źródło: Amadeus API<br/>
+                    Ostatnia aktualizacja: {new Date().toLocaleString('pl-PL')}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Risk warning for self-transfers */}
         {result.selfTransfer && (

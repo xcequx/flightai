@@ -60,11 +60,14 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     autoRecommendStopovers: true,
     includeNeighboringCountries: false,
   });
+  const [localLoading, setLocalLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
+      setLocalLoading(true);
+      
       // Call the Amadeus API through our edge function
       const { data, error } = await supabase.functions.invoke('search-flights', {
         body: params
@@ -83,8 +86,12 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       console.error('Error calling flight search:', error);
       // Fall back to mock data
       onSearch(params);
+    } finally {
+      setLocalLoading(false);
     }
   };
+
+  const currentLoading = isLoading || localLoading;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -205,10 +212,10 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           <Button
             type="submit"
             size="lg"
-            disabled={isLoading || params.origins.length === 0 || params.destinations.length === 0 || !params.dateRange?.from}
+            disabled={currentLoading || params.origins.length === 0 || params.destinations.length === 0 || !params.dateRange?.from}
             className="h-14 text-lg bg-gradient-to-r from-primary to-primary-hover hover:from-primary-hover hover:to-primary"
           >
-            {isLoading ? (
+            {currentLoading ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2" />
                 Wyszukuję...

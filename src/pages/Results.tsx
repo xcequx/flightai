@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ParetoTabs } from "@/components/results/ParetoTabs";
 import { SearchProgress } from "@/components/results/SearchProgress";
@@ -66,26 +66,81 @@ const mockResults = [
 
 export default function Results() {
   const { searchId } = useParams();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [results, setResults] = useState<typeof mockResults>([]);
+  const [results, setResults] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  // Get search data from navigation state
+  const searchData = location.state?.realFlightData;
 
   useEffect(() => {
-    // Simulate loading process
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsLoading(false);
-          setResults(mockResults);
-          return 100;
-        }
-        return prev + 10;
-      });
-    }, 300);
+    if (searchData && searchData.flights) {
+      // Convert Amadeus API data to our format
+      const convertedResults = searchData.flights.map((flight: any, index: number) => {
+        const segments = flight.itineraries[0].segments.map((segment: any) => ({
+          from: segment.departure.iataCode,
+          to: segment.arrival.iataCode,
+          departure: segment.departure.at,
+          arrival: segment.arrival.at,
+          carrier: searchData.dictionaries?.carriers?.[segment.carrierCode] || segment.carrierCode,
+          flight: `${segment.carrierCode}${segment.number}`,
+          duration: segment.duration
+        }));
 
-    return () => clearInterval(interval);
-  }, []);
+        // Calculate total duration
+        const totalDuration = flight.itineraries[0].duration;
+        const hours = totalDuration ? parseInt(totalDuration.replace('PT', '').replace('H', '').split('M')[0]) : 0;
+        const minutes = totalDuration ? parseInt(totalDuration.split('H')[1]?.replace('M', '') || '0') : 0;
+        const totalHours = hours + Math.round(minutes / 60);
+
+        return {
+          id: flight.id || `flight-${index}`,
+          price: parseFloat(flight.price?.total || '0'),
+          totalHours,
+          riskScore: segments.length > 2 ? 0.3 : 0.1, // Higher risk for more connections
+          segments,
+          stopovers: segments.length > 1 ? [{ city: segments[0].to, days: 0 }] : [],
+          selfTransfer: false,
+          badges: segments.length > 1 ? [`${segments.length - 1} przesiadka`] : ['Bezpośredni'],
+          rawData: flight // Store original API data
+        };
+      });
+
+      setResults(convertedResults);
+      setIsLoading(false);
+    } else {
+      // Fallback to mock data if no real data
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            setIsLoading(false);
+            setResults(mockResults);
+            return 100;
+          }
+          return prev + 10;
+        });
+      }, 300);
+
+      return () => clearInterval(interval);
+    }
+  }, [searchData]);
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-2">Wystąpił błąd</h2>
+          <p className="text-muted-foreground mb-4">{error}</p>
+          <Button onClick={() => window.history.back()}>
+            Wróć do wyszukiwania
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (

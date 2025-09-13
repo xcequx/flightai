@@ -102,8 +102,14 @@ serve(async (req) => {
     const originCode = originAirports[0];
     const destinationCode = destinationAirports[0];
 
-    const departureDate = searchParams.dateRange.from;
-    const returnDate = searchParams.dateRange.to;
+    // Format dates for Amadeus API (YYYY-MM-DD format)
+    const formatDate = (dateString: string) => {
+      const date = new Date(dateString);
+      return date.toISOString().split('T')[0];
+    };
+
+    const departureDate = formatDate(searchParams.dateRange.from);
+    const returnDate = searchParams.dateRange.to ? formatDate(searchParams.dateRange.to) : null;
 
     // Build flight search URL
     const flightSearchUrl = new URL('https://test.api.amadeus.com/v2/shopping/flight-offers');
