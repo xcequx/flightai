@@ -10,7 +10,6 @@ import { DateRangePicker } from "./DateRangePicker";
 import { DateFlexibility } from "./DateFlexibility";
 import { Search, Lightbulb } from "lucide-react";
 import { DateRange } from "react-day-picker";
-import { supabase } from "@/integrations/supabase/client";
 
 interface SearchBuilderProps {
   onSearch: (params: any) => void;
@@ -68,19 +67,29 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     try {
       setLocalLoading(true);
       
-      // Call the Amadeus API through our edge function
-      const { data, error } = await supabase.functions.invoke('search-flights', {
-        body: params
+      // Call our Express API for flight search
+      const response = await fetch('/api/flights/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
       });
 
-      if (error) {
-        console.error('Flight search error:', error);
-        // For now, fall back to mock data
-        onSearch(params);
-      } else {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
         console.log('Real flight data:', data);
         // Pass the real data to the parent component
         onSearch({ ...params, realFlightData: data });
+      } else {
+        console.error('Flight search error:', data.error);
+        // For now, fall back to mock data
+        onSearch(params);
       }
     } catch (error) {
       console.error('Error calling flight search:', error);
