@@ -355,9 +355,6 @@ router.post('/search', async (req, res) => {
     const originAirports = getAirportCodes(origin);
     const destinationAirports = getAirportCodes(destination);
 
-    // Enhanced search with multiple origin/destination combinations for better results
-    const searchPromises = [];
-    
     // If including neighboring countries, expand search for both origins and destinations
     if (searchParams.includeNeighboringCountries) {
       console.log('🌍 Including neighboring countries in search');
@@ -385,22 +382,21 @@ router.post('/search', async (req, res) => {
       }
     }
 
-    // Limit to first 3 combinations for performance
+    // Create search combinations from all available airports
     const searchCombinations: { origin: string; destination: string }[] = [];
-    for (let i = 0; i < Math.min(originAirports.length, 2); i++) {
-      for (let j = 0; j < Math.min(destinationAirports.length, 2); j++) {
+    for (let i = 0; i < Math.min(originAirports.length, 3); i++) {
+      for (let j = 0; j < Math.min(destinationAirports.length, 3); j++) {
         searchCombinations.push({
           origin: originAirports[i],
           destination: destinationAirports[j]
         });
-        if (searchCombinations.length >= 2) break;
+        if (searchCombinations.length >= 4) break; // Limit to 4 combinations to avoid rate limiting
       }
-      if (searchCombinations.length >= 2) break;
+      if (searchCombinations.length >= 4) break;
     }
 
-    // Search the primary combination (first origin to first destination)
-    const primarySearch = searchCombinations[0];
-    console.log(`Searching primary route: ${primarySearch.origin} -> ${primarySearch.destination}`);
+    console.log(`🔍 Will search ${searchCombinations.length} route combinations:`, 
+      searchCombinations.map(combo => `${combo.origin}->${combo.destination}`).join(', '));
     
     // Format dates for Amadeus API (YYYY-MM-DD format)
     const formatDate = (dateString: string) => {
@@ -411,66 +407,120 @@ router.post('/search', async (req, res) => {
     const departureDate = formatDate(searchParams.dateRange.from);
     const returnDate = searchParams.dateRange.to ? formatDate(searchParams.dateRange.to) : null;
 
-    // Build flight search URL with comprehensive parameters  
-    const flightSearchUrl = new URL('https://test.api.amadeus.com/v2/shopping/flight-offers');
-    
-    // Basic required parameters
-    flightSearchUrl.searchParams.set('originLocationCode', primarySearch.origin);
-    flightSearchUrl.searchParams.set('destinationLocationCode', primarySearch.destination);
-    flightSearchUrl.searchParams.set('departureDate', departureDate);
-    if (returnDate) {
-      flightSearchUrl.searchParams.set('returnDate', returnDate);
-    }
-    
-    // Passenger configuration
-    flightSearchUrl.searchParams.set('adults', '1');
-    
-    // Currency - important for Polish users
-    flightSearchUrl.searchParams.set('currencyCode', 'PLN');
-    
-    // Result limits - reasonable number for test environment
-    flightSearchUrl.searchParams.set('max', '50');
-    
-    // Allow connections for more options
-    flightSearchUrl.searchParams.set('nonStop', 'false');
-    
-    // Travel class
-    flightSearchUrl.searchParams.set('travelClass', 'ECONOMY');
-
-    console.log('Searching flights:', flightSearchUrl.toString());
-
-    const flightResponse = await fetch(flightSearchUrl.toString(), {
-      headers: {
-        'Authorization': `Bearer ${tokenData.access_token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!flightResponse.ok) {
-      const errorText = await flightResponse.text();
-      console.error('Flight search failed:', errorText);
-      console.error('Search URL was:', flightSearchUrl.toString());
-      console.error('Request headers:', { 
-        'Authorization': `Bearer ${tokenData.access_token.substring(0, 20)}...`,
-        'Content-Type': 'application/json'
-      });
+    // Function to search flights for a specific combination
+    const searchFlightCombination = async (combination: { origin: string; destination: string }) => {
+      const flightSearchUrl = new URL('https://test.api.amadeus.com/v2/shopping/flight-offers');
       
-      // Try to parse error response for more details
-      try {
-        const errorData = JSON.parse(errorText);
-        console.error('Amadeus API Error Details:', errorData);
-      } catch (parseError) {
-        console.error('Could not parse error response:', parseError);
+      // Basic required parameters
+      flightSearchUrl.searchParams.set('originLocationCode', combination.origin);
+      flightSearchUrl.searchParams.set('destinationLocationCode', combination.destination);
+      flightSearchUrl.searchParams.set('departureDate', departureDate);
+      if (returnDate) {
+        flightSearchUrl.searchParams.set('returnDate', returnDate);
       }
       
-      return res.status(500).json({
-        success: false,
-        error: `Flight search failed: ${flightResponse.status} - ${errorText}`
+      // Passenger configuration
+      flightSearchUrl.searchParams.set('adults', '1');
+      
+      // Currency - important for Polish users
+      flightSearchUrl.searchParams.set('currencyCode', 'PLN');
+      
+      // Result limits - reasonable number for test environment
+      flightSearchUrl.searchParams.set('max', '25'); // Reduced per search to stay under API limits
+      
+      // Allow connections for more options
+      flightSearchUrl.searchParams.set('nonStop', 'false');
+      
+      // Travel class
+      flightSearchUrl.searchParams.set('travelClass', 'ECONOMY');
+
+      console.log(`Searching ${combination.origin} -> ${combination.destination}:`, flightSearchUrl.toString());
+
+      const response = await fetch(flightSearchUrl.toString(), {
+        headers: {
+          'Authorization': `Bearer ${tokenData.access_token}`,
+          'Content-Type': 'application/json',
+        },
       });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`Search failed for ${combination.origin} -> ${combination.destination}:`, errorText);
+        throw new Error(`Flight search failed: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      return {
+        combination,
+        data: data.data || [],
+        meta: data.meta || {},
+        dictionaries: data.dictionaries || {}
+      };
+    };
+
+    // Execute searches for all combinations with Promise.allSettled to handle failures gracefully
+    const searchPromises = searchCombinations.map(combination => 
+      searchFlightCombination(combination).catch(error => ({ 
+        combination, 
+        error: error.message,
+        data: [],
+        meta: {},
+        dictionaries: {}
+      }))
+    );
+
+    const searchResults = await Promise.allSettled(searchPromises);
+    
+    // Aggregate results from all successful searches
+    let allFlights: any[] = [];
+    let combinedMeta: any = {};
+    let combinedDictionaries: any = {};
+    const searchedRoutes: string[] = [];
+    const failedRoutes: string[] = [];
+
+    for (const result of searchResults) {
+      if (result.status === 'fulfilled') {
+        const searchResult = result.value;
+        if (!('error' in searchResult)) {
+          allFlights.push(...searchResult.data);
+          searchedRoutes.push(`${searchResult.combination.origin}->${searchResult.combination.destination}`);
+          
+          // Merge dictionaries and meta data
+          Object.assign(combinedDictionaries, searchResult.dictionaries);
+          if (Object.keys(combinedMeta).length === 0) {
+            combinedMeta = searchResult.meta;
+          }
+          
+          console.log(`✅ Found ${searchResult.data.length} flights for ${searchResult.combination.origin} -> ${searchResult.combination.destination}`);
+        } else {
+          failedRoutes.push(`${searchResult.combination.origin}->${searchResult.combination.destination}`);
+          console.log(`❌ Search failed for ${searchResult.combination.origin} -> ${searchResult.combination.destination}: ${searchResult.error}`);
+        }
+      }
     }
 
-    const flightData = await flightResponse.json();
-    console.log(`Found ${flightData.data?.length || 0} flight offers from Amadeus API`);
+    // Remove duplicate flights based on flight key (combination of airline, flight number, departure time)
+    const uniqueFlights = allFlights.filter((flight, index, self) => {
+      const flightKey = flight.itineraries?.map((itinerary: any) => 
+        itinerary.segments?.map((segment: any) => 
+          `${segment.carrierCode}${segment.number}_${segment.departure?.at}`
+        ).join('|')
+      ).join('||');
+      
+      return index === self.findIndex(f => {
+        const fKey = f.itineraries?.map((itinerary: any) => 
+          itinerary.segments?.map((segment: any) => 
+            `${segment.carrierCode}${segment.number}_${segment.departure?.at}`
+          ).join('|')
+        ).join('||');
+        return fKey === flightKey;
+      });
+    });
+
+    console.log(`🎯 Total unique flights found: ${uniqueFlights.length} from ${allFlights.length} total results across ${searchedRoutes.length} successful routes`);
+    if (failedRoutes.length > 0) {
+      console.log(`⚠️ Failed routes: ${failedRoutes.join(', ')}`);
+    }
     
     // Log search to database
     try {
@@ -483,7 +533,7 @@ router.post('/search', async (req, res) => {
         returnFlex: searchParams.returnFlex,
         autoRecommendStopovers: searchParams.autoRecommendStopovers,
         includeNeighboringCountries: searchParams.includeNeighboringCountries,
-        resultCount: flightData.data?.length || 0
+        resultCount: uniqueFlights.length
       });
       console.log('Flight search logged to database');
     } catch (dbError) {
@@ -492,24 +542,27 @@ router.post('/search', async (req, res) => {
     }
     
     // Log sample of the returned data for debugging
-    if (flightData.data && flightData.data.length > 0) {
-      console.log('Sample flight data structure:', JSON.stringify(flightData.data[0], null, 2));
-      console.log('Available dictionaries:', Object.keys(flightData.dictionaries || {}));
+    if (uniqueFlights.length > 0) {
+      console.log('Sample flight data structure:', JSON.stringify(uniqueFlights[0], null, 2));
+      console.log('Available dictionaries:', Object.keys(combinedDictionaries));
     } else {
-      console.log('No flight data returned. Full response:', JSON.stringify(flightData, null, 2));
+      console.log('No flight data returned from any route.');
     }
 
     res.json({
       success: true,
       searchParams,
-      flights: flightData.data || [],
-      meta: flightData.meta || {},
-      dictionaries: flightData.dictionaries || {},
+      flights: uniqueFlights,
+      meta: combinedMeta,
+      dictionaries: combinedDictionaries,
       searchInfo: {
-        searchedRoute: `${primarySearch.origin} -> ${primarySearch.destination}`,
+        searchedRoutes: searchedRoutes,
+        failedRoutes: failedRoutes,
         searchDate: departureDate,
         returnDate: returnDate,
-        totalResults: flightData.data?.length || 0
+        totalResults: uniqueFlights.length,
+        totalRawResults: allFlights.length,
+        routesCombinations: searchCombinations.length
       }
     });
 

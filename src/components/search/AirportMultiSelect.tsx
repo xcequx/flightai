@@ -166,7 +166,10 @@ export function AirportMultiSelect({
             <div className="p-2 border-b border-border">
               <div className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
                 <Globe className="h-3 w-3" />
-                Regiony
+                Regiony - szerszy wybór, lepsze ceny
+              </div>
+              <div className="text-xs text-muted-foreground mb-3 px-2 py-1 bg-primary/5 rounded">
+                Wybierz cały region aby znaleźć najtańsze opcje z różnych krajów
               </div>
               {filteredRegions.map((region) => (
                 <button
@@ -187,21 +190,37 @@ export function AirportMultiSelect({
             <div className="p-2 border-b border-border">
               <div className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
                 <Globe className="h-3 w-3" />
-                Kraje
+                Kraje - rozszerzamy wyszukiwanie na sąsiadujące
               </div>
-              {filteredCountries.map((country) => (
-                <button
-                  key={country.code}
-                  type="button"
-                  className="w-full text-left px-2 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm"
-                  onClick={() => addItem(country.code)}
-                >
-                  <div className="font-medium">
-                    {country.flag} {country.name}
-                  </div>
-                  <div className="text-xs text-muted-foreground">{country.code}</div>
-                </button>
-              ))}
+              <div className="text-xs text-muted-foreground mb-3 px-2 py-1 bg-success/5 rounded border border-success/20">
+                💡 <span className="font-medium text-success">Wskazówka:</span> Wybór Niemiec lub Czech często daje tańsze opcje niż loty z Polski
+              </div>
+              {filteredCountries.map((country) => {
+                // Add neighbor info for popular countries
+                const neighborInfo = {
+                  'DE': 'Sąsiad Polski - często tańsze loty',
+                  'CZ': 'Sąsiad Polski - alternatywa dla WAW',
+                  'AT': 'Blisko Polski - dobra opcja na południe',
+                  'SK': 'Sąsiad Polski - tanie loty do Azji'
+                };
+                
+                return (
+                  <button
+                    key={country.code}
+                    type="button"
+                    className="w-full text-left px-2 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm transition-colors"
+                    onClick={() => addItem(country.code)}
+                    data-testid={`country-option-${country.code}`}
+                  >
+                    <div className="font-medium">
+                      {country.flag} {country.name}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {neighborInfo[country.code] || `Kod: ${country.code}`}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           )}
 
@@ -211,9 +230,12 @@ export function AirportMultiSelect({
               {(filteredRegions.length > 0 || filteredCountries.length > 0) && (
                 <div className="text-xs font-medium text-muted-foreground mb-2 flex items-center gap-1">
                   <MapPin className="h-3 w-3" />
-                  Lotniska
+                  Lotniska - konkretne wybory
                 </div>
               )}
+              <div className="text-xs text-muted-foreground mb-3 px-2 py-1 bg-info/5 rounded">
+                Dokładny wybór lotniska dla maksymalnej kontroli nad trasą
+              </div>
               {filteredAirports.map((airport) => (
                 <button
                   key={airport.code}

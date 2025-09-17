@@ -18,22 +18,12 @@ export const db = drizzle({ client: pool, schema });
 // Bootstrap database schema on startup
 export async function ensureSchema() {
   try {
-    // Create users table
-    await db.execute(sql`
-      CREATE TABLE IF NOT EXISTS "users" (
-        "id" SERIAL PRIMARY KEY,
-        "email" VARCHAR(255) UNIQUE,
-        "name" VARCHAR(255),
-        "created_at" TIMESTAMP DEFAULT NOW(),
-        "updated_at" TIMESTAMP DEFAULT NOW()
-      )
-    `);
-
-    // Create flight_searches table
-    await db.execute(sql`
+    console.log('Initializing database schema...');
+    
+    // Create flight_searches table with timeout
+    const createTable = db.execute(sql`
       CREATE TABLE IF NOT EXISTS "flight_searches" (
         "id" SERIAL PRIMARY KEY,
-        "user_id" INTEGER REFERENCES "users"("id"),
         "origins" TEXT,
         "destinations" TEXT,
         "departure_date" VARCHAR(50),
@@ -47,8 +37,17 @@ export async function ensureSchema() {
       )
     `);
 
+    // Add timeout to prevent hanging
+    await Promise.race([
+      createTable,
+      new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Database initialization timeout')), 10000)
+      )
+    ]);
+
     console.log('Database schema initialized successfully');
   } catch (error) {
     console.error('Error initializing database schema:', error);
+    console.log('Continuing without database initialization...');
   }
 }

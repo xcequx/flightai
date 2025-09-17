@@ -103,8 +103,8 @@ export function CountrySelect({ value, onChange, placeholder = "Wybierz kraj", c
             </Badge>
           ))}
           {includeNeighbors && neighboringCountries.length > 0 && (
-            <Badge variant="outline" className="text-xs">
-              +{neighboringCountries.length} sąsiadów
+            <Badge variant="outline" className="text-xs bg-success/10 border-success text-success">
+              📈 +{neighboringCountries.length} sąsiadów (tańsze opcje)
             </Badge>
           )}
         </div>
@@ -113,39 +113,70 @@ export function CountrySelect({ value, onChange, placeholder = "Wybierz kraj", c
       {isOpen && (
         <div className="absolute z-50 w-full mt-1 bg-popover border rounded-md shadow-md max-h-80 overflow-auto">
           {value.length > 0 && (
-            <div className="p-3 border-b">
-              <div className="flex items-center space-x-2">
-                <Globe className="h-4 w-4 text-primary" />
-                <Checkbox
-                  id="includeNeighbors"
-                  checked={includeNeighbors}
-                  onCheckedChange={(checked) => setIncludeNeighbors(!!checked)}
-                />
-                <label htmlFor="includeNeighbors" className="text-sm font-medium">
-                  Uwzględnij kraje sąsiednie
-                </label>
+            <div className="p-4 border-b bg-gradient-to-r from-primary/5 to-primary/10">
+              <div className="flex items-start space-x-3">
+                <Globe className="h-5 w-5 text-primary mt-0.5" />
+                <div className="flex-1">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Checkbox
+                      id="includeNeighbors"
+                      checked={includeNeighbors}
+                      onCheckedChange={(checked) => setIncludeNeighbors(!!checked)}
+                      data-testid="checkbox-include-neighbors-dropdown"
+                    />
+                    <label htmlFor="includeNeighbors" className="text-sm font-medium cursor-pointer">
+                      Uwzględnij kraje sąsiednie
+                    </label>
+                  </div>
+                  <div className="space-y-2 text-xs text-muted-foreground">
+                    <p className="font-medium text-primary">
+                      📈 Rozszerzamy wyszukiwanie na kraje sąsiadujące
+                    </p>
+                    <div className="grid grid-cols-1 gap-2 mt-2">
+                      <div className="bg-info/10 px-2 py-1 rounded text-info text-center">
+                        <div className="font-medium">Dodatkowe lokalizacje</div>
+                        <div>{neighboringCountries.length} krajów sąsiadujących</div>
+                      </div>
+                    </div>
+                    <p className="mt-2">
+                      <span className="font-medium">Przykład:</span> Z Polski rozszerzamy wyszukiwanie na Niemcy, Czechy, Słowację - często znajdziesz tam tańsze loty.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Optymalizuj cenę uwzględniając loty z krajów sąsiadujących
-              </p>
             </div>
           )}
           
           <div className="p-2">
-            {countries.map(country => (
-              <div
-                key={country.code}
-                className="flex items-center space-x-2 px-2 py-2 text-sm cursor-pointer hover:bg-accent rounded-sm"
-                onClick={() => toggleCountry(country.code)}
-              >
-                <div className="flex items-center justify-center w-4 h-4">
-                  {value.includes(country.code) && <Check className="h-3 w-3" />}
+            {countries.map(country => {
+              const isNeighbor = neighboringCountries.includes(country.code);
+              const isSelected = value.includes(country.code);
+              
+              return (
+                <div
+                  key={country.code}
+                  className={`flex items-center space-x-2 px-3 py-2 text-sm cursor-pointer hover:bg-accent rounded-sm transition-colors ${
+                    isNeighbor ? 'bg-primary/5 border-l-2 border-l-primary' : ''
+                  }`}
+                  onClick={() => toggleCountry(country.code)}
+                  data-testid={`country-select-${country.code}`}
+                >
+                  <div className="flex items-center justify-center w-4 h-4">
+                    {isSelected && <Check className="h-3 w-3 text-primary" />}
+                  </div>
+                  <span className="text-lg">{country.flag}</span>
+                  <div className="flex-1">
+                    <div className="font-medium">{country.name}</div>
+                    {isNeighbor && (
+                      <div className="text-xs text-primary font-medium">
+                        🔗 Sąsiad - może być taniej
+                      </div>
+                    )}
+                  </div>
+                  <MapPin className="h-3 w-3 text-muted-foreground" />
                 </div>
-                <span className="text-lg">{country.flag}</span>
-                <span className="flex-1">{country.name}</span>
-                <MapPin className="h-3 w-3 text-muted-foreground" />
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
