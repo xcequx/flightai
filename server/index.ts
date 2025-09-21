@@ -41,8 +41,15 @@ async function createServer() {
   } else {
     // Production mode - serve static files
     app.use(express.static('dist'));
-    app.get('*', (req, res) => {
-      res.sendFile(path.resolve('dist', 'index.html'));
+    
+    // Handle client-side routing - serve index.html for non-API routes
+    app.use((req, res, next) => {
+      // Skip API routes
+      if (req.path.startsWith('/api/')) {
+        return next();
+      }
+      // For all other routes, serve the React app
+      res.sendFile(path.resolve(process.cwd(), 'dist', 'index.html'));
     });
   }
 
