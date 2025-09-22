@@ -44,7 +44,7 @@
 
 ### Analiza konkurencji
 
-| Platforma | Użytkownicy MAU | Zalety | Wady | Przewaga Lovable |
+| Platforma | Użytkownicy MAU | Zalety | Wady | Przewaga FlightAI |
 |-----------|-----------------|---------|------|------------------|
 | **Skyscanner** | 100M+ | Największa baza danych | Brak fokusa na przesiadki | Specjalizacja w multi-day layovers |
 | **Kayak** | 60M+ | Zaawansowane filtry | Interface przestarzały | Modern UX + AI recommendations |
@@ -211,7 +211,7 @@ Amadeus API credentials (free tier available)
 #### 1. Klonowanie projektu
 ```bash
 git clone [repository-url]
-cd lovable-flight-search
+cd flightai
 npm install
 ```
 
@@ -836,10 +836,10 @@ mixpanel.track('Flight Search', {
 - **Documentation**: Comprehensive API docs + tutorials
 
 ### Get Involved
-📧 **Email**: [contact@lovable-flights.com]  
+📧 **Email**: [contact@flightai.app]  
 🐙 **GitHub**: [repository-link]  
 💬 **Discord**: [community-link]  
-🐦 **Twitter**: [@LovableFlights]  
+🐦 **Twitter**: [@FlightAI_app]  
 📱 **LinkedIn**: [company-page]
 
 ---
