@@ -10,9 +10,12 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     allowedHosts: [
       "e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev",
+      "flightai-pawelbartlewski.replit.app",
     ],
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), mode === "development" && componentTagger()].filter(
+    Boolean,
+  ),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
