@@ -5,7 +5,7 @@
 
 import { exec } from 'child_process';
 
-console.log('🚀 Starting Lovable Flight Search App...');
+console.log('🚀 Starting FlightAI Flight Search App...');
 
 // Run the server using tsx
 const serverProcess = exec('tsx server/index.ts', {

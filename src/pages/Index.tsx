@@ -39,7 +39,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div className="flex items-center justify-center gap-3 mb-6">
               <Plane className="h-12 w-12 text-white" />
-              <h1 className="text-5xl font-bold">Lovable</h1>
+              <h1 className="text-5xl font-bold">FlightAI</h1>
             </div>
             <h2 className="text-2xl mb-4 opacity-90">
               Inteligentny wyszukiwacz lotów z przesiadkami
@@ -72,7 +72,7 @@ const Index = () => {
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           <h3 className="text-3xl font-bold text-center mb-12 text-foreground">
-            Dlaczego warto wybrać Lovable?
+            Dlaczego warto wybrać FlightAI?
           </h3>
           
           <div className="grid md:grid-cols-3 gap-8">

@@ -1,6 +1,6 @@
 # Overview
 
-This is a modern flight search application called "Lovable" that helps users find affordable flights with strategic stopovers. The application specializes in intelligent flight search with multi-day layovers, allowing travelers to explore new cities while saving money. Built with React, TypeScript, and modern web technologies, it provides an intuitive interface for complex flight search scenarios.
+This is a modern flight search application called "FlightAI" that helps users find affordable flights with strategic stopovers. The application specializes in intelligent flight search with multi-day layovers, allowing travelers to explore new cities while saving money. Built with React, TypeScript, and modern web technologies, it provides an intuitive interface for complex flight search scenarios.
 
 # User Preferences
 

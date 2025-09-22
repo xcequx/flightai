@@ -1,4 +1,4 @@
-# Lovable - Inteligentny Wyszukiwacz Lotów z Przesiadkami
+# FlightAI - Inteligentny Wyszukiwacz Lotów z Przesiadkami
 
 ## 📋 Spis treści
 - [Opis projektu](#opis-projektu)
@@ -13,7 +13,7 @@
 
 ## 🎯 Opis projektu
 
-**Lovable** to nowoczesna aplikacja webowa do wyszukiwania lotów, która specjalizuje się w inteligentnym znajdowaniu tanich połączeń lotniczych z wielodniowymi przesiadkami. Aplikacja pozwala podróżnym eksplorować nowe miasta podczas podróży, jednocześnie oszczędzając znaczne kwoty na biletach lotniczych.
+**FlightAI** to nowoczesna aplikacja webowa do wyszukiwania lotów, która specjalizuje się w inteligentnym znajdowaniu tanich połączeń lotniczych z wielodniowymi przesiadkami. Aplikacja pozwala podróżnym eksplorować nowe miasta podczas podróży, jednocześnie oszczędzając znaczne kwoty na biletach lotniczych.
 
 ### Problem który rozwiązujemy
 - **Wysokie ceny biletów bezpośrednich** - loty direct mogą kosztować 30-50% więcej
