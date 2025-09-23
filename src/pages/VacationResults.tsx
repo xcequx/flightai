@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { 
   ArrowLeft, MapPin, Calendar, DollarSign, Plane, Hotel, 
-  Clock, Star, Info, Download, Share2, Heart, Users 
+  Clock, Star, Info, Download, Share2, Heart, Users, TrendingUp, 
+  AlertTriangle, CheckCircle 
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { formatCurrency } from "@/utils/formatters";
@@ -42,10 +43,41 @@ const VacationResults = () => {
   
   const { planData, formData } = location.state || {};
   
+  // Comprehensive data validation and safe extraction
+  const safeGetData = (data: any, fallback: any = {}) => {
+    try {
+      return data && typeof data === 'object' ? data : fallback;
+    } catch (error) {
+      console.warn('🚨 Data extraction error:', error);
+      return fallback;
+    }
+  };
+  
+  const safeGetArray = (data: any, fallback: any[] = []) => {
+    try {
+      return Array.isArray(data) ? data : fallback;
+    } catch (error) {
+      console.warn('🚨 Array extraction error:', error);
+      return fallback;
+    }
+  };
+  
+  const safeGetNumber = (data: any, fallback: number = 0) => {
+    try {
+      const num = Number(data);
+      return isNaN(num) ? fallback : num;
+    } catch (error) {
+      console.warn('🚨 Number extraction error:', error);
+      return fallback;
+    }
+  };
+  
   if (!planData) {
+    console.warn('🚨 No plan data available');
     return (
       <div className="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center">
         <Card className="p-8 text-center">
+          <AlertTriangle className="h-16 w-16 mx-auto mb-4 text-yellow-500" />
           <h2 className="text-2xl font-bold mb-4">{t('vacationResults.noData')}</h2>
           <p className="text-muted-foreground mb-6">{t('vacationResults.noDataDesc')}</p>
           <Button onClick={() => navigate('/plan-vacation')}>
@@ -56,7 +88,53 @@ const VacationResults = () => {
     );
   }
 
-  const { vacationPlan, hotelRecommendations, flightRouting, requestSummary } = planData;
+  // Safe data extraction with comprehensive validation
+  const {
+    vacationPlan: rawVacationPlan,
+    hotelRecommendations: rawHotelRecommendations,
+    flightRouting: rawFlightRouting,
+    budgetOptimization: rawBudgetOptimization,
+    requestSummary: rawRequestSummary
+  } = planData;
+  
+  // Validated and safe data objects
+  const vacationPlan = safeGetData(rawVacationPlan, {
+    destinations: [],
+    totalBudget: 0,
+    budgetBreakdown: null,
+    bestTravelDates: [],
+    culturalTips: [],
+    dailyItinerary: []
+  });
+  
+  const hotelRecommendations = safeGetData(rawHotelRecommendations, {});
+  const flightRouting = safeGetData(rawFlightRouting, {});
+  const budgetOptimization = safeGetData(rawBudgetOptimization, {});
+  const requestSummary = safeGetData(rawRequestSummary, {
+    budget: 0,
+    region: 'Unknown',
+    duration: 0,
+    travelStyle: 'Unknown'
+  });
+  
+  // Validate destinations array
+  const destinations = safeGetArray(vacationPlan.destinations).map((dest: any) => ({
+    name: dest?.name || 'Unknown Destination',
+    country: dest?.country || 'Unknown Country',
+    duration: safeGetNumber(dest?.duration, 1),
+    highlights: safeGetArray(dest?.highlights),
+    bestTime: dest?.bestTime || 'Year-round'
+  }));
+  
+  // Log data validation results
+  console.log('✅ Data validation completed:', {
+    hasVacationPlan: !!rawVacationPlan,
+    destinationsCount: destinations.length,
+    hasRequestSummary: !!rawRequestSummary,
+    hasHotelRecommendations: Object.keys(hotelRecommendations).length > 0,
+    hasFlightRouting: Object.keys(flightRouting).length > 0,
+    hasBudgetOptimization: Object.keys(budgetOptimization).length > 0
+  });
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -166,19 +244,19 @@ const VacationResults = () => {
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary mb-2">
-                    {vacationPlan.destinations?.length || 0}
+                    {destinations.length}
                   </div>
                   <p className="text-muted-foreground">{t('vacationResults.destinations')}</p>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary mb-2">
-                    {formatCurrency(vacationPlan.totalBudget || requestSummary.budget)}
+                    {formatCurrency(safeGetNumber(vacationPlan.totalBudget) || safeGetNumber(requestSummary.budget))}
                   </div>
                   <p className="text-muted-foreground">{t('vacationResults.estimatedCost')}</p>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary mb-2">
-                    {vacationPlan.bestTravelDates?.length || 0}
+                    {safeGetArray(vacationPlan.bestTravelDates).length}
                   </div>
                   <p className="text-muted-foreground">{t('vacationResults.recommendedDates')}</p>
                 </div>
@@ -196,7 +274,7 @@ const VacationResults = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {vacationPlan.destinations?.map((destination, index) => (
+                {destinations.length > 0 ? destinations.map((destination, index) => (
                   <div key={index} className="border rounded-lg p-4">
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-semibold text-lg">{destination.name}</h3>
@@ -207,24 +285,25 @@ const VacationResults = () => {
                     <p className="text-sm text-muted-foreground mb-3">
                       {destination.country}
                     </p>
-                    {destination.highlights && (
+                    {destination.highlights.length > 0 && (
                       <div className="space-y-1">
                         <h4 className="font-medium text-sm">{t('vacationResults.mainAttractions')}:</h4>
                         <ul className="text-sm text-muted-foreground space-y-1">
                           {destination.highlights.map((highlight, i) => (
                             <li key={i} className="flex items-start gap-2">
-                              <span className="text-primary">•</span>
-                              {highlight}
+                              <CheckCircle className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                              <span>{highlight}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                     )}
                   </div>
-                )) || (
+                )) : (
                   <div className="text-center py-8 text-muted-foreground">
                     <MapPin className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <p>{t('vacationResults.noDestinations')}</p>
+                    <p className="text-sm mt-2">Unable to load destination information. Please try generating a new plan.</p>
                   </div>
                 )}
               </CardContent>
@@ -239,52 +318,61 @@ const VacationResults = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {vacationPlan.budgetBreakdown ? (
-                  Object.entries(vacationPlan.budgetBreakdown).map(([category, amount]) => (
-                    <div key={category} className="flex justify-between items-center">
-                      <span className="capitalize">
-                        {category === 'flights' ? t('vacationResults.flights') :
-                         category === 'accommodation' ? t('vacationResults.accommodation') :
-                         category === 'activities' ? t('vacationResults.activities') :
-                         category === 'meals' ? t('vacationResults.meals') :
-                         category === 'transportation' ? t('vacationResults.transportation') :
-                         category}
-                      </span>
-                      <span className="font-semibold">
-                        {formatCurrency(Number(amount))}
-                      </span>
-                    </div>
-                  ))
+                {vacationPlan.budgetBreakdown && typeof vacationPlan.budgetBreakdown === 'object' ? (
+                  Object.entries(vacationPlan.budgetBreakdown).map(([category, amount]) => {
+                    const safeAmount = safeGetNumber(amount);
+                    return (
+                      <div key={category} className="flex justify-between items-center">
+                        <span className="capitalize">
+                          {category === 'flights' ? t('vacationResults.flights') :
+                           category === 'accommodation' ? t('vacationResults.accommodation') :
+                           category === 'activities' ? t('vacationResults.activities') :
+                           category === 'meals' ? t('vacationResults.meals') :
+                           category === 'transportation' ? t('vacationResults.transportation') :
+                           category}
+                        </span>
+                        <span className="font-semibold">
+                          {formatCurrency(safeAmount)}
+                        </span>
+                      </div>
+                    );
+                  })
                 ) : (
                   <div className="space-y-3">
+                    <div className="text-center mb-4 p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
+                      <Info className="h-5 w-5 mx-auto mb-2 text-blue-600" />
+                      <p className="text-sm text-blue-700 dark:text-blue-300">
+                        Using estimated budget breakdown based on typical travel expenses
+                      </p>
+                    </div>
                     <div className="flex justify-between">
                       <span>{t('vacationResults.flights')} (40%)</span>
                       <span className="font-semibold">
-                        {formatCurrency(requestSummary.budget * 0.4)}
+                        {formatCurrency(safeGetNumber(requestSummary.budget) * 0.4)}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span>{t('vacationResults.accommodation')} (30%)</span>
                       <span className="font-semibold">
-                        {formatCurrency(requestSummary.budget * 0.3)}
+                        {formatCurrency(safeGetNumber(requestSummary.budget) * 0.3)}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span>{t('vacationResults.activities')} (15%)</span>
                       <span className="font-semibold">
-                        {formatCurrency(requestSummary.budget * 0.15)}
+                        {formatCurrency(safeGetNumber(requestSummary.budget) * 0.15)}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span>{t('vacationResults.meals')} (15%)</span>
                       <span className="font-semibold">
-                        {formatCurrency(requestSummary.budget * 0.15)}
+                        {formatCurrency(safeGetNumber(requestSummary.budget) * 0.15)}
                       </span>
                     </div>
                     <Separator />
                     <div className="flex justify-between font-bold text-lg">
                       <span>{t('vacationResults.totalBudget')}</span>
-                      <span>{formatCurrency(requestSummary.budget)}</span>
+                      <span>{formatCurrency(safeGetNumber(requestSummary.budget))}</span>
                     </div>
                   </div>
                 )}
@@ -343,7 +431,7 @@ const VacationResults = () => {
           )}
 
           {/* Cultural Tips */}
-          {vacationPlan.culturalTips && vacationPlan.culturalTips.length > 0 && (
+          {safeGetArray(vacationPlan.culturalTips).length > 0 && (
             <Card className="floating-card">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -353,13 +441,76 @@ const VacationResults = () => {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2">
-                  {vacationPlan.culturalTips.map((tip, index) => (
+                  {safeGetArray(vacationPlan.culturalTips).map((tip, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <span className="text-amber-600 mt-1">•</span>
-                      <span className="text-sm">{tip}</span>
+                      <CheckCircle className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm">{String(tip)}</span>
                     </li>
                   ))}
                 </ul>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Optimization Insights */}
+          {budgetOptimization?.optimization_strategies && typeof budgetOptimization.optimization_strategies === 'object' && (
+            <Card className="floating-card">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-green-600" />
+                  Money-Saving Strategies
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {budgetOptimization.optimization_strategies.early_booking_savings && (
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-green-700 flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4" />
+                        Early Booking Savings
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {String(budgetOptimization.optimization_strategies.early_booking_savings)}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {budgetOptimization.optimization_strategies.seasonal_timing && (
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-blue-700 flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4" />
+                        Seasonal Timing
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {String(budgetOptimization.optimization_strategies.seasonal_timing)}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {budgetOptimization.optimization_strategies.bulk_purchase_benefits && (
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-purple-700 flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4" />
+                        Extended Stay Benefits
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {String(budgetOptimization.optimization_strategies.bulk_purchase_benefits)}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {budgetOptimization.optimization_strategies.loyalty_programs && (
+                    <div className="space-y-2">
+                      <h4 className="font-medium text-orange-700 flex items-center gap-2">
+                        <CheckCircle className="h-4 w-4" />
+                        Loyalty Programs
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {String(budgetOptimization.optimization_strategies.loyalty_programs)}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
           )}

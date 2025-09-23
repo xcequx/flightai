@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "bun run server/index.ts",
+    "dev:frontend-only": "vite", 
+    "dev:separate": "concurrently \"bun run server/index.ts\" \"vite\"",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",

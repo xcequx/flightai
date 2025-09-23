@@ -37,7 +37,7 @@ export async function ensureSchema() {
       )
     `);
 
-    // Create vacation_plans table
+    // Create vacation_plans table with all required columns
     const createVacationPlansTable = db.execute(sql`
       CREATE TABLE IF NOT EXISTS "vacation_plans" (
         "id" SERIAL PRIMARY KEY,
@@ -48,9 +48,22 @@ export async function ensureSchema() {
         "travel_style" VARCHAR(50),
         "interests" TEXT,
         "departure_city" VARCHAR(100),
+        -- Enhanced fields for multi-city planning
+        "is_multi_city" BOOLEAN DEFAULT false,
+        "cities" TEXT,
+        "budget_allocation" TEXT,
+        "travel_pace" VARCHAR(30) DEFAULT 'moderate',
+        "accommodation_type" VARCHAR(50) DEFAULT 'hotel',
+        "transport_preference" VARCHAR(50) DEFAULT 'flights',
+        -- Hotel preferences
+        "hotel_preferences" TEXT,
+        "price_per_day" DECIMAL(8,2),
+        "season_optimized" BOOLEAN DEFAULT true,
+        -- Plan data
         "plan_data" TEXT,
         "hotel_data" TEXT,
         "flight_data" TEXT,
+        "routing_data" TEXT,
         "created_at" TIMESTAMP DEFAULT NOW(),
         "updated_at" TIMESTAMP DEFAULT NOW()
       )
