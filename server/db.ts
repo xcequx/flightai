@@ -21,7 +21,7 @@ export async function ensureSchema() {
     console.log('Initializing database schema...');
     
     // Create flight_searches table with timeout
-    const createTable = db.execute(sql`
+    const createFlightSearchesTable = db.execute(sql`
       CREATE TABLE IF NOT EXISTS "flight_searches" (
         "id" SERIAL PRIMARY KEY,
         "origins" TEXT,
@@ -37,11 +37,30 @@ export async function ensureSchema() {
       )
     `);
 
+    // Create vacation_plans table
+    const createVacationPlansTable = db.execute(sql`
+      CREATE TABLE IF NOT EXISTS "vacation_plans" (
+        "id" SERIAL PRIMARY KEY,
+        "user_id" INTEGER,
+        "budget" DECIMAL(10,2),
+        "region" VARCHAR(100),
+        "duration" INTEGER,
+        "travel_style" VARCHAR(50),
+        "interests" TEXT,
+        "departure_city" VARCHAR(100),
+        "plan_data" TEXT,
+        "hotel_data" TEXT,
+        "flight_data" TEXT,
+        "created_at" TIMESTAMP DEFAULT NOW(),
+        "updated_at" TIMESTAMP DEFAULT NOW()
+      )
+    `);
+
     // Add timeout to prevent hanging
     await Promise.race([
-      createTable,
+      Promise.all([createFlightSearchesTable, createVacationPlansTable]),
       new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Database initialization timeout')), 10000)
+        setTimeout(() => reject(new Error('Database initialization timeout')), 15000)
       )
     ]);
 

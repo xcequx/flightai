@@ -21,6 +21,10 @@ async function createServer() {
 
   // API routes first - before Vite middleware
   app.use('/api/flights', flightRoutes);
+  
+  // Import and use vacation routes
+  const vacationRoutes = await import('./routes/vacation.js');
+  app.use('/api/vacation', vacationRoutes.default);
 
   // Health check endpoint
   app.get('/api/health', (req, res) => {
