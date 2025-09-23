@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -43,6 +44,7 @@ export interface SearchParams {
 }
 
 export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProps) {
+  const { t } = useTranslation();
   const [params, setParams] = useState<SearchParams>({
     origins: [],
     destinations: [],
@@ -83,7 +85,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         console.log('⚠️ API key required:', data.message);
         
         // Show user-friendly message about API key setup
-        const alertMessage = `${data.message}\n\n${data.instructions.join('\n')}\n\nW międzyczasie używamy przykładowych danych.`;
+        const alertMessage = `${data.message}\n\n${data.instructions.join('\n')}\n\n${t('search.mockDataNotice')}`;
         alert(alertMessage);
         
         // Continue with mock data but mark as needing API key
@@ -128,14 +130,14 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         console.error('❌ Flight search error:', data.error);
         
         // Show user-friendly error message based on error type
-        let errorMessage = 'Wystąpił błąd podczas wyszukiwania. Używamy przykładowych danych.';
+        let errorMessage = t('search.errorDefault');
         
         if (data.error?.includes('API')) {
-          errorMessage = 'Problem z połączeniem API. Spróbuj ponownie lub skorzystaj z przykładowych danych.';
+          errorMessage = t('search.errorApi');
         } else if (data.error?.includes('timeout')) {
-          errorMessage = 'Przekroczono czas oczekiwania. Sprawdź połączenie internetowe.';
+          errorMessage = t('search.errorTimeout');
         } else if (data.error?.includes('rate limit')) {
-          errorMessage = 'Zbyt wiele zapytań. Spróbuj ponownie za chwilę.';
+          errorMessage = t('search.errorRateLimit');
         }
         
         alert(errorMessage);
@@ -153,12 +155,12 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       console.error('❌ Network or parsing error:', error);
       
       // Show user-friendly error message
-      let errorMessage = 'Wystąpił błąd sieciowy. Sprawdź połączenie internetowe.';
+      let errorMessage = t('search.errorNetwork');
       
       if (error instanceof TypeError && error.message.includes('fetch')) {
-        errorMessage = 'Nie można połączyć się z serwerem. Sprawdź połączenie internetowe.';
+        errorMessage = t('search.errorFetch');
       } else if (error instanceof SyntaxError) {
-        errorMessage = 'Otrzymano nieprawidłową odpowiedź z serwera.';
+        errorMessage = t('search.errorParsing');
       }
       
       alert(errorMessage);
@@ -189,46 +191,46 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-foreground mb-2 flex items-center gap-2">
               <DollarSign className="h-5 w-5 text-success" />
-              Inteligentne oszczędzanie na lotach
+              {t('search.smartSavings')}
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Dzięki wyszukiwaniu w krajach sąsiadujących możesz zaoszczędzić nawet <span className="font-bold text-success">1000+ złotych</span> na bilecie lotniczym!
+              {t('search.neighboringSavings')}
             </p>
             
             <div className="grid md:grid-cols-3 gap-4">
               <div className="bg-background/50 p-3 rounded-lg border">
                 <div className="flex items-center gap-2 mb-2">
                   <MapPin className="h-4 w-4 text-primary" />
-                  <span className="font-medium text-sm">Przykład trasy</span>
+                  <span className="font-medium text-sm">{t('search.exampleRoute')}</span>
                 </div>
                 <div className="text-xs space-y-1">
-                  <div className="text-success font-medium">✈️ Berlin → Bangkok: 2100 zł</div>
-                  <div className="text-muted-foreground">vs Warszawa → Bangkok: 3200 zł</div>
-                  <div className="text-success font-bold">Oszczędność: 1100 zł!</div>
+                  <div className="text-success font-medium">✈️ {t('search.berlinExample')}</div>
+                  <div className="text-muted-foreground">{t('search.warsawComparison')}</div>
+                  <div className="text-success font-bold">{t('search.savings')}</div>
                 </div>
               </div>
               
               <div className="bg-background/50 p-3 rounded-lg border">
                 <div className="flex items-center gap-2 mb-2">
                   <Info className="h-4 w-4 text-info" />
-                  <span className="font-medium text-sm">Jak to działa</span>
+                  <span className="font-medium text-sm">{t('search.howItWorks')}</span>
                 </div>
                 <div className="text-xs space-y-1 text-muted-foreground">
-                  <div>• Rozszerzamy wyszukiwanie na sąsiednie kraje</div>
-                  <div>• Często znajdziesz tam tańsze loty</div>
-                  <div>• Pokazujemy różne opcje do porównania</div>
+                  {t('search.howItWorksSteps', { returnObjects: true }).map((step: string, index: number) => (
+                    <div key={index}>• {step}</div>
+                  ))}
                 </div>
               </div>
               
               <div className="bg-background/50 p-3 rounded-lg border">
                 <div className="flex items-center gap-2 mb-2">
                   <Lightbulb className="h-4 w-4 text-warning" />
-                  <span className="font-medium text-sm">Rada eksperta</span>
+                  <span className="font-medium text-sm">{t('search.expertTip')}</span>
                 </div>
                 <div className="text-xs space-y-1 text-muted-foreground">
-                  <div>Sprawdź opcje z Berlina, Pragi</div>
-                  <div>czy Bratysławy - często są</div>
-                  <div className="text-success font-medium">znacznie tańsze!</div>
+                  {t('search.expertTipText', { returnObjects: true }).map((tip: string, index: number) => (
+                    <div key={index} className={index === 2 ? 'text-success font-medium' : ''}>{tip}</div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -241,12 +243,12 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-2">
-              Skąd lecisz?
+              {t('search.whereFrom')}
             </label>
             <AirportMultiSelect
               value={params.origins}
               onChange={(origins) => setParams({ ...params, origins })}
-              placeholder="Polska, Warszawa, Europa..."
+              placeholder={t('search.placeholderOrigin')}
             />
           </div>
           
@@ -262,26 +264,24 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
             />
             <div className="flex-1">
               <label htmlFor="includeNeighbors" className="text-sm font-medium text-foreground cursor-pointer">
-                Uwzględnij kraje sąsiednie w wyszukiwaniu
+                {t('search.includeNeighboring')}
               </label>
               <div className="mt-2 space-y-2 text-xs text-muted-foreground">
                 <p>
-                  <span className="font-medium text-primary">Znajdziemy najtańsze opcje</span> także z lotnisk w krajach sąsiadujących. 
-                  To może znacznie obniżyć cenę podróży!
+                  {t('search.neighboringDescription')}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-3">
                   <div className="flex items-center gap-2 px-2 py-1 bg-success/10 rounded">
                     <span className="text-success font-medium">Przykład:</span>
-                    <span>Berlin→Bangkok od 2100 zł</span>
+                    <span>{t('search.berlinExample').replace('✈️ ', '')}</span>
                   </div>
                   <div className="flex items-center gap-2 px-2 py-1 bg-muted rounded">
                     <span className="text-muted-foreground">vs</span>
-                    <span>Warszawa→Bangkok od 3200 zł</span>
+                    <span>{t('search.warsawComparison').replace('vs ', '')}</span>
                   </div>
                 </div>
                 <p className="mt-2">
-                  <span className="font-medium">Rozszerzamy wyszukiwanie na:</span> Niemcy, Czechy, Słowację, Litwę 
-                  i inne sąsiednie kraje. Często znajdziesz tam znacznie tańsze opcje lotów.
+                  {t('search.neighboringExtended')}
                 </p>
               </div>
             </div>
@@ -290,12 +290,12 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         
         <div>
           <label className="block text-sm font-medium mb-2">
-            Dokąd lecisz?
+            {t('search.whereTo')}
           </label>
           <AirportMultiSelect
             value={params.destinations}
             onChange={(destinations) => setParams({ ...params, destinations })}
-            placeholder="Bangkok, Tokio, Azja..."
+            placeholder={t('search.placeholderDestination')}
           />
         </div>
       </div>
@@ -304,12 +304,12 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       <div className="grid lg:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium mb-2">
-            Kiedy chcesz lecieć?
+            {t('search.whenTravel')}
           </label>
           <DateRangePicker
             dateRange={params.dateRange}
             onChange={(dateRange) => setParams({ ...params, dateRange })}
-            placeholder="Wybierz zakres dat podróży"
+            placeholder={t('search.placeholderDateRange')}
           />
         </div>
         
@@ -334,11 +334,11 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
               }
             />
             <label htmlFor="autoRecommend" className="text-sm font-medium">
-              Automatycznie sugeruj przesiadki obniżające cenę
+              {t('search.autoRecommendStopovers')}
             </label>
           </div>
           <p className="text-xs text-muted-foreground mt-1">
-            Znajdziemy najlepsze opcje przesiadek w Dubaju, Turcji i innych hubbach, które mogą znacznie obniżyć koszt podróży
+            {t('search.stopoverDescription')}
           </p>
         </div>
       </div>
@@ -346,7 +346,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       {/* Manual Stopovers */}
       <div>
         <label className="block text-sm font-medium mb-2">
-          Własne przesiadki (opcjonalnie)
+          {t('search.customStopovers')}
         </label>
         <StopoverEditor
           stopovers={params.stopovers}
@@ -357,7 +357,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       {/* Preferences & Constraints */}
       <div className="grid lg:grid-cols-2 gap-8">
         <Card className="p-6">
-          <h4 className="font-medium mb-4">Preferencje</h4>
+          <h4 className="font-medium mb-4">{t('search.preferences')}</h4>
           <ConstraintSliders
             preferences={params.preferences}
             constraints={params.constraints}
@@ -380,12 +380,12 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
             {currentLoading ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2" />
-                Wyszukuję...
+                {t('search.searching')}
               </>
             ) : (
               <>
                 <Search className="mr-2 h-5 w-5" />
-                Znajdź loty
+                {t('search.findFlights')}
               </>
             )}
           </Button>

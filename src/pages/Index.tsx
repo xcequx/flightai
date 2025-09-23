@@ -12,10 +12,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SearchBuilder } from "@/components/search/SearchBuilder";
 import { Navigation } from "@/components/Navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { useTranslation } from "react-i18next";
 
 const Index = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [isSearching, setIsSearching] = useState(false);
 
   const handleSearch = async (searchParams: any) => {
@@ -25,8 +27,8 @@ const Index = () => {
     const searchId = Math.random().toString(36).substring(2, 15);
     
     toast({
-      title: "Wyszukiwanie rozpoczęte",
-      description: "Przekierowuję do strony z wynikami...",
+      title: t('toast.searchStarted'),
+      description: t('toast.redirecting'),
     });
 
     // Simulate brief delay then redirect
@@ -58,29 +60,28 @@ const Index = () => {
               <div className="flex items-center justify-center gap-8 mb-8 text-white/80 text-sm">
                 <div className="flex items-center gap-2" data-testid="text-trust-indicator-customers">
                   <Users className="h-4 w-4" />
-                  <span>500,000+ Zadowolonych Klientów</span>
+                  <span>{t('hero.trustIndicators.customers')}</span>
                 </div>
                 <div className="flex items-center gap-2" data-testid="text-trust-indicator-savings">
                   <TrendingUp className="h-4 w-4" />
-                  <span>Średnie Oszczędności: 1,200 zł</span>
+                  <span>{t('hero.trustIndicators.savings')}</span>
                 </div>
                 <div className="flex items-center gap-2" data-testid="text-trust-indicator-coverage">
                   <Globe className="h-4 w-4" />
-                  <span>200+ Krajów Świata</span>
+                  <span>{t('hero.trustIndicators.coverage')}</span>
                 </div>
               </div>
               
               {/* Main Headlines */}
               <div className="mb-8">
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-white to-accent-foreground bg-clip-text text-transparent slide-in-up">
-                  FlightAI
+                  {t('hero.title')}
                 </h1>
                 <h2 className="text-2xl md:text-4xl font-semibold mb-6 text-white/95">
-                  Najinteligentniejsza Platforma Wyszukiwania Lotów
+                  {t('hero.subtitle')}
                 </h2>
                 <p className="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed text-white/90 mb-8">
-                  Znajdź najtańsze opcje podróży z wielodniowymi przesiadkami dzięki sztucznej inteligencji. 
-                  Odkrywaj nowe miasta po drodze i oszczędzaj nawet <span className="font-bold text-accent">1000+ złotych</span> na każdej podróży.
+                  {t('hero.description')}
                 </p>
               </div>
               
@@ -93,7 +94,7 @@ const Index = () => {
                   data-testid="button-hero-search"
                 >
                   <Search className="mr-2 h-5 w-5" />
-                  Znajdź Najtańsze Loty
+                  {t('hero.searchButton')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button 
@@ -104,7 +105,7 @@ const Index = () => {
                   data-testid="button-hero-ai-planner"
                 >
                   <Sparkles className="mr-2 h-5 w-5" />
-                  AI Zaplanuj Wakacje
+                  {t('hero.learnMore')}
                 </Button>
               </div>
               
@@ -112,18 +113,18 @@ const Index = () => {
               <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20" data-testid="card-hero-benefit-savings">
                   <DollarSign className="h-8 w-8 mx-auto mb-3 text-accent" />
-                  <h3 className="font-semibold mb-2">Oszczędzaj Więcej</h3>
-                  <p className="text-sm text-white/80">Przeciętnie 1,200 zł oszczędności na każdej podróży</p>
+                  <h3 className="font-semibold mb-2">{t('features.benefits.moneyBack')}</h3>
+                  <p className="text-sm text-white/80">{t('features.benefits.moneyBackDesc')}</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20" data-testid="card-hero-benefit-ai">
                   <Zap className="h-8 w-8 mx-auto mb-3 text-accent" />
-                  <h3 className="font-semibold mb-2">AI Wyszukiwanie</h3>
-                  <p className="text-sm text-white/80">Inteligentne algorytmy znajdą najlepsze połączenia</p>
+                  <h3 className="font-semibold mb-2">{t('features.aiStopover.title')}</h3>
+                  <p className="text-sm text-white/80">{t('features.aiStopover.description')}</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20" data-testid="card-hero-benefit-explore">
                   <Map className="h-8 w-8 mx-auto mb-3 text-accent" />
-                  <h3 className="font-semibold mb-2">Zwiedzaj Więcej</h3>
-                  <p className="text-sm text-white/80">Odkryj nowe miasta podczas przesiadek</p>
+                  <h3 className="font-semibold mb-2">{t('features.multiCarrier.title')}</h3>
+                  <p className="text-sm text-white/80">{t('features.multiCarrier.description')}</p>
                 </div>
               </div>
             </div>
@@ -137,19 +138,19 @@ const Index = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div data-testid="stat-searches">
               <div className="text-2xl md:text-3xl font-bold text-primary mb-1">2M+</div>
-              <div className="text-sm text-muted-foreground">Wyszukiwań Miesięcznie</div>
+              <div className="text-sm text-muted-foreground">{t('common.searches') || 'Monthly Searches'}</div>
             </div>
             <div data-testid="stat-savings">
               <div className="text-2xl md:text-3xl font-bold text-success mb-1">1,200 zł</div>
-              <div className="text-sm text-muted-foreground">Średnie Oszczędności</div>
+              <div className="text-sm text-muted-foreground">{t('common.avgSavings') || 'Average Savings'}</div>
             </div>
             <div data-testid="stat-countries">
               <div className="text-2xl md:text-3xl font-bold text-accent mb-1">200+</div>
-              <div className="text-sm text-muted-foreground">Krajów Objętych</div>
+              <div className="text-sm text-muted-foreground">{t('common.countriesCovered') || 'Countries Covered'}</div>
             </div>
             <div data-testid="stat-satisfaction">
               <div className="text-2xl md:text-3xl font-bold text-warning mb-1">4.9/5</div>
-              <div className="text-sm text-muted-foreground">Ocena Klientów</div>
+              <div className="text-sm text-muted-foreground">{t('common.customerRating') || 'Customer Rating'}</div>
             </div>
           </div>
         </div>
@@ -163,14 +164,13 @@ const Index = () => {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-3 bg-primary/10 rounded-full px-6 py-2 mb-6">
                 <Target className="h-5 w-5 text-primary" />
-                <span className="text-primary font-medium">Inteligentne Wyszukiwanie</span>
+                <span className="text-primary font-medium">{t('search.title')}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Znajdź Swoje <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Idealne Loty</span>
+                {t('search.title')} <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('search.idealFlights') || 'Perfect Flights'}</span>
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Zaawansowane algorytmy AI przeszukują miliony kombinacji lotów, aby znaleźć Ci najlepsze opcje 
-                podróży z przesiadkami, które pozwolą Ci odkrywać nowe miejsca i oszczędzać pieniądze.
+                {t('search.description') || 'Advanced AI algorithms search millions of flight combinations to find you the best travel options with stopovers that let you discover new places and save money.'}
               </p>
             </div>
             
@@ -189,15 +189,15 @@ const Index = () => {
             <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
               <div className="flex items-center justify-center gap-3 text-muted-foreground">
                 <Clock className="h-5 w-5 text-primary" />
-                <span className="text-sm">Wyszukiwanie trwa ~30 sekund</span>
+                <span className="text-sm">{t('search.searchTime') || 'Search takes ~30 seconds'}</span>
               </div>
               <div className="flex items-center justify-center gap-3 text-muted-foreground">
                 <Shield className="h-5 w-5 text-success" />
-                <span className="text-sm">100% bezpłatne wyszukiwanie</span>
+                <span className="text-sm">{t('search.freeSearch') || '100% free search'}</span>
               </div>
               <div className="flex items-center justify-center gap-3 text-muted-foreground">
                 <CheckCircle className="h-5 w-5 text-accent" />
-                <span className="text-sm">Bez ukrytych kosztów</span>
+                <span className="text-sm">{t('search.noHiddenFees') || 'No hidden costs'}</span>
               </div>
             </div>
           </div>
@@ -212,13 +212,13 @@ const Index = () => {
             <div className="text-center mb-20">
               <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-6 py-2 mb-6">
                 <Award className="h-5 w-5 text-primary" />
-                <span className="text-primary font-medium">Dlaczego Nas Wybierają</span>
+                <span className="text-primary font-medium">{t('features.title')}</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Najlepsze <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Rozwiązania Podróżnicze</span>
+                {t('features.title')} <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{t('features.subtitle')}</span>
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Łączymy najnowocześniejsze technologie AI z wieloletnim doświadczeniem w branży turystycznej
+                {t('features.description') || 'We combine cutting-edge AI technologies with years of experience in the travel industry'}
               </p>
             </div>
             

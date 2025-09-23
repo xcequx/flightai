@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,7 @@ import {
   Clock, Star, Info, Download, Share2, Heart, Users 
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { formatCurrency } from "@/utils/formatters";
 
 interface Destination {
   name: string;
@@ -36,6 +38,7 @@ const VacationResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation();
   
   const { planData, formData } = location.state || {};
   
@@ -43,10 +46,10 @@ const VacationResults = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center">
         <Card className="p-8 text-center">
-          <h2 className="text-2xl font-bold mb-4">Brak danych planu</h2>
-          <p className="text-muted-foreground mb-6">Nie udało się załadować danych planu wakacji.</p>
+          <h2 className="text-2xl font-bold mb-4">{t('vacationResults.noData')}</h2>
+          <p className="text-muted-foreground mb-6">{t('vacationResults.noDataDesc')}</p>
           <Button onClick={() => navigate('/plan-vacation')}>
-            Wróć do planowania
+            {t('vacationResults.backToPlan')}
           </Button>
         </Card>
       </div>
@@ -59,34 +62,28 @@ const VacationResults = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Mój plan wakacji od FlightAI',
-          text: `Sprawdź mój spersonalizowany plan podróży do regionu ${requestSummary.region}!`,
+          title: t('vacationResults.shareTitle'),
+          text: t('vacationResults.shareText', { region: requestSummary.region }),
           url: window.location.href,
         });
       } catch (error) {
         // Fallback to copying URL
         navigator.clipboard.writeText(window.location.href);
         toast({
-          title: "Link skopiowany",
-          description: "Link do planu został skopiowany do schowka"
+          title: t('toast.linkCopied'),
+          description: t('toast.linkCopiedDesc')
         });
       }
     } else {
       navigator.clipboard.writeText(window.location.href);
       toast({
-        title: "Link skopiowany", 
-        description: "Link do planu został skopiowany do schowka"
+        title: t('toast.linkCopied'), 
+        description: t('toast.linkCopiedDesc')
       });
     }
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('pl-PL', {
-      style: 'currency',
-      currency: 'PLN',
-      minimumFractionDigits: 0
-    }).format(amount);
-  };
+  // Using dynamic locale-aware formatter instead of hardcoded 'pl-PL'
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted">
@@ -101,7 +98,7 @@ const VacationResults = () => {
                 className="text-white hover:bg-white/10"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Nowy plan
+                {t('vacationResults.newPlan')}
               </Button>
               
               <div className="flex gap-2">
@@ -113,7 +110,7 @@ const VacationResults = () => {
                   data-testid="button-share"
                 >
                   <Share2 className="h-4 w-4 mr-2" />
-                  Udostępnij
+                  {t('vacationResults.share')}
                 </Button>
                 <Button
                   variant="ghost"
@@ -122,14 +119,14 @@ const VacationResults = () => {
                   data-testid="button-save"
                 >
                   <Heart className="h-4 w-4 mr-2" />
-                  Zapisz
+                  {t('vacationResults.save')}
                 </Button>
               </div>
             </div>
             
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Twój Spersonalizowany Plan Wakacji
+                {t('vacationResults.title')}
               </h1>
               <div className="flex flex-wrap justify-center gap-4 text-lg opacity-90">
                 <span className="flex items-center gap-2">
@@ -138,7 +135,7 @@ const VacationResults = () => {
                 </span>
                 <span className="flex items-center gap-2">
                   <Calendar className="h-5 w-5" />
-                  {requestSummary.duration} dni
+                  {requestSummary.duration} {t('common.days')}
                 </span>
                 <span className="flex items-center gap-2">
                   <DollarSign className="h-5 w-5" />
@@ -162,7 +159,7 @@ const VacationResults = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Star className="h-5 w-5 text-yellow-500" />
-                Podsumowanie Planu
+                {t('vacationResults.overview')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -171,19 +168,19 @@ const VacationResults = () => {
                   <div className="text-2xl font-bold text-primary mb-2">
                     {vacationPlan.destinations?.length || 0}
                   </div>
-                  <p className="text-muted-foreground">Destynacje</p>
+                  <p className="text-muted-foreground">{t('vacationResults.destinations')}</p>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary mb-2">
                     {formatCurrency(vacationPlan.totalBudget || requestSummary.budget)}
                   </div>
-                  <p className="text-muted-foreground">Szacowany koszt</p>
+                  <p className="text-muted-foreground">{t('vacationResults.estimatedCost')}</p>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary mb-2">
                     {vacationPlan.bestTravelDates?.length || 0}
                   </div>
-                  <p className="text-muted-foreground">Rekomendowane terminy</p>
+                  <p className="text-muted-foreground">{t('vacationResults.recommendedDates')}</p>
                 </div>
               </div>
             </CardContent>
@@ -195,7 +192,7 @@ const VacationResults = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-primary" />
-                  Rekomendowane Destynacje
+                  {t('vacationResults.recommendedDestinations')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -204,7 +201,7 @@ const VacationResults = () => {
                     <div className="flex justify-between items-start mb-2">
                       <h3 className="font-semibold text-lg">{destination.name}</h3>
                       <Badge variant="outline">
-                        {destination.duration} dni
+                        {destination.duration} {t('common.days')}
                       </Badge>
                     </div>
                     <p className="text-sm text-muted-foreground mb-3">
@@ -212,7 +209,7 @@ const VacationResults = () => {
                     </p>
                     {destination.highlights && (
                       <div className="space-y-1">
-                        <h4 className="font-medium text-sm">Główne atrakcje:</h4>
+                        <h4 className="font-medium text-sm">{t('vacationResults.mainAttractions')}:</h4>
                         <ul className="text-sm text-muted-foreground space-y-1">
                           {destination.highlights.map((highlight, i) => (
                             <li key={i} className="flex items-start gap-2">
@@ -227,7 +224,7 @@ const VacationResults = () => {
                 )) || (
                   <div className="text-center py-8 text-muted-foreground">
                     <MapPin className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                    <p>Szczegółowe informacje o destynacjach będą wkrótce dostępne</p>
+                    <p>{t('vacationResults.noDestinations')}</p>
                   </div>
                 )}
               </CardContent>
@@ -238,7 +235,7 @@ const VacationResults = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <DollarSign className="h-5 w-5 text-green-600" />
-                  Podział Budżetu
+                  {t('vacationResults.budgetBreakdown')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -246,11 +243,11 @@ const VacationResults = () => {
                   Object.entries(vacationPlan.budgetBreakdown).map(([category, amount]) => (
                     <div key={category} className="flex justify-between items-center">
                       <span className="capitalize">
-                        {category === 'flights' ? 'Loty' :
-                         category === 'accommodation' ? 'Noclegi' :
-                         category === 'activities' ? 'Atrakcje' :
-                         category === 'meals' ? 'Wyżywienie' :
-                         category === 'transportation' ? 'Transport' :
+                        {category === 'flights' ? t('vacationResults.flights') :
+                         category === 'accommodation' ? t('vacationResults.accommodation') :
+                         category === 'activities' ? t('vacationResults.activities') :
+                         category === 'meals' ? t('vacationResults.meals') :
+                         category === 'transportation' ? t('vacationResults.transportation') :
                          category}
                       </span>
                       <span className="font-semibold">
@@ -261,32 +258,32 @@ const VacationResults = () => {
                 ) : (
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span>Loty (40%)</span>
+                      <span>{t('vacationResults.flights')} (40%)</span>
                       <span className="font-semibold">
                         {formatCurrency(requestSummary.budget * 0.4)}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Noclegi (30%)</span>
+                      <span>{t('vacationResults.accommodation')} (30%)</span>
                       <span className="font-semibold">
                         {formatCurrency(requestSummary.budget * 0.3)}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Atrakcje (15%)</span>
+                      <span>{t('vacationResults.activities')} (15%)</span>
                       <span className="font-semibold">
                         {formatCurrency(requestSummary.budget * 0.15)}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Wyżywienie (15%)</span>
+                      <span>{t('vacationResults.meals')} (15%)</span>
                       <span className="font-semibold">
                         {formatCurrency(requestSummary.budget * 0.15)}
                       </span>
                     </div>
                     <Separator />
                     <div className="flex justify-between font-bold text-lg">
-                      <span>Razem</span>
+                      <span>{t('vacationResults.totalBudget')}</span>
                       <span>{formatCurrency(requestSummary.budget)}</span>
                     </div>
                   </div>
@@ -301,19 +298,18 @@ const VacationResults = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Plane className="h-5 w-5 text-blue-600" />
-                  Strategia Lotów
+                  {t('vacationResults.flightRecommendations')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="prose max-w-none">
                   <p className="text-muted-foreground mb-4">
-                    AI przeanalizował najlepsze opcje lotów dla Twojej podróży
+                    {t('vacationResults.flightDesc')}
                   </p>
                   {/* Display flight routing information */}
                   <div className="bg-muted/30 rounded-lg p-4">
                     <p className="text-sm">
-                      Szczegółowe informacje o trasach lotów i strategii rezerwacji
-                      zostaną wkrótce wyświetlone w tym miejscu.
+                      {t('vacationResults.flightDetailsPlaceholder')}
                     </p>
                   </div>
                 </div>
@@ -327,19 +323,18 @@ const VacationResults = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Hotel className="h-5 w-5 text-purple-600" />
-                  Rekomendacje Noclegów
+                  {t('vacationResults.accommodationRecommendations')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <p className="text-muted-foreground">
-                    Spersonalizowane rekomendacje hoteli dostosowane do Twojego stylu podróżowania
+                    {t('vacationResults.accommodationDesc')}
                   </p>
                   {/* Display hotel recommendations */}
                   <div className="bg-muted/30 rounded-lg p-4">
                     <p className="text-sm">
-                      Szczegółowe informacje o rekomendowanych hotelach
-                      zostaną wkrótce wyświetlone w tym miejscu.
+                      {t('vacationResults.accommodationDetailsPlaceholder')}
                     </p>
                   </div>
                 </div>
@@ -353,7 +348,7 @@ const VacationResults = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Info className="h-5 w-5 text-amber-600" />
-                  Wskazówki Kulturowe
+                  {t('vacationResults.culturalTips')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -378,7 +373,7 @@ const VacationResults = () => {
               data-testid="button-search-flights"
             >
               <Plane className="mr-2 h-4 w-4" />
-              Wyszukaj Loty
+              {t('nav.searchFlights')}
             </Button>
             <Button 
               size="lg"
@@ -387,7 +382,7 @@ const VacationResults = () => {
               className="px-8"
               data-testid="button-new-plan"
             >
-              Nowy Plan
+              {t('vacationResults.newPlan')}
             </Button>
           </div>
         </div>

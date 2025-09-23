@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "web"]
+modules = ["nodejs-20", "web", "bun"]
 
 [nix]
 channel = "stable-25_05"
@@ -29,7 +29,7 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "NODE_ENV=production tsx server/index.ts"
+args = "bun run dev"
 waitForPort = 5000
 
 [agent]
@@ -53,5 +53,5 @@ localPort = 24678
 externalPort = 3000
 
 [[ports]]
-localPort = 32975
+localPort = 37769
 externalPort = 3002

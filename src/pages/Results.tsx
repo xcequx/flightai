@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ParetoTabs } from "@/components/results/ParetoTabs";
 import { SearchProgress } from "@/components/results/SearchProgress";
@@ -64,9 +65,57 @@ const mockResults = [
   }
 ];
 
+// Helper function to generate badges dynamically based on current language
+const generateBadges = (flight: any, t: any): string[] => {
+  const badges: string[] = [];
+  const segments = flight.segments || [];
+  const isAviationstackFormat = flight.dataSource === 'aviationstack';
+  const isMultiLeg = flight.multiLeg || false;
+  
+  // Layover badges with proper pluralization
+  if (segments.length > 1) {
+    const layoverCount = segments.length - 1;
+    if (layoverCount === 1) {
+      badges.push(t('results.badge.layovers_one', { count: layoverCount }));
+    } else if (layoverCount >= 2 && layoverCount <= 4) {
+      badges.push(t('results.badge.layovers_few', { count: layoverCount }));
+    } else {
+      badges.push(t('results.badge.layovers_many', { count: layoverCount }));
+    }
+  } else {
+    badges.push(t('results.badge.direct'));
+  }
+  
+  // Real-time data badge
+  if (isAviationstackFormat) {
+    badges.push(t('results.badge.realTimeData'));
+  }
+  
+  // Standard fare badge
+  if (flight.rawData?.travelerPricings?.[0]?.fareOption === 'STANDARD') {
+    badges.push(t('results.badge.standardFare'));
+  }
+  
+  // Multi-leg flight badges
+  if (isMultiLeg && flight.stopoverInfo) {
+    badges.push(t('results.badge.stopoverDays', {
+      days: flight.stopoverInfo.layoverDays,
+      city: flight.stopoverInfo.hub.city
+    }));
+    if (flight.stopoverInfo.savings > 0) {
+      badges.push(t('results.badge.savingsPercent', {
+        percent: flight.stopoverInfo.savingsPercent
+      }));
+    }
+  }
+  
+  return badges;
+};
+
 export default function Results() {
   const { searchId } = useParams();
   const location = useLocation();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [results, setResults] = useState<any[]>([]);
@@ -103,32 +152,8 @@ export default function Results() {
         const minutes = totalDuration ? parseInt(totalDuration.split('H')[1]?.replace('M', '') || '0') : 0;
         const totalHours = hours + Math.round(minutes / 60);
 
-        // Enhanced badges based on data source and flight characteristics
-        const badges: string[] = [];
-        if (segments.length > 1) {
-          badges.push(`${segments.length - 1} przesiadka${segments.length > 2 ? 'i' : ''}`);
-        } else {
-          badges.push('Bezpośredni');
-        }
-        
-        if (isAviationstackFormat) {
-          badges.push('Real-time data');
-        }
-        
-        if (flight.travelerPricings?.[0]?.fareOption === 'STANDARD') {
-          badges.push('Standard fare');
-        }
-
-        // Handle multi-leg flight data
+        // Store metadata for dynamic badge generation (no hardcoded strings)
         const isMultiLeg = flight.multiLeg || false;
-        
-        // Enhanced badges for multi-leg flights
-        if (isMultiLeg && flight.stopoverInfo) {
-          badges.push(`${flight.stopoverInfo.layoverDays}-dniowy pobyt w ${flight.stopoverInfo.hub.city}`);
-          if (flight.stopoverInfo.savings > 0) {
-            badges.push(`Oszczędność ${flight.stopoverInfo.savingsPercent}%`);
-          }
-        }
 
         // Calculate stopovers for multi-leg flights
         let stopovers: Array<{ city: string; days: number }> = [];
@@ -149,7 +174,6 @@ export default function Results() {
           segments,
           stopovers,
           selfTransfer: false,
-          badges,
           rawData: flight, // Store original API data
           dataSource: isAviationstackFormat ? 'aviationstack' : 'amadeus',
           multiLeg: isMultiLeg,
@@ -173,11 +197,10 @@ export default function Results() {
             clearInterval(interval);
             setIsLoading(false);
             
-            // Enhanced mock results with proper metadata
+            // Enhanced mock results with proper metadata (no hardcoded badges)
             const enhancedMockResults = mockResults.map((result, index) => ({
               ...result,
-              dataSource: 'mock',
-              badges: [...result.badges, 'Przykładowe dane']
+              dataSource: 'mock'
             }));
             
             setResults(enhancedMockResults);
@@ -196,10 +219,10 @@ export default function Results() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl font-semibold mb-2">Wystąpił błąd</h2>
+          <h2 className="text-xl font-semibold mb-2">{t('results.errorTitle')}</h2>
           <p className="text-muted-foreground mb-4">{error}</p>
           <Button onClick={() => window.history.back()}>
-            Wróć do wyszukiwania
+            {t('results.backToSearch')}
           </Button>
         </div>
       </div>
@@ -214,10 +237,10 @@ export default function Results() {
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="sm" onClick={() => window.history.back()}>
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Wróć do wyszukiwania
+                {t('results.backToSearch')}
               </Button>
               <h1 className="text-xl font-semibold">
-                Wyszukiwanie #{searchId?.slice(-6)}
+                {t('search.title')} #{searchId?.slice(-6)}
               </h1>
             </div>
           </div>
@@ -238,27 +261,27 @@ export default function Results() {
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="sm" onClick={() => window.history.back()}>
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Nowe wyszukiwanie
+                {t('results.backToSearch')}
               </Button>
               <div>
                 <h1 className="text-xl font-semibold">
-                  Wyniki wyszukiwania
+                  {t('results.title')}
                 </h1>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <span>Znaleziono {results.length} opcji podróży</span>
+                  <span>{t('search.foundResults', { count: results.length })}</span>
                   {dataSource === 'aviationstack' && (
                     <span className="inline-flex items-center gap-1 px-2 py-1 bg-success/10 text-success rounded-full text-xs font-medium">
-                      ✈️ Dane rzeczywiste (Aviationstack)
+                      ✈️ {t('results.realTimeData')} (Aviationstack)
                     </span>
                   )}
                   {dataSource === 'mock' && !apiKeyRequired && (
                     <span className="inline-flex items-center gap-1 px-2 py-1 bg-warning/10 text-warning rounded-full text-xs font-medium">
-                      🎭 Dane przykładowe
+                      🎭 {t('results.mockData')}
                     </span>
                   )}
                   {apiKeyRequired && (
                     <span className="inline-flex items-center gap-1 px-2 py-1 bg-info/10 text-info rounded-full text-xs font-medium">
-                      🔑 Wymagany klucz API
+                      🔑 {t('results.apiKeyRequired')}
                     </span>
                   )}
                 </div>
@@ -270,7 +293,7 @@ export default function Results() {
             
             <Button variant="outline" size="sm">
               <RefreshCw className="h-4 w-4 mr-2" />
-              Odśwież wyniki
+              {t('results.refreshSearch')}
             </Button>
           </div>
           
@@ -283,30 +306,30 @@ export default function Results() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-medium text-foreground mb-2">
-                    🔑 Skonfiguruj klucz API dla prawdziwych danych lotów
+                    🔑 {t('results.setupInstructions')}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Aby korzystać z rzeczywistych danych lotów z Aviationstack, potrzebujesz klucza API. 
-                    W międzyczasie pokazujemy przykładowe dane.
+                    {t('results.apiKeyRequired')}. 
+                    {t('results.mockDataWhileSetup')}.
                   </p>
                   <div className="space-y-2 text-sm">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <span className="font-medium">📋 Instrukcje konfiguracji:</span>
+                        <span className="font-medium">📋 {t('results.instructionsConfig')}:</span>
                         <ol className="list-decimal list-inside mt-1 space-y-1 text-xs text-muted-foreground">
-                          <li>Zarejestruj się na <a href="https://aviationstack.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">aviationstack.com</a></li>
-                          <li>Otrzymaj darmowy klucz API</li>
-                          <li>Dodaj go jako zmienną środowiskową: AVIATIONSTACK_API_KEY</li>
-                          <li>Uruchom aplikację ponownie</li>
+                          <li>{t('results.aviationstackSignup')} <a href="https://aviationstack.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">aviationstack.com</a></li>
+                          <li>{t('results.getApiKey')}</li>
+                          <li>{t('results.addToSecrets')}: AVIATIONSTACK_API_KEY</li>
+                          <li>{t('results.restartWorkflow')}</li>
                         </ol>
                       </div>
                       <div>
-                        <span className="font-medium">✨ Korzyści z prawdziwych danych:</span>
+                        <span className="font-medium">✨ {t('results.realDataBenefits')}:</span>
                         <ul className="list-disc list-inside mt-1 space-y-1 text-xs text-muted-foreground">
-                          <li>Aktualne ceny i rozkłady lotów</li>
-                          <li>Rzeczywiste trasy i przesiadki</li>
-                          <li>Informacje o terminalach i bramkach</li>
-                          <li>Status lotów w czasie rzeczywistym</li>
+                          <li>{t('results.realTimeAccess')}</li>
+                          <li>{t('results.moreRoutes')}</li>
+                          <li>{t('results.accuratePrices')}</li>
+                          <li>{t('results.saveTime')}</li>
                         </ul>
                       </div>
                     </div>
@@ -323,7 +346,12 @@ export default function Results() {
           recommendations={mockRecommendations}
           route="Europa → Azja"
         />
-        <ParetoTabs results={results} />
+        <ParetoTabs 
+          results={results.map(result => ({
+            ...result,
+            badges: generateBadges(result, t)
+          }))} 
+        />
       </main>
     </div>
   );

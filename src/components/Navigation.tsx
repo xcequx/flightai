@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Plane, Menu, X, Phone, Mail, Info, Sparkles } from "lucide-react";
+import { Plane, Menu, X, Phone, Mail, Info, Sparkles, Languages, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -12,10 +12,24 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
+
+  const currentLanguage = i18n.resolvedLanguage?.split('-')[0] || 'pl';
 
   return (
     <nav className="bg-white/95 dark:bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-sm nav-professional">
@@ -31,7 +45,7 @@ export function Navigation() {
               <Plane className="h-6 w-6 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              FlightAI
+              {t('nav.brand')}
             </span>
           </Link>
 
@@ -40,7 +54,7 @@ export function Navigation() {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Wyszukaj Loty</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>{t('nav.searchFlights')}</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                       <li className="row-span-3">
@@ -52,46 +66,46 @@ export function Navigation() {
                           >
                             <Plane className="h-6 w-6 mb-2" />
                             <div className="mb-2 mt-4 text-lg font-medium">
-                              Inteligentny Wyszukiwacz
+                              {t('nav.intelligentSearcher')}
                             </div>
                             <p className="text-sm leading-tight text-muted-foreground">
-                              Znajdź najtańsze opcje podróży z wielodniowymi przesiadkami używając AI
+                              {t('nav.searcherDescription')}
                             </p>
                           </Link>
                         </NavigationMenuLink>
                       </li>
-                      <ListItem href="/" title="Wyszukiwarka Lotów">
-                        Znajdź loty z przesiadkami i zaoszczędź pieniądze
+                      <ListItem href="/" title={t('nav.flightSearch')}>
+                        {t('nav.flightSearchDesc')}
                       </ListItem>
-                      <ListItem href="/" title="Multi-City Trips">
-                        Odwiedź wiele miast w jednej podróży
+                      <ListItem href="/" title={t('nav.multiCityTrips')}>
+                        {t('nav.multiCityDesc')}
                       </ListItem>
-                      <ListItem href="/" title="Flexible Dates">
-                        Elastyczne daty dla najlepszych cen
+                      <ListItem href="/" title={t('nav.flexibleDates')}>
+                        {t('nav.flexibleDatesDesc')}
                       </ListItem>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>AI Planner</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>{t('nav.aiPlanner')}</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                       <ListItem 
-                        title="Zaplanuj Wakacje" 
+                        title={t('nav.planVacation')} 
                         href="/plan-vacation"
                         icon={<Sparkles className="h-4 w-4" />}
                       >
-                        AI zaplanuje Ci idealną podróż na podstawie budżetu i preferencji
+                        {t('nav.planVacationDesc')}
                       </ListItem>
-                      <ListItem title="Smart Recommendations" href="/">
-                        Personalizowane rekomendacje destynacji
+                      <ListItem title={t('nav.smartRecommendations')} href="/">
+                        {t('nav.smartRecommendationsDesc')}
                       </ListItem>
-                      <ListItem title="Budget Optimizer" href="/">
-                        Optymalizuj koszty podróży z AI
+                      <ListItem title={t('nav.budgetOptimizer')} href="/">
+                        {t('nav.budgetOptimizerDesc')}
                       </ListItem>
-                      <ListItem title="Weather-Based Planning" href="/">
-                        Planuj na podstawie prognozy pogody
+                      <ListItem title={t('nav.weatherBasedPlanning')} href="/">
+                        {t('nav.weatherBasedPlanningDesc')}
                       </ListItem>
                     </ul>
                   </NavigationMenuContent>
@@ -100,7 +114,7 @@ export function Navigation() {
                 <NavigationMenuItem>
                   <Link to="/about" data-testid="link-about">
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      O Nas
+                      {t('nav.about')}
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -108,7 +122,7 @@ export function Navigation() {
                 <NavigationMenuItem>
                   <Link to="/contact" data-testid="link-contact">
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Kontakt
+                      {t('nav.contact')}
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -116,15 +130,43 @@ export function Navigation() {
             </NavigationMenu>
           </div>
 
-          {/* CTA Button - Desktop */}
+          {/* Language Switcher & CTA Buttons - Desktop */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Language Switcher */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-2" data-testid="button-language-switcher">
+                  <Globe className="h-4 w-4" />
+                  <span className="text-sm font-medium">{currentLanguage.toUpperCase()}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="min-w-[120px]">
+                <DropdownMenuItem 
+                  onClick={() => changeLanguage('pl')}
+                  className={cn("cursor-pointer", currentLanguage === 'pl' && "bg-accent")}
+                  data-testid="button-language-pl"
+                >
+                  <span className="mr-3">🇵🇱</span>
+                  Polski
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={() => changeLanguage('en')}
+                  className={cn("cursor-pointer", currentLanguage === 'en' && "bg-accent")}
+                  data-testid="button-language-en"
+                >
+                  <span className="mr-3">🇺🇸</span>
+                  English
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Button 
               variant="outline" 
               size="sm"
               onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
               data-testid="button-search-desktop"
             >
-              Szukaj Lotów
+              {t('search.searchButton')}
             </Button>
             <Button 
               size="sm"
@@ -133,7 +175,7 @@ export function Navigation() {
               data-testid="button-ai-planner-desktop"
             >
               <Sparkles className="h-4 w-4 mr-2" />
-              AI Planner
+              {t('nav.aiPlanner')}
             </Button>
           </div>
 
@@ -152,7 +194,7 @@ export function Navigation() {
                     <div className="bg-primary rounded-lg p-2">
                       <Plane className="h-5 w-5 text-primary-foreground" />
                     </div>
-                    <span className="text-lg font-bold">FlightAI</span>
+                    <span className="text-lg font-bold">{t('nav.brand')}</span>
                   </div>
 
                   {/* Mobile Navigation Links */}
@@ -164,7 +206,7 @@ export function Navigation() {
                       data-testid="link-home-mobile"
                     >
                       <Plane className="h-5 w-5 text-primary" />
-                      <span className="font-medium">Wyszukaj Loty</span>
+                      <span className="font-medium">{t('nav.searchFlights')}</span>
                     </Link>
 
                     <Link 
@@ -174,7 +216,7 @@ export function Navigation() {
                       data-testid="link-ai-planner-mobile"
                     >
                       <Sparkles className="h-5 w-5 text-primary" />
-                      <span className="font-medium">AI Planner</span>
+                      <span className="font-medium">{t('nav.aiPlanner')}</span>
                     </Link>
 
                     <Link 
@@ -184,7 +226,7 @@ export function Navigation() {
                       data-testid="link-about-mobile"
                     >
                       <Info className="h-5 w-5 text-primary" />
-                      <span className="font-medium">O Nas</span>
+                      <span className="font-medium">{t('nav.about')}</span>
                     </Link>
 
                     <Link 
@@ -194,10 +236,37 @@ export function Navigation() {
                       data-testid="link-contact-mobile"
                     >
                       <Phone className="h-5 w-5 text-primary" />
-                      <span className="font-medium">Kontakt</span>
+                      <span className="font-medium">{t('nav.contact')}</span>
                     </Link>
 
                     <div className="border-t pt-4 mt-4">
+                      {/* Mobile Language Switcher */}
+                      <div className="mb-4">
+                        <div className="text-sm font-medium text-muted-foreground mb-2">{t('common.language') || 'Language'}</div>
+                        <div className="flex gap-2">
+                          <Button
+                            variant={currentLanguage === 'pl' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => changeLanguage('pl')}
+                            className="flex-1 justify-center gap-2"
+                            data-testid="button-language-pl-mobile"
+                          >
+                            <span>🇵🇱</span>
+                            Polski
+                          </Button>
+                          <Button
+                            variant={currentLanguage === 'en' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => changeLanguage('en')}
+                            className="flex-1 justify-center gap-2"
+                            data-testid="button-language-en-mobile"
+                          >
+                            <span>🇺🇸</span>
+                            English
+                          </Button>
+                        </div>
+                      </div>
+
                       <div className="space-y-3">
                         <Button 
                           className="w-full justify-start" 
@@ -208,7 +277,7 @@ export function Navigation() {
                           data-testid="button-search-mobile"
                         >
                           <Plane className="h-4 w-4 mr-2" />
-                          Szukaj Lotów
+                          {t('search.searchButton')}
                         </Button>
                         <Button 
                           variant="outline" 
@@ -220,7 +289,7 @@ export function Navigation() {
                           data-testid="button-ai-planner-mobile"
                         >
                           <Sparkles className="h-4 w-4 mr-2" />
-                          AI Planner
+                          {t('nav.aiPlanner')}
                         </Button>
                       </div>
                     </div>

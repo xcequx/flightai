@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 import { RiskMeter } from "./RiskMeter";
 import { RouteMap } from "./RouteMap";
 import { PriceBreakdown } from "./PriceBreakdown";
@@ -67,6 +68,7 @@ interface ItineraryCardProps {
 }
 
 export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
+  const { t } = useTranslation();
   const [showPriceBreakdown, setShowPriceBreakdown] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -83,12 +85,12 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
     if (bookingWindow) {
       bookingWindow.document.write(`
         <html>
-          <head><title>Rezerwacja lotu - ${result.id}</title></head>
+          <head><title>${t('results.bookingTitle')} - ${result.id}</title></head>
           <body style="font-family: Arial, sans-serif; padding: 20px;">
-            <h1>Rezerwacja lotu</h1>
-            <p>Cena: ${result.price} PLN</p>
-            <p>Trasa: ${result.segments.map(s => `${s.from} → ${s.to}`).join(', ')}</p>
-            <p>W prawdziwej aplikacji tutaj byłby formularz rezerwacji</p>
+            <h1>${t('results.bookingTitle')}</h1>
+            <p>${t('results.priceLabel')}: ${result.price} PLN</p>
+            <p>${t('results.routeLabel')}: ${result.segments.map(s => `${s.from} → ${s.to}`).join(', ')}</p>
+            <p>${t('results.bookingFormText')}</p>
             <pre>${JSON.stringify(bookingData, null, 2)}</pre>
           </body>
         </html>
@@ -156,7 +158,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                 <div className="text-xs text-muted-foreground mb-2">
                   <span className="line-through">{result.stopoverInfo.directPrice.toLocaleString('pl-PL')} PLN</span>
                   <span className="ml-2 text-success font-medium">
-                    Oszczędność: {result.stopoverInfo.savings.toLocaleString('pl-PL')} PLN
+                    {t('results.savingsAmount', { amount: result.stopoverInfo.savings.toLocaleString('pl-PL') })}
                   </span>
                 </div>
               )}
@@ -165,7 +167,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                 className="text-sm text-primary hover:underline flex items-center gap-1"
               >
                 <Info className="h-3 w-3" />
-                Zobacz składniki ceny
+                {t('results.showPriceBreakdown')}
               </button>
             </div>
           </div>
@@ -179,7 +181,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
             {result.multiLeg && (
               <Badge variant="secondary" className="text-xs mt-2">
                 <Globe className="h-3 w-3 mr-1" />
-                Multi-city trip
+                {t('results.multiCityTrip')}
               </Badge>
             )}
           </div>
@@ -245,7 +247,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground">
-                    {result.stopoverInfo.layoverDays} dni w {result.stopoverInfo.hub.city}
+                    {t('results.daysIn', { days: result.stopoverInfo.layoverDays, city: result.stopoverInfo.hub.city })}
                   </h4>
                   <p className="text-xs text-muted-foreground">{result.stopoverInfo.hub.country}</p>
                 </div>
@@ -254,8 +256,8 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                 <div className="flex items-center gap-1 text-success text-sm font-semibold">
                   <Coins className="h-4 w-4" />
                   {result.stopoverInfo.savings > 0 ? 
-                    `Oszczędność ${result.stopoverInfo.savings} PLN` : 
-                    `+${Math.abs(result.stopoverInfo.savings)} PLN`}
+                    t('results.savingsDisplay', { amount: result.stopoverInfo.savings }) : 
+                    t('results.extraCost', { amount: Math.abs(result.stopoverInfo.savings) })}
                 </div>
               </div>
             </div>
@@ -268,7 +270,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <Star className="h-4 w-4 text-warning" />
-                  <span className="font-medium">Top atrakcje:</span>
+                  <span className="font-medium">{t('results.topAttractions')}</span>
                 </div>
                 <div className="flex flex-wrap gap-1">
                   {result.stopoverInfo.hub.attractions.slice(0, 3).map((attraction, idx) => (
@@ -283,11 +285,11 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
               <div className="space-y-2">
                 <div className="text-sm">
                   <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Koszt pobytu/dzień:</span>
+                    <span className="text-muted-foreground">{t('results.dailyCost')}</span>
                     <span className="font-medium">${result.stopoverInfo.hub.averageDailyCost}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Łączny koszt z pobytem:</span>
+                    <span className="text-muted-foreground">{t('results.totalCostWithStay')}</span>
                     <span className="font-semibold text-foreground">
                       {Math.round(result.stopoverInfo.totalCostWithStay).toLocaleString('pl-PL')} PLN
                     </span>
@@ -299,7 +301,11 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
             <div className="flex items-center gap-2 p-2 bg-info/10 border border-info/20 rounded text-xs">
               <Heart className="h-3 w-3 text-info" />
               <span className="text-info-foreground">
-                Idealne na {result.stopoverInfo.hub.minLayoverDays}-{result.stopoverInfo.hub.maxLayoverDays} dniowy city break w {result.stopoverInfo.hub.city}!
+                {t('results.idealCityBreak', { 
+                  minDays: result.stopoverInfo.hub.minLayoverDays, 
+                  maxDays: result.stopoverInfo.hub.maxLayoverDays, 
+                  city: result.stopoverInfo.hub.city 
+                })}
               </span>
             </div>
           </div>
@@ -310,13 +316,13 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
           <div className="mb-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
               <MapPin className="h-4 w-4" />
-              Przesiadki
+              {t('results.stopovers')}
             </div>
             <div className="flex flex-wrap gap-2">
               {result.stopovers.map((stopover, index) => (
                 <Badge key={index} variant="outline" className="text-xs">
                   <Calendar className="h-3 w-3 mr-1" />
-                  {stopover.city} - {stopover.days} dni
+                  {t('results.stopoverDays', { city: stopover.city, days: stopover.days })}
                 </Badge>
               ))}
             </div>
@@ -344,37 +350,37 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
         <div className="flex gap-2">
           <Button className="flex-1" size="lg" onClick={handleBooking}>
             <ExternalLink className="h-4 w-4 mr-2" />
-            Zarezerwuj teraz
+            {t('results.bookNowCard')}
           </Button>
           <Button variant="outline" size="lg" onClick={handleShowDetails}>
-            {showDetails ? 'Ukryj szczegóły' : 'Zobacz szczegóły'}
+            {showDetails ? t('results.hideDetails') : t('results.showDetailsCard')}
           </Button>
         </div>
 
         {/* Detailed flight information */}
         {showDetails && (
           <div className="mt-4 p-4 bg-muted/30 rounded-lg">
-            <h4 className="font-medium mb-3">Szczegóły lotu</h4>
+            <h4 className="font-medium mb-3">{t('results.flightDetails')}</h4>
             <div className="space-y-3 text-sm">
               {result.segments.map((segment, index) => (
                 <div key={index} className="border-l-2 border-primary pl-3">
-                  <div className="font-medium">Segment {index + 1}</div>
+                  <div className="font-medium">{t('results.segment', { number: index + 1 })}</div>
                   <div className="grid grid-cols-2 gap-2 text-muted-foreground">
-                    <div>Odlot: {new Date(segment.departure).toLocaleString('pl-PL')}</div>
-                    <div>Przylot: {new Date(segment.arrival).toLocaleString('pl-PL')}</div>
-                    <div>Linia: {segment.carrier}</div>
-                    <div>Numer lotu: {segment.flight}</div>
-                    {segment.duration && <div>Czas lotu: {segment.duration}</div>}
+                    <div>{t('results.departure')} {new Date(segment.departure).toLocaleString('pl-PL')}</div>
+                    <div>{t('results.arrival')} {new Date(segment.arrival).toLocaleString('pl-PL')}</div>
+                    <div>{t('results.airline')} {segment.carrier}</div>
+                    <div>{t('results.flightNumber')} {segment.flight}</div>
+                    {segment.duration && <div>{t('results.flightDuration')} {segment.duration}</div>}
                   </div>
                 </div>
               ))}
               {result.rawData && (
                 <div className="mt-4 pt-3 border-t">
-                  <div className="font-medium mb-2">Informacje techniczne</div>
+                  <div className="font-medium mb-2">{t('results.technicalInfo')}</div>
                   <div className="text-xs text-muted-foreground">
-                    ID lotu: {result.rawData.id}<br/>
-                    Źródło: Amadeus API<br/>
-                    Ostatnia aktualizacja: {new Date().toLocaleString('pl-PL')}
+                    {t('results.flightId')} {result.rawData.id}<br/>
+                    {t('results.dataSource')} Amadeus API<br/>
+                    {t('results.lastUpdate')} {new Date().toLocaleString('pl-PL')}
                   </div>
                 </div>
               )}
@@ -388,9 +394,9 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
             <div className="flex items-start gap-2">
               <AlertTriangle className="h-4 w-4 text-warning mt-0.5" />
               <div className="text-sm">
-                <div className="font-medium text-warning-foreground">Samodzielna przesiadka</div>
+                <div className="font-medium text-warning-foreground">{t('results.selfTransfer')}</div>
                 <div className="text-muted-foreground mt-1">
-                  Pamiętaj o odebraniu i ponownym nadaniu bagażu. Minimalne czasy przesiadek: 3-4 godziny.
+                  {t('results.selfTransferWarning')}
                 </div>
               </div>
             </div>
