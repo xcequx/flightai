@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { pgTable, serial, varchar, timestamp, text, boolean, integer, decimal } from "drizzle-orm/pg-core";
+import { z } from "zod";
 
 // Users table - for potential future auth
 export const users = pgTable("users", {
@@ -42,3 +43,23 @@ export const vacationPlans = pgTable("vacation_plans", {
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
 });
+
+// Zod validation schemas for flight search API
+export const flightSearchSchema = z.object({
+  origins: z.array(z.string().min(2).max(3))
+    .min(1, "At least one origin is required")
+    .max(5, "Maximum 5 origins allowed"),
+  destinations: z.array(z.string().min(2).max(3))
+    .min(1, "At least one destination is required")
+    .max(5, "Maximum 5 destinations allowed"),
+  dateRange: z.object({
+    from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
+    to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format").optional()
+  }),
+  departureFlex: z.number().int().min(0).max(30),
+  returnFlex: z.number().int().min(0).max(30),
+  autoRecommendStopovers: z.boolean(),
+  includeNeighboringCountries: z.boolean()
+});
+
+export type FlightSearchRequest = z.infer<typeof flightSearchSchema>;

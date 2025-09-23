@@ -1,7 +1,6 @@
-import express from 'express';
 import { Router } from 'express';
 import { db } from '../db.js';
-import { flightSearches } from '../../shared/schema.js';
+import { flightSearches, flightSearchSchema, FlightSearchRequest } from '../../shared/schema.js';
 
 const router = Router();
 
@@ -160,26 +159,23 @@ const generateMockFlights = (searchParams: FlightSearchParams) => {
 
 router.post('/search', async (req, res) => {
   try {
-    const aviationstackApiKey = process.env.AVIATIONSTACK_API_KEY;
-
-    if (!aviationstackApiKey) {
-      // Return user-friendly API key prompt
+    // Validate request body with Zod
+    const validation = flightSearchSchema.safeParse(req.body);
+    
+    if (!validation.success) {
       return res.status(400).json({
         success: false,
-        error: 'API key not configured',
-        requiresApiKey: true,
-        message: 'Aby korzystać z wyszukiwania lotów, potrzebujesz klucza API Aviationstack.',
-        instructions: [
-          '1. Zarejestruj się na https://aviationstack.com',
-          '2. Otrzymaj darmowy klucz API',
-          '3. Dodaj go do zmiennych środowiskowych jako AVIATIONSTACK_API_KEY',
-          '4. Ponownie uruchom aplikację'
-        ],
-        fallbackData: true
+        error: 'Validation failed',
+        details: validation.error.errors.map(err => ({
+          field: err.path.join('.'),
+          message: err.message,
+          code: err.code
+        }))
       });
     }
 
-    const searchParams: FlightSearchParams = req.body;
+    const searchParams: FlightSearchRequest = validation.data;
+    const aviationstackApiKey = process.env.AVIATIONSTACK_API_KEY;
     console.log('🔍 Flight search request:', JSON.stringify(searchParams, null, 2));
 
     // Enhanced airport mapping for better coverage
@@ -320,30 +316,46 @@ router.post('/search', async (req, res) => {
 
     console.log(`🛫 Searching flights from [${originAirports.join(', ')}] to [${destinationAirports.join(', ')}]`);
 
-    // Try to get real flight data from Aviationstack
+    // Try to get real flight data from Aviationstack if API key is available
     let realFlightData: any[] = [];
-    const searchPromises: Promise<any>[] = [];
+    let dataSource = 'mock';
+    let apiWarning: string | undefined;
 
-    // Search for flights between airport combinations
-    for (const originAirport of originAirports.slice(0, 2)) {
-      for (const destAirport of destinationAirports.slice(0, 2)) {
-        const searchPromise = searchAviationstackFlights(aviationstackApiKey, originAirport, destAirport, searchParams.dateRange.from);
-        searchPromises.push(searchPromise);
-      }
-    }
+    if (aviationstackApiKey) {
+      console.log('🔑 API key found, attempting real flight search...');
+      const searchPromises: Promise<any>[] = [];
 
-    try {
-      const results = await Promise.allSettled(searchPromises);
-      
-      for (const result of results) {
-        if (result.status === 'fulfilled' && result.value.data) {
-          realFlightData.push(...result.value.data);
+      // Search for flights between airport combinations
+      for (const originAirport of originAirports.slice(0, 2)) {
+        for (const destAirport of destinationAirports.slice(0, 2)) {
+          const searchPromise = searchAviationstackFlights(aviationstackApiKey, originAirport, destAirport, searchParams.dateRange.from);
+          searchPromises.push(searchPromise);
         }
       }
 
-      console.log(`✅ Found ${realFlightData.length} real flights from Aviationstack`);
-    } catch (error) {
-      console.error('❌ Error fetching from Aviationstack:', error);
+      try {
+        const results = await Promise.allSettled(searchPromises);
+        
+        for (const result of results) {
+          if (result.status === 'fulfilled' && result.value.data) {
+            realFlightData.push(...result.value.data);
+          }
+        }
+
+        if (realFlightData.length > 0) {
+          dataSource = 'aviationstack';
+          console.log(`✅ Found ${realFlightData.length} real flights from Aviationstack`);
+        } else {
+          console.log('⚠️ No real flight data available, using mock data');
+          apiWarning = 'No real flight data available for selected route and date';
+        }
+      } catch (error) {
+        console.error('❌ Error fetching from Aviationstack:', error);
+        apiWarning = 'Aviationstack API error, using mock data';
+      }
+    } else {
+      console.log('🎭 No API key configured, using mock data');
+      apiWarning = 'API key not configured, using simulated flight data';
     }
 
     // Convert Aviationstack data to Amadeus-like format for compatibility
@@ -374,13 +386,13 @@ router.post('/search', async (req, res) => {
 
     const responseData = {
       success: true,
-      flights,
+      data: flights,
       meta: {
         count: flights.length,
         searchParams,
-        dataSource: realFlightData.length > 0 ? 'aviationstack' : 'mock',
+        dataSource,
         searchedRoutes: originAirports.map(o => destinationAirports.map(d => `${o}->${d}`)).flat(),
-        warning: undefined as string | undefined
+        warning: apiWarning
       },
       dictionaries: {
         carriers: {
@@ -401,11 +413,6 @@ router.post('/search', async (req, res) => {
       }
     };
 
-    if (realFlightData.length === 0) {
-      console.log('⚠️ Using mock data as fallback');
-      responseData.meta.warning = 'Using simulated flight data. Real data from Aviationstack was not available.';
-    }
-
     return res.json(responseData);
 
   } catch (error) {
@@ -416,7 +423,7 @@ router.post('/search', async (req, res) => {
     
     return res.json({
       success: true,
-      flights: mockFlights,
+      data: mockFlights,
       meta: {
         count: mockFlights.length,
         searchParams: req.body,
