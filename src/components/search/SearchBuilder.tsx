@@ -67,7 +67,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     try {
       setLocalLoading(true);
       
-      // Call our Express API for flight search
+      // Call our Express API for flight search using Aviationstack
       const response = await fetch('/api/flights/search', {
         method: 'POST',
         headers: {
@@ -76,25 +76,101 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         body: JSON.stringify(params)
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const data = await response.json();
 
+      // Handle API key missing scenario
+      if (data.requiresApiKey) {
+        console.log('⚠️ API key required:', data.message);
+        
+        // Show user-friendly message about API key setup
+        const alertMessage = `${data.message}\n\n${data.instructions.join('\n')}\n\nW międzyczasie używamy przykładowych danych.`;
+        alert(alertMessage);
+        
+        // Continue with mock data but mark as needing API key
+        onSearch({ 
+          ...params, 
+          realFlightData: null, 
+          apiKeyRequired: true,
+          dataSource: 'mock',
+          requiresSetup: true
+        });
+        return;
+      }
+
       if (data.success) {
-        console.log('Real flight data:', data);
-        // Pass the real data to the parent component
-        onSearch({ ...params, realFlightData: data });
+        console.log('✅ Flight search successful:', data.meta);
+        
+        // Log data source information with better formatting
+        if (data.meta.dataSource === 'aviationstack') {
+          console.log('🛫 Using real flight data from Aviationstack API');
+          console.log(`📊 Found ${data.meta.count} flights across ${data.meta.searchedRoutes?.length || 0} routes`);
+        } else if (data.meta.dataSource === 'mock') {
+          console.log('🎭 Using mock flight data');
+          if (data.meta.warning) {
+            console.log('⚠️ Warning:', data.meta.warning);
+          }
+          if (data.meta.error) {
+            console.log('❌ API Error:', data.meta.error);
+          }
+        }
+        
+        // Pass the real data to the parent component with enhanced metadata
+        onSearch({ 
+          ...params, 
+          realFlightData: data,
+          dataSource: data.meta.dataSource,
+          searchedRoutes: data.meta.searchedRoutes,
+          resultCount: data.meta.count,
+          apiWarning: data.meta.warning,
+          searchMeta: data.meta
+        });
       } else {
-        console.error('Flight search error:', data.error);
-        // For now, fall back to mock data
-        onSearch(params);
+        console.error('❌ Flight search error:', data.error);
+        
+        // Show user-friendly error message based on error type
+        let errorMessage = 'Wystąpił błąd podczas wyszukiwania. Używamy przykładowych danych.';
+        
+        if (data.error?.includes('API')) {
+          errorMessage = 'Problem z połączeniem API. Spróbuj ponownie lub skorzystaj z przykładowych danych.';
+        } else if (data.error?.includes('timeout')) {
+          errorMessage = 'Przekroczono czas oczekiwania. Sprawdź połączenie internetowe.';
+        } else if (data.error?.includes('rate limit')) {
+          errorMessage = 'Zbyt wiele zapytań. Spróbuj ponownie za chwilę.';
+        }
+        
+        alert(errorMessage);
+        
+        // Fall back to mock data with error information
+        onSearch({ 
+          ...params, 
+          realFlightData: null, 
+          hasError: true, 
+          errorMessage: data.error,
+          dataSource: 'mock'
+        });
       }
     } catch (error) {
-      console.error('Error calling flight search:', error);
-      // Fall back to mock data
-      onSearch(params);
+      console.error('❌ Network or parsing error:', error);
+      
+      // Show user-friendly error message
+      let errorMessage = 'Wystąpił błąd sieciowy. Sprawdź połączenie internetowe.';
+      
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        errorMessage = 'Nie można połączyć się z serwerem. Sprawdź połączenie internetowe.';
+      } else if (error instanceof SyntaxError) {
+        errorMessage = 'Otrzymano nieprawidłową odpowiedź z serwera.';
+      }
+      
+      alert(errorMessage);
+      
+      // Fall back to mock data with network error information
+      onSearch({ 
+        ...params, 
+        realFlightData: null, 
+        hasNetworkError: true, 
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+        dataSource: 'mock'
+      });
     } finally {
       setLocalLoading(false);
     }

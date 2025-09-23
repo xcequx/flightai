@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ParetoTabs } from "@/components/results/ParetoTabs";
 import { SearchProgress } from "@/components/results/SearchProgress";
 import { StopoverRecommendations } from "@/components/results/StopoverRecommendations";
-import { ArrowLeft, RefreshCw } from "lucide-react";
+import { ArrowLeft, RefreshCw, Info } from "lucide-react";
 
 // Mock stopover recommendations
 const mockRecommendations = [
@@ -72,13 +72,20 @@ export default function Results() {
   const [results, setResults] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  // Get search data from navigation state
+  // Get search data from navigation state with enhanced metadata
   const searchData = location.state?.realFlightData;
+  const dataSource = location.state?.dataSource || 'mock';
+  const apiKeyRequired = location.state?.apiKeyRequired;
+  const hasError = location.state?.hasError;
+  const apiWarning = location.state?.apiWarning;
+  const searchMeta = location.state?.searchMeta;
 
   useEffect(() => {
     if (searchData && searchData.flights) {
-      // Convert Amadeus API data to our format
+      // Convert Aviationstack/Amadeus API data to our format
       const convertedResults = searchData.flights.map((flight: any, index: number) => {
+        // Handle both Aviationstack and legacy Amadeus format
+        const isAviationstackFormat = flight.source === 'aviationstack';
         const segments = flight.itineraries[0].segments.map((segment: any) => ({
           from: segment.departure.iataCode,
           to: segment.arrival.iataCode,
@@ -86,7 +93,8 @@ export default function Results() {
           arrival: segment.arrival.at,
           carrier: searchData.dictionaries?.carriers?.[segment.carrierCode] || segment.carrierCode,
           flight: `${segment.carrierCode}${segment.number}`,
-          duration: segment.duration
+          duration: segment.duration,
+          terminal: segment.departure.terminal
         }));
 
         // Calculate total duration
@@ -95,38 +103,70 @@ export default function Results() {
         const minutes = totalDuration ? parseInt(totalDuration.split('H')[1]?.replace('M', '') || '0') : 0;
         const totalHours = hours + Math.round(minutes / 60);
 
+        // Enhanced badges based on data source and flight characteristics
+        const badges: string[] = [];
+        if (segments.length > 1) {
+          badges.push(`${segments.length - 1} przesiadka${segments.length > 2 ? 'i' : ''}`);
+        } else {
+          badges.push('Bezpośredni');
+        }
+        
+        if (isAviationstackFormat) {
+          badges.push('Real-time data');
+        }
+        
+        if (flight.travelerPricings?.[0]?.fareOption === 'STANDARD') {
+          badges.push('Standard fare');
+        }
+
         return {
           id: flight.id || `flight-${index}`,
           price: parseFloat(flight.price?.total || '0'),
           totalHours,
-          riskScore: segments.length > 2 ? 0.3 : 0.1, // Higher risk for more connections
+          riskScore: segments.length > 2 ? 0.3 : segments.length > 1 ? 0.2 : 0.1,
           segments,
           stopovers: segments.length > 1 ? [{ city: segments[0].to, days: 0 }] : [],
           selfTransfer: false,
-          badges: segments.length > 1 ? [`${segments.length - 1} przesiadka`] : ['Bezpośredni'],
-          rawData: flight // Store original API data
+          badges,
+          rawData: flight, // Store original API data
+          dataSource: isAviationstackFormat ? 'aviationstack' : 'amadeus'
         };
       });
 
       setResults(convertedResults);
       setIsLoading(false);
+      
+      // Log data source for debugging
+      console.log(`📊 Displaying ${convertedResults.length} flights from ${dataSource} source`);
+      if (searchMeta) {
+        console.log('🔍 Search metadata:', searchMeta);
+      }
     } else {
-      // Fallback to mock data if no real data
+      // Fallback to mock data with proper progress animation
       const interval = setInterval(() => {
         setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(interval);
             setIsLoading(false);
-            setResults(mockResults);
+            
+            // Enhanced mock results with proper metadata
+            const enhancedMockResults = mockResults.map((result, index) => ({
+              ...result,
+              dataSource: 'mock',
+              badges: [...result.badges, 'Przykładowe dane']
+            }));
+            
+            setResults(enhancedMockResults);
+            console.log('🎭 Using mock data due to API unavailability');
             return 100;
           }
-          return prev + 10;
+          return prev + Math.random() * 15 + 5; // Variable progress for realism
         });
       }, 300);
 
       return () => clearInterval(interval);
     }
-  }, [searchData]);
+  }, [searchData, dataSource, searchMeta]);
 
   if (error) {
     return (
@@ -180,9 +220,27 @@ export default function Results() {
                 <h1 className="text-xl font-semibold">
                   Wyniki wyszukiwania
                 </h1>
-                <p className="text-sm text-muted-foreground">
-                  Znaleziono {results.length} opcji podróży
-                </p>
+                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <span>Znaleziono {results.length} opcji podróży</span>
+                  {dataSource === 'aviationstack' && (
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-success/10 text-success rounded-full text-xs font-medium">
+                      ✈️ Dane rzeczywiste (Aviationstack)
+                    </span>
+                  )}
+                  {dataSource === 'mock' && !apiKeyRequired && (
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-warning/10 text-warning rounded-full text-xs font-medium">
+                      🎭 Dane przykładowe
+                    </span>
+                  )}
+                  {apiKeyRequired && (
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-info/10 text-info rounded-full text-xs font-medium">
+                      🔑 Wymagany klucz API
+                    </span>
+                  )}
+                </div>
+                {apiWarning && (
+                  <p className="text-xs text-warning mt-1">⚠️ {apiWarning}</p>
+                )}
               </div>
             </div>
             
@@ -191,6 +249,48 @@ export default function Results() {
               Odśwież wyniki
             </Button>
           </div>
+          
+          {/* API Key Setup Banner */}
+          {apiKeyRequired && (
+            <div className="mt-4 p-4 bg-gradient-to-r from-info/10 to-primary/10 border border-info/20 rounded-lg">
+              <div className="flex items-start gap-3">
+                <div className="bg-info/10 p-2 rounded-full">
+                  <Info className="h-5 w-5 text-info" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-medium text-foreground mb-2">
+                    🔑 Skonfiguruj klucz API dla prawdziwych danych lotów
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Aby korzystać z rzeczywistych danych lotów z Aviationstack, potrzebujesz klucza API. 
+                    W międzyczasie pokazujemy przykładowe dane.
+                  </p>
+                  <div className="space-y-2 text-sm">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <span className="font-medium">📋 Instrukcje konfiguracji:</span>
+                        <ol className="list-decimal list-inside mt-1 space-y-1 text-xs text-muted-foreground">
+                          <li>Zarejestruj się na <a href="https://aviationstack.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">aviationstack.com</a></li>
+                          <li>Otrzymaj darmowy klucz API</li>
+                          <li>Dodaj go jako zmienną środowiskową: AVIATIONSTACK_API_KEY</li>
+                          <li>Uruchom aplikację ponownie</li>
+                        </ol>
+                      </div>
+                      <div>
+                        <span className="font-medium">✨ Korzyści z prawdziwych danych:</span>
+                        <ul className="list-disc list-inside mt-1 space-y-1 text-xs text-muted-foreground">
+                          <li>Aktualne ceny i rozkłady lotów</li>
+                          <li>Rzeczywiste trasy i przesiadki</li>
+                          <li>Informacje o terminalach i bramkach</li>
+                          <li>Status lotów w czasie rzeczywistym</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
