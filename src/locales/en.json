@@ -395,7 +395,7 @@
     "setupInstructions": "Set up your API key",
     "aviationstackSignup": "Sign up at aviationstack.com",
     "getApiKey": "Get your free API key",
-    "addToSecrets": "Add as AVIATIONSTACK_API_KEY in Secrets",
+    "addToSecrets": "Add your API key to environment variables in Secrets",
     "restartWorkflow": "Restart workflow",
     "realTimeAccess": "Real-time data access",
     "moreRoutes": "More routes and carriers",

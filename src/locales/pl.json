@@ -395,7 +395,7 @@
     "setupInstructions": "Skonfiguruj swój klucz API",
     "aviationstackSignup": "Zarejestruj się na aviationstack.com",
     "getApiKey": "Pobierz darmowy klucz API",
-    "addToSecrets": "Dodaj jako AVIATIONSTACK_API_KEY w Secrets",
+    "addToSecrets": "Dodaj swój klucz API do zmiennych środowiskowych w Secrets",
     "restartWorkflow": "Zrestartuj workflow",
     "realTimeAccess": "Dostęp do danych w czasie rzeczywistym",
     "moreRoutes": "Więcej tras i przewoźników",

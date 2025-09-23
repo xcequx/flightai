@@ -319,7 +319,7 @@ export default function Results() {
                         <ol className="list-decimal list-inside mt-1 space-y-1 text-xs text-muted-foreground">
                           <li>{t('results.aviationstackSignup')} <a href="https://aviationstack.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">aviationstack.com</a></li>
                           <li>{t('results.getApiKey')}</li>
-                          <li>{t('results.addToSecrets')}: AVIATIONSTACK_API_KEY</li>
+                          <li>{t('results.addToSecrets')}</li>
                           <li>{t('results.restartWorkflow')}</li>
                         </ol>
                       </div>

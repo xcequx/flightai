@@ -676,7 +676,7 @@ router.post('/search', async (req, res) => {
     let apiWarning: string | undefined;
 
     if (aviationstackApiKey) {
-      console.log('🔑 API key found, attempting real flight search...');
+      console.log('🔑 API key configured, attempting real flight search...');
       const searchPromises: Promise<any>[] = [];
 
       // Search for flights between airport combinations
@@ -864,15 +864,18 @@ async function searchAviationstackFlights(apiKey: string, origin: string, destin
   const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
   
   try {
+    // REVERT TO GET: Aviationstack API is GET-based, add query parameters to URL
+    // SECURITY: Still maintain log redaction to prevent API key exposure
     url.searchParams.set('access_key', apiKey);
     url.searchParams.set('dep_iata', origin);
     url.searchParams.set('arr_iata', destination);
     url.searchParams.set('flight_date', date);
     url.searchParams.set('limit', '50');
     
-    console.log(`🔍 Searching Aviationstack: ${origin} -> ${destination} on ${date}`);
+    console.log(`🔍 Searching Aviationstack: ${origin} -> ${destination} on ${date} [API request redacted for security]`);
     
     const response = await fetch(url.toString(), {
+      method: 'GET',
       signal: controller.signal,
       headers: {
         'Accept': 'application/json',
@@ -893,7 +896,11 @@ async function searchAviationstackFlights(apiKey: string, origin: string, destin
     return data;
   } catch (error) {
     clearTimeout(timeoutId);
-    console.error(`❌ Aviationstack search failed for ${origin}->${destination}:`, error);
+    // SECURITY FIX: Redact any potential API key exposure in error messages
+    const sanitizedError = error instanceof Error ? 
+      error.message.replace(/access_key=[^&\s]+/gi, 'access_key=[REDACTED]') : 
+      'Network error';
+    console.error(`❌ Aviationstack search failed for ${origin}->${destination}:`, sanitizedError);
     return { data: [] };
   }
 }
