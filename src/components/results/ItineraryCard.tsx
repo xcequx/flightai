@@ -11,7 +11,13 @@ import {
   AlertTriangle,
   ExternalLink,
   Info,
-  Calendar
+  Calendar,
+  TrendingDown,
+  Coins,
+  Star,
+  Heart,
+  Globe,
+  Camera
 } from "lucide-react";
 import { useState } from "react";
 
@@ -33,6 +39,25 @@ interface FlightResult {
   selfTransfer: boolean;
   badges: string[];
   rawData?: any; // Store original API data for booking
+  multiLeg?: boolean;
+  stopoverInfo?: {
+    hub: {
+      iata: string;
+      name: string;
+      country: string;
+      city: string;
+      attractions: string[];
+      description: string;
+      averageDailyCost: number;
+      minLayoverDays: number;
+      maxLayoverDays: number;
+    };
+    layoverDays: number;
+    savings: number;
+    savingsPercent: number;
+    directPrice: number;
+    totalCostWithStay: number;
+  };
 }
 
 interface ItineraryCardProps {
@@ -114,9 +139,27 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
               #{rank}
             </div>
             <div>
-              <div className="text-2xl font-bold text-foreground">
-                {result.price.toLocaleString('pl-PL')} PLN
+              <div className="flex items-center gap-3 mb-1">
+                <div className="text-2xl font-bold text-foreground">
+                  {result.price.toLocaleString('pl-PL')} PLN
+                </div>
+                {result.stopoverInfo && result.stopoverInfo.savings > 0 && (
+                  <div className="flex items-center gap-1 px-2 py-1 bg-success/10 text-success rounded-full">
+                    <TrendingDown className="h-3 w-3" />
+                    <span className="text-xs font-semibold">
+                      -{result.stopoverInfo.savingsPercent}%
+                    </span>
+                  </div>
+                )}
               </div>
+              {result.stopoverInfo && result.stopoverInfo.savings > 0 && (
+                <div className="text-xs text-muted-foreground mb-2">
+                  <span className="line-through">{result.stopoverInfo.directPrice.toLocaleString('pl-PL')} PLN</span>
+                  <span className="ml-2 text-success font-medium">
+                    Oszczędność: {result.stopoverInfo.savings.toLocaleString('pl-PL')} PLN
+                  </span>
+                </div>
+              )}
               <button
                 onClick={() => setShowPriceBreakdown(!showPriceBreakdown)}
                 className="text-sm text-primary hover:underline flex items-center gap-1"
@@ -133,6 +176,12 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
               {formatDuration(result.totalHours)}
             </div>
             <RiskMeter score={result.riskScore} size="sm" />
+            {result.multiLeg && (
+              <Badge variant="secondary" className="text-xs mt-2">
+                <Globe className="h-3 w-3 mr-1" />
+                Multi-city trip
+              </Badge>
+            )}
           </div>
         </div>
 
@@ -186,8 +235,78 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
           })}
         </div>
 
-        {/* Stopovers */}
-        {result.stopovers.length > 0 && (
+        {/* Enhanced Multi-Leg Stopover Information */}
+        {result.multiLeg && result.stopoverInfo && (
+          <div className="mb-4 p-4 bg-gradient-to-r from-primary/5 to-transparent border border-primary/20 rounded-lg">
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <div className="bg-primary/10 p-2 rounded-full">
+                  <MapPin className="h-4 w-4 text-primary" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-foreground">
+                    {result.stopoverInfo.layoverDays} dni w {result.stopoverInfo.hub.city}
+                  </h4>
+                  <p className="text-xs text-muted-foreground">{result.stopoverInfo.hub.country}</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="flex items-center gap-1 text-success text-sm font-semibold">
+                  <Coins className="h-4 w-4" />
+                  {result.stopoverInfo.savings > 0 ? 
+                    `Oszczędność ${result.stopoverInfo.savings} PLN` : 
+                    `+${Math.abs(result.stopoverInfo.savings)} PLN`}
+                </div>
+              </div>
+            </div>
+            
+            <p className="text-sm text-muted-foreground mb-3">
+              {result.stopoverInfo.hub.description}
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm">
+                  <Star className="h-4 w-4 text-warning" />
+                  <span className="font-medium">Top atrakcje:</span>
+                </div>
+                <div className="flex flex-wrap gap-1">
+                  {result.stopoverInfo.hub.attractions.slice(0, 3).map((attraction, idx) => (
+                    <Badge key={idx} variant="outline" className="text-xs">
+                      <Camera className="h-3 w-3 mr-1" />
+                      {attraction}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="text-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Koszt pobytu/dzień:</span>
+                    <span className="font-medium">${result.stopoverInfo.hub.averageDailyCost}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-muted-foreground">Łączny koszt z pobytem:</span>
+                    <span className="font-semibold text-foreground">
+                      {Math.round(result.stopoverInfo.totalCostWithStay).toLocaleString('pl-PL')} PLN
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-2 p-2 bg-info/10 border border-info/20 rounded text-xs">
+              <Heart className="h-3 w-3 text-info" />
+              <span className="text-info-foreground">
+                Idealne na {result.stopoverInfo.hub.minLayoverDays}-{result.stopoverInfo.hub.maxLayoverDays} dniowy city break w {result.stopoverInfo.hub.city}!
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Traditional Stopovers */}
+        {!result.multiLeg && result.stopovers.length > 0 && (
           <div className="mb-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
               <MapPin className="h-4 w-4" />

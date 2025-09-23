@@ -119,17 +119,41 @@ export default function Results() {
           badges.push('Standard fare');
         }
 
+        // Handle multi-leg flight data
+        const isMultiLeg = flight.multiLeg || false;
+        
+        // Enhanced badges for multi-leg flights
+        if (isMultiLeg && flight.stopoverInfo) {
+          badges.push(`${flight.stopoverInfo.layoverDays}-dniowy pobyt w ${flight.stopoverInfo.hub.city}`);
+          if (flight.stopoverInfo.savings > 0) {
+            badges.push(`Oszczędność ${flight.stopoverInfo.savingsPercent}%`);
+          }
+        }
+
+        // Calculate stopovers for multi-leg flights
+        let stopovers: Array<{ city: string; days: number }> = [];
+        if (isMultiLeg && flight.stopoverInfo) {
+          stopovers = [{
+            city: flight.stopoverInfo.hub.city,
+            days: flight.stopoverInfo.layoverDays
+          }];
+        } else if (segments.length > 1) {
+          stopovers = [{ city: segments[0].to, days: 0 }];
+        }
+
         return {
           id: flight.id || `flight-${index}`,
           price: parseFloat(flight.price?.total || '0'),
           totalHours,
           riskScore: segments.length > 2 ? 0.3 : segments.length > 1 ? 0.2 : 0.1,
           segments,
-          stopovers: segments.length > 1 ? [{ city: segments[0].to, days: 0 }] : [],
+          stopovers,
           selfTransfer: false,
           badges,
           rawData: flight, // Store original API data
-          dataSource: isAviationstackFormat ? 'aviationstack' : 'amadeus'
+          dataSource: isAviationstackFormat ? 'aviationstack' : 'amadeus',
+          multiLeg: isMultiLeg,
+          stopoverInfo: flight.stopoverInfo || undefined
         };
       });
 
