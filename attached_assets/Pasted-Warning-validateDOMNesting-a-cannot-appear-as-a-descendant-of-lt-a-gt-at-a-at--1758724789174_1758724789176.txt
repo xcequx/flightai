@@ -1,0 +1,42 @@
+Warning: validateDOMNesting(...): <a> cannot appear as a descendant of &lt;a&gt;.
+    at a
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-5XTFHZVO.js?v=da99e59f:43:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:79:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:56:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-5XTFHZVO.js?v=da99e59f:43:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:79:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:56:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-W2OT6ZD3.js?v=da99e59f:53:15
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/@radix-ui_react-navigation-menu.js?v=da99e59f:737:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/@radix-ui_react-navigation-menu.js?v=da99e59f:415:13
+    at a
+    at LinkWithRef (https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/react-router-dom.js?v=da99e59f:5352:5)
+    at li
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-5XTFHZVO.js?v=da99e59f:43:13
+    at Provider (https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-OXZDJRWN.js?v=da99e59f:38:15)
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/@radix-ui_react-navigation-menu.js?v=da99e59f:288:13
+    at ul
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-5XTFHZVO.js?v=da99e59f:43:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:79:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:56:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-5XTFHZVO.js?v=da99e59f:43:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:79:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:56:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-W2OT6ZD3.js?v=da99e59f:41:15
+    at Provider (https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-OXZDJRWN.js?v=da99e59f:38:15)
+    at CollectionProvider (https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-W2OT6ZD3.js?v=da99e59f:31:13)
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/@radix-ui_react-navigation-menu.js?v=da99e59f:728:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:79:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-E7TSFT4J.js?v=da99e59f:56:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-W2OT6ZD3.js?v=da99e59f:41:15
+    at div
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-5XTFHZVO.js?v=da99e59f:43:13
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/@radix-ui_react-navigation-menu.js?v=da99e59f:277:13
+    at _c2 (https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/src/components/ui/navigation-menu.tsx:60:68)
+    at nav
+    at https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-5XTFHZVO.js?v=da99e59f:43:13
+    at Provider (https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-OXZDJRWN.js?v=da99e59f:38:15)
+    at Provider (https://e1fa8e10-735a-4aa2-98ed-3f503a6c38d9-00-68w1qaz0ubuc.picard.replit.dev/node_modules/.vite/deps/chunk-OXZDJRWN.js?v=da99e59f:38:15)
+    at CollectionProvider…
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.

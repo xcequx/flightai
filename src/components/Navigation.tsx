@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Plane, Menu, X, Phone, Mail, Info, Sparkles, Languages, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -58,21 +59,19 @@ export function Navigation() {
                   <NavigationMenuContent>
                     <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                       <li className="row-span-3">
-                        <NavigationMenuLink asChild>
-                          <Link
-                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/20 to-primary/10 p-6 no-underline outline-none focus:shadow-md"
-                            to="/"
-                            data-testid="link-flight-search"
-                          >
-                            <Plane className="h-6 w-6 mb-2" />
-                            <div className="mb-2 mt-4 text-lg font-medium">
-                              {t('nav.intelligentSearcher')}
-                            </div>
-                            <p className="text-sm leading-tight text-muted-foreground">
-                              {t('nav.searcherDescription')}
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
+                        <Link
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-primary/20 to-primary/10 p-6 no-underline outline-none focus:shadow-md hover:bg-gradient-to-b hover:from-primary/30 hover:to-primary/20 transition-all"
+                          to="/"
+                          data-testid="link-flight-search"
+                        >
+                          <Plane className="h-6 w-6 mb-2" />
+                          <div className="mb-2 mt-4 text-lg font-medium">
+                            {t('nav.intelligentSearcher')}
+                          </div>
+                          <p className="text-sm leading-tight text-muted-foreground">
+                            {t('nav.searcherDescription')}
+                          </p>
+                        </Link>
                       </li>
                       <ListItem href="/" title={t('nav.flightSearch')}>
                         {t('nav.flightSearchDesc')}
@@ -112,19 +111,23 @@ export function Navigation() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link to="/about" data-testid="link-about">
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      {t('nav.about')}
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink 
+                    className={navigationMenuTriggerStyle()}
+                    onClick={() => navigate('/about')}
+                    data-testid="link-about"
+                  >
+                    {t('nav.about')}
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <Link to="/contact" data-testid="link-contact">
-                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      {t('nav.contact')}
-                    </NavigationMenuLink>
-                  </Link>
+                  <NavigationMenuLink 
+                    className={navigationMenuTriggerStyle()}
+                    onClick={() => navigate('/contact')}
+                    data-testid="link-contact"
+                  >
+                    {t('nav.contact')}
+                  </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -332,24 +335,22 @@ const ListItem = ({
 }) => {
   return (
     <li>
-      <NavigationMenuLink asChild>
-        <Link
-          to={href}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="flex items-center gap-2 text-sm font-medium leading-none">
-            {icon}
-            {title}
-          </div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </Link>
-      </NavigationMenuLink>
+      <Link
+        to={href}
+        className={cn(
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+          className
+        )}
+        {...props}
+      >
+        <div className="flex items-center gap-2 text-sm font-medium leading-none">
+          {icon}
+          {title}
+        </div>
+        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          {children}
+        </p>
+      </Link>
     </li>
   );
 };
