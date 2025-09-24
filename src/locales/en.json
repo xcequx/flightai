@@ -39,6 +39,26 @@
     }
   },
   "features": {
+    "aiPlanner": {
+      "badge": "New: AI Vacation Planner",
+      "title": "Let AI Plan Your Perfect Trip",
+      "description": "Tell us your budget, preferences and dream destination. Our AI will create a complete travel plan with flights, accommodations, and activities perfectly matched to your style.",
+      "features": {
+        "personalization": {
+          "title": "Personalization",
+          "description": "AI matches travel to your interests"
+        },
+        "optimization": {
+          "title": "Budget Optimization",
+          "description": "Maximum value for every dollar spent"
+        },
+        "comprehensive": {
+          "title": "Complete Plan",
+          "description": "From flights to the last day of sightseeing"
+        }
+      },
+      "cta": "Start AI Planning"
+    },
     "title": "Why FlightAI Finds Cheaper Flights?",
     "subtitle": "Our breakthrough AI features allow us to discover hidden deals that other search engines can't see",
     "description": "Our breakthrough AI features allow us to discover hidden deals that other search engines can't see",
@@ -425,6 +445,10 @@
     "searches": "Monthly searches",
     "avgSavings": "Average savings",
     "countriesCovered": "Countries covered",
+    "languages": {
+      "polish": "Polish",
+      "english": "English"
+    },
     "customerRating": "Customer rating",
     "expertTip": "Expert tip",
     "code": "Code",

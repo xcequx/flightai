@@ -150,7 +150,7 @@ export function Navigation() {
                   data-testid="button-language-pl"
                 >
                   <span className="mr-3">🇵🇱</span>
-                  Polski
+                  {t('common.languages.polish')}
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => changeLanguage('en')}
@@ -263,7 +263,7 @@ export function Navigation() {
                             data-testid="button-language-pl-mobile"
                           >
                             <span>🇵🇱</span>
-                            Polski
+                            {t('common.languages.polish')}
                           </Button>
                           <Button
                             variant={currentLanguage === 'en' ? 'default' : 'outline'}

@@ -6,6 +6,24 @@ import { generateStopoverRecommendations, analyzeFlexibleDatePricing } from '../
 
 const router = Router();
 
+// Helper function to convert ISO date strings or Date objects to YYYY-MM-DD format
+const formatDateForAPI = (dateInput: string | Date): string => {
+  try {
+    const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid date');
+    }
+    return date.toISOString().split('T')[0];
+  } catch (error) {
+    console.error('Date formatting error:', error, 'Input:', dateInput);
+    // Fallback to original string if it's already in YYYY-MM-DD format
+    if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateInput)) {
+      return dateInput;
+    }
+    throw new Error(`Invalid date format: ${dateInput}`);
+  }
+};
+
 interface AmadeusFlightOffer {
   type: string;
   id: string;
@@ -450,12 +468,12 @@ const generateEnhancedMockFlights = async (searchParams: FlightSearchParams, ori
         segments: [{
           departure: { 
             iataCode: origin.length === 3 ? origin : 'WAW', 
-            at: `${searchParams.dateRange.from}T10:30:00`,
+            at: `${formatDateForAPI(searchParams.dateRange.from)}T10:30:00`,
             terminal: "1"
           },
           arrival: { 
             iataCode: destination.length === 3 ? destination : 'BKK', 
-            at: `${searchParams.dateRange.from}T23:00:00`,
+            at: `${formatDateForAPI(searchParams.dateRange.from)}T23:00:00`,
             terminal: "1"
           },
           carrierCode: 'TG',
@@ -513,12 +531,12 @@ const generateEnhancedMockFlights = async (searchParams: FlightSearchParams, ori
         segments: [{
           departure: { 
             iataCode: origin.length === 3 ? origin : 'WAW', 
-            at: `${searchParams.dateRange.from}T10:30:00`,
+            at: `${formatDateForAPI(searchParams.dateRange.from)}T10:30:00`,
             terminal: "1"
           },
           arrival: { 
             iataCode: 'DOH', 
-            at: `${searchParams.dateRange.from}T18:45:00`,
+            at: `${formatDateForAPI(searchParams.dateRange.from)}T18:45:00`,
             terminal: "1"
           },
           carrierCode: 'QR',
@@ -531,12 +549,12 @@ const generateEnhancedMockFlights = async (searchParams: FlightSearchParams, ori
         }, {
           departure: { 
             iataCode: 'DOH', 
-            at: `${searchParams.dateRange.from}T20:30:00`,
+            at: `${formatDateForAPI(searchParams.dateRange.from)}T20:30:00`,
             terminal: "1"
           },
           arrival: { 
             iataCode: destination.length === 3 ? destination : 'BKK', 
-            at: `${new Date(new Date(searchParams.dateRange.from).getTime() + 24*60*60*1000).toISOString().split('T')[0]}T08:15:00`,
+            at: `${formatDateForAPI(new Date(new Date(searchParams.dateRange.from).getTime() + 24*60*60*1000))}T08:15:00`,
             terminal: "1"
           },
           carrierCode: 'QR',
@@ -666,8 +684,8 @@ router.post('/search', async (req, res) => {
     let flexibleDateResults: any[] = [];
 
     // STAGE 4: Enhanced Flexible Date Range Searching & Price Optimization
-    const generateFlexibleDateRanges = (baseDate: string, flexDays: number) => {
-      const dates = [];
+    const generateFlexibleDateRanges = (baseDate: string, flexDays: number): string[] => {
+      const dates: string[] = [];
       const base = new Date(baseDate);
       for (let i = -flexDays; i <= flexDays; i++) {
         const date = new Date(base);
@@ -691,7 +709,7 @@ router.post('/search', async (req, res) => {
       console.log(`📊 Flexible date analysis: ${departureDates.length} departure dates × ${returnDates.length} return dates = ${departureDates.length * returnDates.length} combinations`);
 
       let cheapestPrice = Infinity;
-      let bestDateCombination = null;
+      let bestDateCombination: { departure: string; return: string | null } | null = null;
       let priceByDate: { [key: string]: number } = {};
       
       // Search across ALL flexible date combinations (no artificial limits)
@@ -748,7 +766,7 @@ router.post('/search', async (req, res) => {
                   actualReturn: returnDate,
                   dayDifference: {
                     departure: Math.abs(new Date(departureDate).getTime() - new Date(searchParams.dateRange.from).getTime()) / (1000 * 3600 * 24),
-                    return: returnDate ? Math.abs(new Date(returnDate).getTime() - new Date(searchParams.dateRange.to).getTime()) / (1000 * 3600 * 24) : 0
+                    return: returnDate && searchParams.dateRange.to ? Math.abs(new Date(returnDate).getTime() - new Date(searchParams.dateRange.to).getTime()) / (1000 * 3600 * 24) : 0
                   }
                 },
                 affiliateUrl: searchParams.affiliateProvider ? 

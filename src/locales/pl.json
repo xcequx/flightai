@@ -39,6 +39,26 @@
     }
   },
   "features": {
+    "aiPlanner": {
+      "badge": "Nowość: AI Vacation Planner",
+      "title": "Pozwól AI Zaplanować Twoją Idealną Podróż",
+      "description": "Podaj budżet, preferencje i destynację marzeń. Nasza sztuczna inteligencja stworzy kompletny plan podróży z lotami, noclegami i atrakcjami idealnie dopasowany do Twojego stylu.",
+      "features": {
+        "personalization": {
+          "title": "Personalizacja",
+          "description": "AI dobiera podróż do Twoich zainteresowań"
+        },
+        "optimization": {
+          "title": "Optymalizacja Budżetu",
+          "description": "Maksymalne wykorzystanie każdej złotówki"
+        },
+        "comprehensive": {
+          "title": "Kompleksowy Plan",
+          "description": "Od lotu po ostatni dzień zwiedzania"
+        }
+      },
+      "cta": "Rozpocznij Planowanie AI"
+    },
     "title": "Dlaczego FlightAI Znajduje Tańsze Loty?",
     "subtitle": "Nasze przełomowe funkcje AI pozwalają nam odkrywać ukryte okazje, których inne wyszukiwarki nie widzą",
     "description": "Nasze przełomowe funkcje AI pozwalają nam odkrywać ukryte okazje, których inne wyszukiwarki nie widzą",
@@ -426,6 +446,10 @@
     "searches": "Wyszukiwań miesięcznie",
     "avgSavings": "Średnia oszczędność",
     "countriesCovered": "Krajów objętych",
+    "languages": {
+      "polish": "Polski",
+      "english": "English"
+    },
     "customerRating": "Ocena klientów",
     "expertTip": "Wskazówka",
     "code": "Kod",

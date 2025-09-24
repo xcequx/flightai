@@ -1,0 +1,1156 @@
+	Zadanie/etap	Nazwa kosztu	Wydatki ogółem	Wydatki kwalifikowalne	VAT	Dofinansowanie	Uzasadnienie kosztu	Metody szacowania																		
+TRUE	1	Specjalista ds. Badań Elektrochemicznych	207 360,00 zł	207 360,00 zł	0	165 888,00 zł	Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół badawczy elektrochemiczny). Zakres obowiązków: planowanie i realizacja prac badawczych z zakresu opracowania elektrod i elektrolitów, analiza wyników badań, opracowywanie raportów i prezentacji naukowych, współpraca z innymi zespołami naukowo-technicznymi, propozycja dalszych modyfikacji baterii.	Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 80 godz. w miesiącu. Wynagrodzenie: 11560 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 23 040 PLN/1 mies./0,5 etatu. Czas realizacji: 18 mies.																		
+TRUE	1	Specjalista ds. modelowania procesów elektrochemicznych	368 640,00 zł	368 640,00 zł	0	294 912,00 zł	Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół elektrochemiczny). Zakres obowiązków: przeprowadzanie analizy modelowej, analiza kinetyki reakcji, opracowywanie modeli fizycznych i matematycznych, współpraca z zespołami badawczymi, wykonywanie badań i testów, analiza wyników badań	Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu. Wynagrodzenie: 20480 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 20 480 PLN/1 mies./0,5 etatu. Czas realizacji: 18 mies.																		
+TRUE	1	Chemik syntetyk	599 040,00 zł	599 040,00 zł	0	479 232,00 zł	Zatrudnienie 2 pracowników naukowo-badawczych w ramach umowy zlecenia (Zespół elektrochemiczny). Zakres obowiązków: projektowanie i opracowywanie tras syntetycznych, przeprowadzanie syntez organicznych i nieorganicznych, przygotowywanie dokumentacji technicznej, optymalizacja procesów i metod syntetycznych, analiza i interpretacja wyników badań, przestrzeganie standardów jakości i bezpieczeństwa	Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu. Wynagrodzenie: 16640 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 16640  PLN/1 mies./1 etat. Czas realizacji: 18 mies.																		
+TRUE	1	Elektrochemik	552 960,00 zł	552 960,00 zł	0	442 368,00 zł	"Zatrudnienie 2 pracowników naukowo-badawczych w ramach umowy zlecenia (Zespół elektrochemiczny). Zakres obowiązków: projektowanie i rozwijanie nowych materiałów, analiza i
+testowanie właściwości materiałów, opracowywanie specyfikacji technicznych i instrukcji produkcyjnych,
+współpraca z zespołami projektowymi i produkcyjnymi, utrzymywanie wiedzy na bieżąco,
+planowanie i koordynacja badań nad nowymi materiałami, prowadzenie szkoleń dla pracowników"	Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu. Wynagrodzenie: 15360 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 15360 PLN/1 mies./1 etat. Czas realizacji: 18 mies.																		
+TRUE	1	Inżynier systemowy	138 240,00 zł	138 240,00 zł	0	110 592,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół badawczy
+elektrochemiczny). Zakres obowiązków: analiza wymagań systemów, projektowanie rozwiązań
+i architektury systemu, tworzenie dokumentacji technicznej, testowanie i wdrażanie systemów,
+optymalizacja i integracja systemów, nadzorowanie wdrożenia systemów i oprogramowania,
+odpowiedzialny za integrowanie układów elektrodowych i elektrolitów na stanowisku badawczym,
+przeprowadzanie badań z zakresu pomiarów napięciowo"	Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu. Wynagrodzenie: 15360 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 15360 PLN/1 mies./1 etat. Czas realizacji: 18 mies.																		
+TRUE	1	Specjalista ds. projektowania i przeprowadzania eksperymentów	276 480,00 zł	276 480,00 zł	0	221 184,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół badawczy
+elektrochemiczny). Zakres obowiązków: projektowanie i planowanie eksperymentów,
+przeprowadzanie badań i eksperymentów laboratoryjnych, analiza wyników, tworzenie raportów z
+badań"	Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu. Wynagrodzenie: 15360 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 15360 PLN/1 mies./1 etat. Czas realizacji: 18 mies.																		
+TRUE	1	Specjalista analizy danych i algorytmów obliczeniowych	115 200,00 zł	115 200,00 zł	0	92 160,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół badawczy
+elektrochemiczny). Zakres obowiązków: analizowanie wyników badań, opracowywanie raportów,
+tworzenie modeli matematycznych i symulacji, odpowiedzialny za stworzenie i rozwój narzędzi do
+analizy danych w oparciu o dostarczone dane z czujników i poszukiwane charakterystyki"	Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu. Wynagrodzenie: 12800 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 12800  PLN/1 mies./1 etat. Czas realizacji: 18 mies.																		
+TRUE	1	Waga analityczna	8 610,00 zł	7 000,00 zł	0	5 600,00 zł	Umożliwia realizację etapu 1. Waga analityczna umożliwia dokładne ważenie substancji chemicznych i materiałów lab. w bardzo małych ilościach, co jest niezbędne badaniach nad elektrodami. Dzięki dokładności pomiarów możliwe jest uzyskanie precyzyjnych wyników  ksperymentów, co z kolei pozwala na bardziej trafne wnioski. Waga jest również niezbędna w procesie przygotowywania elektrolitów, gdyż pozwala na precyzyjne odmierzenie ilości składników potrzebnych do uzyskania żądanego stężenia.	Zaplanowano zakup wagi analitycznej służącej wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laboratoryjne: Danlab - łączny koszt w kwocie 5 500 zł netto Alchem - łączny koszt w kwocie 8 500 zł netto. Przyjęto średni koszt na poziomie 7 000 złotych netto. Jako koszt kwalifikowalny podano łączną kwotę planowaną do zakupu. Metodologia wyliczenia kosztu: 1 szt. x 7000 = 7000 zł																		
+TRUE	1	Piec laboratoryjny	81 180,00 zł	66 000,00 zł	0	52 800,00 zł	Umożliwia realizację etapu 1. W badaniach nad elektrodami do baterii przepływowej konieczne jest przeprowadzenie procesów termicznych, takich jak suszenie, wypalanie lub redukcja. Piec laboratoryjny pozwala na precyzyjne kontrolowanie temperatury, czasu i atmosfery w trakcie tych procesów, co może mieć duży wpływ na właściwości elektrod.	Zaplanowano wynajem pieca laboratoryjnego służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadającychurządzenia laboratoryjne: Danlab – łączny koszt w kwocie 81 000,00 zł netto Alchem – łączny koszt w kwocie 51 000 ,00 zł netto. Przyjęto średni koszt na poziomie 66 000 złotych netto. Jako koszt kw. podano łączną kwotę planowaną do wynajmu pieca laboratoryjnego. Metodologia szacowania kosztu: 1 szt. x 66 000= 66 000 zł netto	.																	
+TRUE	1	Piec laboratoryjny rurowy	98 400,00 zł	80 000,00 zł	0	64 000,00 zł	Umożliwia realizację etapu 1. W badaniach nad elektrodami do baterii przepływowej konieczne jest przeprowadzenie procesów termicznych, takich jak suszenie, wypalanie lub redukcja. Piec laboratoryjny pozwala na precyzyjne kontrolowanie temperatury, czasu i atmosfery w trakcie tych procesów, co może mieć duży wpływ na właściwości elektrod.	Zaplanowano wynajem szafy na substancje chemiczne służącej wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających urządzenia laboratoryjne: Danlab - łączny koszt w kwocie 10 500 zł netto  Alchem - łączny koszt w kwocie 13 500 zł netto. Przyjęto średni koszt na poziomie 12 000 zł netto. Jako koszt kw. podano łączną kwotę planowaną do wynajmu szafy na substancje chemiczne. Metodologia szacowania kosztu: 1 x 12 000=12000 zł netto	.																	
+TRUE	1	Szafa na substancje chemiczne	12 177,00 zł	9 900,00 zł	0	7 920,00 zł	Umożliwia realizację etapu 1. Wynajem szafy na substancje chemiczne do laboratorium jest niezwykle ważny z punktu widzenia bezpieczeństwa pracowników, chronienia środowiska oraz zapobiegania uszkodzeniu mienia.	Zaplanowano zakup szafy na substancje chemiczne służącej wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających urządzenia laboratoryjne: Danlab - łączny koszt w kwocie 10 500 zł netto  Alchem - łączny koszt w kwocie 13 500 zł netto. Przyjęto średni koszt na poziomie 12 000 zł netto. Jako koszt kw. podano łączną kwotę planowaną do zakupu szafy na substancje chemiczne. Metodologia szacowania kosztu: 1 x 12 000=12000 zł netto	.																	
+TRUE	1	Dygestorium	142 680,00 zł	116 000,00 zł	0	92 800,00 zł	Umożliwia realizację etapu 1. Dygestorium laboratoryjne jest niezbędne do przeprowadzania procesów trawiennych i rozpuszczania substancji chemicznych w sposób kontrolowany. Bezniego praca z niektórymi substancjami może być bardzo niebezpieczna i prowadzić do poważnych obrażeń ciała. Dygestorium zapewnia ochronę przed parą i gazami wydzielającymi się podczas procesów trawiennych. Konieczny jest zakup 2 szt.	Zaplanowano wynajem dygestorium służącego wyłącznie celom badawczym w ramach projektu. Jako koszt kw. podano sumę dygestoriów (2 szt). Koszty oszacowano w oparciu o oferty firm – posiadających maszyny do urządzenia laboratoryjne: Danlab - łączny koszt 133 000,00 zł netto za 2 szt. Alchem - łączny koszt 99 000 zł netto za 2 szt. Przyjęto śr. koszt na poziomie 116 000 zł netto za 2 szt. Jako koszt kwalifikowalny podano łączną Metodologia szacowania kosztu wynajmu: 2 szt. x 58 000 zł netto = 116 000 zł																		
+TRUE	1	Stół laboratoryjny przyścienny	62 730,00 zł	51 000,00 zł	0	40 800,00 zł	Umożliwia realizację etapu 1. Stół laboratoryjny umożliwia wykonanie zadań zachowując zasady BHP oraz ergonomii pracy. Stoły będą wykorzystywane we wszystkich etapach badań podczas prac laboratoryjnych.	Zaplanowano wynajem stołu laboratoryjnego przyściennego służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laboratoryjne: Danlab - łączny koszt w kwocie 55 000,00 zł netto Alchem - łączny koszt w kwocie 47 000 zł netto. Przyjęto średni koszt na poziomie 51 000 złotych netto. Jako koszt kwalifikowalny podano łączną kwotę planowaną do wynajmu stołu laboratoryjnego przyś- ciennego.																		
+TRUE	1	Potencjostat	268 140,00 zł	218 000,00 zł	0	174 400,00 zł	Umożliwia realizację etapu 1. Umożliwia precyzyjną kontrolę potencjału elektrody i prądu. W przypadku badań nad bateriami, potencjostat jest niezbędny do badania reakcji elektrod w różnych warunkach, co pozwala na optymalizację procesów elektrochemicznych i zwiększenie wydajności baterii. Potencjostat umożliwia badanie procesów korozji, degradacji i starzenia się elektrod w czasie.	Zaplanowano wynajem potencjostatu służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laboratoryjne: nLab sp. z o.o. - łączny koszt w kwocie 230 000 zł netto LAMBDA SYSTEM - Kreft Barszczewski Spółka Jawna - łączny koszt w kwocie 206 000 zł netto. Przyjęto średni koszt na poziomie 218 000 złotych netto. Jako koszt kwalifikowalny podano łączną kwotę planowaną do wynajmu potencjostatu.																		
+TRUE	1	pH metr	12 177,00 zł	9 900,00 zł	0	7 920,00 zł	Umożliwia realizację etapu 1. Podczas badań nad elektrolitami niezbędna jest stała kontrola PH roztworów.	Zaplanowano zakup pH metru służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laboratoryjne. Jako koszt kwalifikowalny podano łączną kwotę planowaną do wynajmu pH metru. Wartość środka trwałego została oszacowana na podstawie ofert od dwóch firm: Danlab - łączny koszt w kwocie 9 000 zł netto Alchem - łączny koszt w kwocie 10 800 zł netto. Przyjęto średni koszt na poziomie 9900 złotych netto.																		
+TRUE	1	Miernik tlenu	15 990,00 zł	13 000,00 zł	0	10 400,00 zł	Umożliwia realizację etapu 1. Umożliwia precyzyjny i dokładny pomiar stężenia tlenu w elektrolitach, co jest kluczowe dla procesów elektrochemicznych zachodzących w bateriach przepływowych. Precyzyjny pomiar stężenia tlenu pozwala na lepsze zrozumienie i optymalizację procesów elektrochemicznych, co z kolei może przyczynić się do poprawy wydajności baterii przepływowych	Zaplanowano wynajem miernika tlenu służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laboratoryjne. Jako koszt kw. podano łączną kwotę planowaną do wynajmu miernika tlenu. Wartość środka trwałego została oszacowana na podstawie ofert od dwóch firm: Danlab - łączny koszt w kwocie 11 500,00 zł netto Alchem - łączny koszt w kwocie 14 500 zł netto. Przyjęto średni koszt na poziomie 13 000 zł netto																		
+TRUE	1	Czujnik pH	29 520,00 zł	24 000,00 zł	0	19 200,00 zł	Umożliwia realizację etapu 1. Podczas badań nad elektrolitami niezbędna jest stała kontrola PH roztworów.	Zaplanowano zakup czujnika pH służącego wyłącznie celom bad. w ramach projektu. Jako koszt kw. podano sumę za 4 szt czujników. Koszty oszacowano w oparciu o oferty firm posiadających urządzenia laboratoryjne. Jako koszt kw. podano łączną kwotę za wszystkie planowane do zakupu czujniki. Koszt jedn. czujnika pH to 6000 PLN. Wartość oszacowano na podstawie ofert od dwóch firm: Danlab-łączny koszt 25600 zł za 4 szt Alchem-łączny koszt 22400 zł za 4 szt Przyjęto śr. koszt 24000 zł netto za 4 szt																		
+TRUE	1	Szkło specjalistyczne (cela elektrochemiczna) + wyposażenie	19 680,00 zł	16 000,00 zł	0	12 800,00 zł	Umożliwia realizację etapu 1. Umożliwia przeprowadzanie eksperymentów elektrochemicznych, a wyposażenie takie jak elektrody, cewki, kable i zaciski elektrody, umożliwia precyzyjne badania elektrod i elektrolitów.	Zaplanowano zakup szkła specjalistycznego wraz z wyposażeniem służącym wyłącznie celom bad. w ramach projektu. Koszty oszacowano w oparciu o oferty firm posiadających urządzenia laboratoryjne. Jako koszt kw. podano łączną kwotę za planowane do zakupu szkło specjalistycznego wraz z wyposażeniem. Wartość została oszacowana na podstawie ofert od dwóch firm: Danlab - łączny koszt 14 300,00 zł netto Alchem - łączny koszt 17 700 zł netto Przyjęto średni koszt na poziomie 16 000 złotych netto.																		
+TRUE	1	Demineralizator wody	27 060,00 zł	22 000,00 zł	0	17 600,00 zł	Umożliwia realizację etapu 1. Służy do usuwania soli mineralnych i innych zanieczyszczeń z wody . W przypadku badań elektrochemicznych, czysta woda o wysokiej jakości jest kluczowa dla uzyskania wiarygodnych i powtarzalnych wyników. Zanieczyszczenia w wodzie, takie jak sole mineralne, mogą wpłynąć na procesy elektrodowe, wprowadzając zakłócenia w wynikach pomiarów.	Zaplanowano wynajem demineralizatora wody służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laboratoryjne. Jako koszt kwalifikowalny podano łączną kwotę planowaną do wynajmu demineralizatora wody. Wartość została oszacowana na podstawie ofert od dwóch firm: Danlab - łączny koszt 24 200,00 zł netto Alchem - łączny koszt 19 800 zł netto. Przyjęto średni koszt 22 000 zł netto																		
+TRUE	1	Zasilacz stabilizowany regulowany	38 130,00 zł	31 000,00 zł	0	24 800,00 zł	Umożliwia realizację etapu 1. Zapewnia dokładne sterowanie napięciem lub prądem. Jest to szczególnie istotne przy badaniach i eksperymentach, gdzie nawet minimalne zmiany parametrów zasilania mogą wpłynąć na wyniki i ich wiarygodność. Dodatkowo, zasilacz stabilizowany regulowany posiada wiele zalet, takich jak możliwość regulacji napięcia lub prądu, zabezpieczenia przed przepięciami i przegrzaniem oraz stabilizację napięcia niezależnie od zmian obciążenia.	Zaplanowano wynajem zasilacza stabilizowanego regulowanego służącego wyłącznie celom bad. w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających rządzenia laboratoryjne. Jako koszt kw. podano łączną kwotę planowaną do wynajmu zasilacza stabilizowanego regulowanego. Wartość została oszacowana na podstawie ofert od dwóch firm: nLab sp. z o.o.-łączny koszt 27 000 zł netto LAMBDA SYSTEM Kreft Barszczewski Sp. J. łączny koszt 35 000 zł netto. Przyjęto średni koszt 31 000 zł																		
+TRUE	1	Zestaw komputerowy specjalistyczny (laptop, monitor, klawiatura, mysz)	92 250,00 zł	75 000,00 zł	0	60 000,00 zł	Umożliwia realizację etapu 1. Zaawansowane programy wymagają dużych zasobów sprzętowych, takich jak szybki procesor, duża ilość pamięci RAM oraz karta graficzna. Dodatkowo, wykorzystywanie takiego oprogramowania wymaga często jednoczesnego wyświetlania wielu okien oraz manipulowania danymi na różnych ekranach, co wymaga zastosowania co najmniej dwóch monitorów.	Zaplanowano wynajem zestawów komp. spec. służących wyłącznie celom bad. w ramach projektu. Jako koszt kw. podano łączną sumę zestawów (8 sztuk). Koszty oszacowano w oparciu o oferty firm posiadających produkty elektroniczne. Koszt jednostkowy zestawu to 9 375 PLN. Wartość została oszacowana na podstawie cenników firm: X-kom - cena 70 000 zł netto, Morele - cena 80 000 zł netto, Przyjęto średni koszt na poziomie 75 000 złotych netto.																		
+TRUE	1	Zestaw mebli biurowych (biutko, fotel,szfka)	18 204,00 zł	14 800,00 zł	0	11 840,00 zł	Umożliwia realizację etapu 1. Zakup zestawu mebli biurowych jest uzasadniony ze względu na potrzebę zapewnienia ergonomicznego i wygodnego miejsca pracy dla pracowników. Biurko, fotel i szafka stanowią podstawowe elementy wyposażenia biura, które pozwalają na wygodne wykonywanie zadań oraz organizowanie dokumentów i materiałów biurowych.	Zaplanowano zakup zestawów mebli biurowych służących wyłącznie celom bad. w ramach projektu. Jako koszt kwalifikowalny podano łączną sumę zestawów (10 sztuk). Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie wyposażenie biura. Koszt jednostkowy zestawu to 3 700 PLN. Wartość została oszacowana na podstawie ofert od dwóch firm: Elzap - łączny koszt w kwocie 39 000,00 zł netto, MDD - łączny koszt w kwocie 35 000 ,00 zł netto. Przyjęto średni koszt 37 000zl netto																		
+TRUE	1	Stanowisko pomiarowe do elektrod	214 020,00 zł	174 000,00 zł	0	139 200,00 zł	Umożliwia realizację etapu 1. Stanowisko pomiarowe umożliwi monitorowanie, pomiar parametrów oraz digitalizację wyników takich jak napięcie, prąd, temperatura i pojemność, co jest niezbędne do analizy wydajności i zachowania elektrod baterii przepływowej. Na stanowisku będą możliwe długotrwałe oraz powtarzalne testy elektrod z założonym scenariuszem badań. Długotrwałe testy elektrod są niezbędne do określenia korozyjności oraz zmian po określonej liczbie cykli.	Zaplanowano wynajem stanowiska pomiarowego służącemu wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej urządzenia pomiarowe. Jako koszt kwalifikowalny podano łączną kwotę za wszystkie planowane do wynajmu stanowiska. Wartość została oszacowana na podstawie ofert od dwóch firm: Symatic Sp. z o. o. - łączny koszt 169 000 zł netto, Greenrobotics Sp. z o.o. - łączny koszt 179 000 zł netto. Przyjęto średni koszt 174 000 zł netto																		
+TRUE	1	Waga analityczna mała	3 690,00 zł	3 000,00 zł	0	2 400,00 zł	Umożliwia realizację etapu 1. wysoka dokładność pomiaru. Waga analityczna małą zapewnia precyzyjny pomiar do 0,0001 g, co jest szczególnie ważne przy badaniach o wysokiej czułości, takich jak analiza składu chemicznego próbek czy ważenie substancji toksycznych.	Zaplanowano zakup wagi analitycznej małej służącej wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm: Danlab - łączny koszt w kwocie 4 100,00 zł netto Alchem - łączny koszt w kwocie 2 900 zł netto. Przyjęto średni koszt na poziomie 3 000 złotych netto.Jako koszt kwalifikowalny podano łączną kwotę planowaną do zakupu wagi analitycznej małej. Metodologia wyliczenia kosztu: 1 szt. x 3000 zł = 3000 zł																		
+TRUE	1	Termometr	4 920,00 zł	4 000,00 zł	0	3 200,00 zł	Umożliwia realizację etapu 1. Umożliwia precyzyjny i dokładny pomiar temperatury w szerokim zakresie temperatur, co jest ważne dla badań nad bateriami przepływowymi. Temperatura jest jednym z kluczowych parametrów wpływających na wydajność baterii przepływowych	Zaplanowano zakup termometru służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laboratoryjne: Danlab - łączny koszt w kwocie 3 500,00 zł netto. Alchem - łączny koszt w kwocie 4 500 zł netto. Przyjęto średni koszt na poziomie 4 000 złotych netto. Jako koszt kwalifikowalny podano łączną kwotę planowaną do zakupu termometru. Metodologia wyliczenia kosztu: 1 szt. x 4000 zł netto = 4000 zł																		
+TRUE	1	Konduktometr	8 610,00 zł	7 000,00 zł	0	5 600,00 zł	Umożliwia realizację etapu 1. Umożliwia pomiar przewodności elektrolitu w bateriach przepływowych, co jest kluczowe dla zrozumienia i optymalizacji procesów elektrochemicznych. Precyzyjny pomiar przewodności pozwala na identyfikację problemów w procesie elektrochemicznym i dostosowanie parametrów do uzyskania pożądanych wyników	Zaplanowano zakup konduktometru służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laborato- ryjne: Danlab - łączny koszt w kwocie 6 200,00 zł netto, Alchem - łączny koszt w kwocie 7 800 zł netto. Przyjęto średni koszt na poziomie 7 000 złotych netto. Jako koszt kwalifikowalny podano łączną kwotę planowaną do zakupu konduktometru. Metodologia wyliczenia kosztu: 1 szt. x 7000 zł netto																		
+TRUE	1	Mieszadło magnetyczne z grzaniem	25 830,00 zł	21 000,00 zł	0	16 800,00 zł	Umożliwia realizację etapu 1. Umożliwia automatyczną kontrola temperatury i automatyczne mieszanie. Te funkcje pozwalają na utrzymywanie odpowiedniej temperatury reakcji i stałej intensywności mieszania.	Jako koszt kw. podano kwotę za 3 szt. mieszadeł. Koszty oszacowano w oparciu o oferty firm – posiadających urządzenia laboratoryjne: Danlab - łączny koszt za 3 szt. w kwocie 19 000,00 zł netto Alchem - łączny koszt za 3 szt. w kwocie 23 000 zł netto. Przyjęto średni koszt wynajmu za 3 szt. na poziomie 21 000 złotych netto. Koszt jednostkowy to 7 tys. Jako koszt kw. podano łączną kwotę za wszystkie planowane do wynajmu mieszadła Metodologia wyliczenia kosztu: 3 szt. x 7000 zł netto = 21 000 zł.																		
+TRUE	1	Zestaw elementów laboratoryjnych	4 920,00 zł	4 000,00 zł	0	3 200,00 zł	Umożliwia realizację etapu 1. Na zestaw składa się: Statywy laboratoryjny F, Łapa 4 palczasta Stal SS, Łączniki uniwersalne, obrotowe Al. Wszystkie te narzędzia są podstawowym wyposażeniem laboratorium chemicznego i są kluczowe w badaniach elektrod i elektrolitów.	Zaplanowano zakup zestawu elementów laboratoryjnych służących wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie Alchem - łączny koszt w kwocie 4 400 zł netto. Przyjęto średni koszt na poziomie 4 000 złotych netto. Jako koszt kw. podano łączną kwotę planowaną do zakupu zestawu elementów laboratoryjnych. Metodologia wyliczenia kosztu: 1 komplet x 4000 zł netto = 4 000 zł.																		
+TRUE	1	Pipeta automatyczna	23 370,00 zł	19 000,00 zł	0	15 200,00 zł	Umożliwia realizację etapu 1. Pozwala na łatwe i szybkie dozowanie elektrolitów i innych roztworów chemicznych. Konieczny jest zakup 2 szt. pipet automatycznych.	Zaplanowano zakup pipety automatycznej służącej wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie maszyny do urządzenia laboratoryjne: Danlab - łączny koszt 2 szt. w kwocie 20 100,00 zł netto Alchem - łączny koszt 2 szt. w kwocie 17 900 zł netto. Przyjęto średni koszt 2 szt. na poziomie 19 000 złotych netto. Koszt jednostkowy pipety to 9500 PLN. Metodologia wyliczenia kosztu: 2 szt. x 9500 zł netto = 19 000 zł																		
+TRUE	1	Multimetr	2 460,00 zł	2 000,00 zł	0	1 600,00 zł	Umożliwia realizację etapu 1. Umożliwia on pomiar wielu parametrów elektrycznych, takich jak napięcie, prąd, opór, pojemność, impedancja i częstotliwość, co jest niezbędne do zrozumienia charakterystyk elektrochemicznych baterii. Multimetry pozwalają także na dokładny pomiar temperatury, co jest istotne w badaniach nad reakcjami elektrochemicznymi.	Zaplanowano zakup multimetru służącego wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie urządzenia laboratoryjne: Conrad - cena 1 700 złotych netto, GOTRONIK PPHU - cena 2 300 złotych netto. Przyjęto średni koszt na poziomie 2 000 złotych netto. Jako koszt kwalifikowalny podano łączną kwotę planowaną do zakupu multimetru. Metodologia wyliczenia kosztu: 1 szt. x 2000 zł netto = 2 000 zł.																		
+TRUE	1	Odczynniki chemiczne do badań	507 990,00 zł	413 000,00 zł	0	330 400,00 zł	Umożliwia realizację zadania 1. Na koszt odczynników chemicznych do badań składa się między innymi: 0,3 kg Rutenu (III) chlorku hydratu, 1,5 kg Tert-butanolanu tytanu (IV), 300 l 2-Propanolu (izopropanolu), 75 kg aktywnego węgla w proszku, 75 kg Sodu węglanu, 30 kg amonu diwodorofosforanu, 75 kg dwutleneku tytanu, 30 kg Poli(alkoholu winylowyego), zhydrolizowanego 98,0%-98,8%, 150 kg Cynku chlorku, 150 l 1-Metylo-2-pirolidynonu, 30 kg Karboksymetylocelulozowej soli sodowej i inne.	Zaplanowano zakup odczynników chemicznych do badań służącym wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających odczynniki chemiczne: POL-AURA - łączny koszt w kwocie 427 000,00 zł netto CHMES - łączny koszt w kwocie 399 000 zł netto. Przyjęto średni koszt na poziomie 413 000 zł netto. Jako koszt kwalifikowalny podano łączną sumę wszystkich odczynników. Metodologia wyliczenia kosztu: 1 komplet x413 000zł netto= 413 000zł netto																		
+TRUE	1	Materiały badawcze	268 140,00 zł	218 000,00 zł	0	174 400,00 zł	Umożliwia realizację zadania 1. Na koszt materiałów badawczych składają się między innymi: 10szt. klipsy druciany z zatyczką i przegrodą, 5 szt. elektrody pomocnicza z drutu metalowego, 5 szt. elektrody tytanowe powlekana z plytką z uchwytem, 5. szt elektrody prętowe grafitowa, 5 szt. elektrody metalowa, 3 szt. szkliste podłoża węglowe, 3 szt. kolektory prądu - folia ze stali , 3 szt. kolektory prądu - siatka ze stali, 10 szt. siatkowe elektrody węglowe, 10 szt. siatki przeciw elektrodowe i inne	Zaplanowano zakup materiałów badawczych służącym wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – oferujących materiały elektrochemiczne: Redoxme AB-łączny koszt 207 000 zł netto MSE Supplies-łączny koszt 229 000 zł netto Przyjęto średni koszt na poziomie 218 000 zł netto. Jako koszt kwal. podano łączną sumę wszystkich materiałów, wycenioną przez firmy w oparciu o ilości zakupywanych materiałów. Metodologia wyliczenia: 1 kmp. x 218 000=218 000 zł																		
+TRUE	1	Wynajem laboratorium	442 800,00 zł	360 000,00 zł	0	288 000,00 zł	Wnioskodawca nie dysponuje powierzchnią laboratoryjną umożliwiającą wykonanie badań. W ramach przedmiotowego kosztu wynajęta zostanie powierzchnia przystosowana do przeprowadzania badań ze względu na wymagane certyfikaty, bez aparatury badawczej. Powierzchnia zostanie wykorzystana do badań przemysłowych (etap 1).	Kwotę kosztu kwalifikowalnego ustalono na podstawie ofert cenowych w trzech nieruchomościach dysponujących niewyposażoną powierzchnią spełniającą wymagania Wnioskodawcy. Koszt oszacowana na podstawie wycen od takich podmiotów jak: Metodologia wyliczenia kosztu: Wartość najmu została oszacowana na podstawie ofert na portalu OTODOM i OLX.PL. Przyjęto średni koszt na poziomie 360 000 złotych netto.																		
+TRUE	2	Specjalista ds. analiz numerycznych CFD	414 720,00 zł	414 720,00 zł	0	331 776,00 zł	Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół modelowania i symulacji procesów CFD). Zakres obowiązków: przeprowadzanie analiz numerycznych analizowanie wyników i interpretacja, opracowywanie raportów, koordynację zespołu specjalistów, wdrażanie nowych metod i optymalizację procesów badawczych, odpowiedzialny za przeprowadzenie analiz numerycznych rozchodzenia się ciepła oraz badania przepływu elektrolitów przez elektrody i układ hydrauliczny	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 23040 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 23040 PLN/1 mies./1
+etatu. Czas realizacji: 18 mies"																		
+TRUE	2	Specjalista ds. badań i testów	322 560,00 zł	322 560,00 zł	0	258 048,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół badawczy
+elektrochemiczny). Zakres obowiązków: planowanie, organizację i nadzór nad pracami badawczymi
+i testowymi, analizowanie i interpretacja wyników, opracowywanie raportów i rekomendowanie
+działań usprawniających, utrzymywanie wiedzy na temat nowych technologii i metod, wdrażanie
+standardów jakości i bezpieczeństwa, koordynację zespołu specjalistów, współpracę z innymi działami,
+analizę ekonomiczną wyników."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 17920 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 17920 PLN/1 mies./1
+etatu. Czas realizacji: 18 mies"	17 920,00																	
+TRUE	2	"Konstruktor
+"	599 040,00 zł	599 040,00 zł	0	479 232,00 zł	"Zatrudnienie 2 pracowników naukowo-badawczych w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: tworzenie i udoskonalanie konstrukcji ogniwa,
+projektowanie mechaniczne ogniwa i stanowiska do badań, nadzór nad procesem zakupowym,
+wykonawstwem i montażem ogniwa oraz stanowiska, współpraca z zespołem specjalistów, zapewnienie
+zgodności projektów z normami branżowymi, analiza i interpretacja wyników badań,
+terminowe dostarczenie projektów."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 16640 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 16640 PLN/1 mies./1
+etatu. Czas realizacji: 18 mies"	16 640,00																	
+TRUE	2	Technik laboratoryjny	230 400,00 zł	230 400,00 zł	0	184 320,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: projektowanie układów pomiarowych i sterujących,
+projektowanie i rozwijanie oprogramowania do zbierania i analizy wyników, przygotowanie
+stanowisk do badań, prowadzenie badań i analizowanie wyników, dokumentowanie wyników
+badań, utrzymanie i serwisowanie aparatury pomiarowej, praca z zespołem inżynierów i naukowców,
+doskonalenie procesów pomiarowych."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 12800 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 12800 PLN/1 mies./1
+etatu. Czas realizacji: 18 mies"	12 800,00																	
+TRUE	2	Mechanik	276 480,00 zł	276 480,00 zł	0	221 184,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: montaż i przygotowanie do pracy ogniwa baterii
+ze strony mechanicznej, modyfikowanie ogniwa i stanowiska do badań, uczestnictwo w badaniach
+na stanowisku, nadzór nad utrzymaniem i serwisowaniem stanowisk laboratoryjnych"	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 15360 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 15360 PLN/1 mies./1
+etatu. Czas realizacji: 18 mies"	15 360,00																	
+TRUE	2	Specjalista  ds. układów sterujących i pomiarowych	253 440,00 zł	253 440,00 zł	0	202 752,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: projektowanie i rozwijanie układów sterujących i
+pomiarowych stanowisk badawczych elektrod, elektrolitów, w tym za projektu układu pomiarowego
+i sterującego oraz oprogramowanie do zbierania i analizy wyników, optymalizacja i modernizacja
+układów, przygotowywanie dokumentacji technicznej, doskonalenie procesów projektowych i
+metodologii."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 14080 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 14080 PLN/1 mies./1
+etatu. Czas realizacji: 18 mies"	14 080,00																	
+TRUE	2	Odczynniki chemiczne do badań	339 480,00 zł	276 000,00 zł	0	220 800,00 zł	Umożliwia realizację zadania 2. Na koszt odczynników chemicznych do badań składa się między innymi: 0,2 kg Rutenu (III) chlorku hydratu, 1 kg Tert-butanolanu tytanu (IV), 200 l 2-Propanolu (izopropanolu), 50 kg aktywnego węgla w proszku, 50 kg Sodu węglanu, 20 kg amonu diwodorofosforanu, 50 kg dwutleneku tytanu, 20 kg Poli(alkoholu winylowyego), zhydrolizowanego 98,0%-98,8%,50 kg Cynku chlorku, 100 l 1-Metylo-2-pirolidynonu, 20 kg Karboksymetylocelulozowej soli sodowej i inne.	Zaplanowano zakup odczynników chemicznych do badań służącym wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm oferujących odczynniki chemiczne: POL-AURA-łączny koszt 286 000,00 zł netto CHMES - łączny koszt 266 000 zł netto. Przyjęto średni koszt na poziomie 276 000 zł netto. Jako koszt kw. podano sumę wszystkich odczynników, wycenioną przez firmy w oparciu o zakupowane ilości. Metodologia wyliczenia kosztu: 1 komplet x 276 000 zł netto = 276 000 zł																		
+TRUE	2	Stanowisko pomiarowe do ogniwa	92 250,00 zł	75 000,00 zł	0	60 000,00 zł	Umożliwia realizację etapu 2. Zaawansowane stanowisko pomiarowe umożliwia moni torowanie, pomiar parametrów oraz digitalizację wyników takich jak napięcie, prąd, natężenie przepływu elektrolitów, pH elektrolitów, temperatura i pojemność, co jest niezbędne do analizy wydajności i zachowania ogniw baterii przepływowej. Na stanowisku będą możliwe długotrwałe oraz powtarzalne testy ogniw z założonym scenariuszem badań.	Zaplanowano wynajem zaawansowanego stanowiska pomiarowego służącemu wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w ofercie urządzenia pomiarowe. Jako koszt kw. podano łączną kwotę za wszystkie planowane do wynajmu stanowiska., Wartość została oszacowana na podstawie ofert od dwóch firm: Symatic Sp. z o. o. - łączny koszt 50 000 zł netto Greenrobotics Sp. z o.o. - łączny koszt 100 000 zł netto. Przyjęto średni koszt 75 000 zł netto.																		
+TRUE	2	Materiały badawcze	178 350,00 zł	145 000,00 zł	0	116 000,00 zł	Umożliwia realizację zadania 2. Na koszt materiałów badawczych składają się między innymi: 7 szt. klipsy druciany z zatyczką i przegrodą, 3 szt. elektrody pomocnicza z drutu metalowego, 3 szt. elektrody tytanowe powlekana z plytką z uchwytem, 3 szt elektrody prętowe grafitowa, 3 szt. elektrody metalowa, 2 szt. szkliste podłoża węglowe, 2 szt. kolektory prądu - folia ze stali, 2 szt. kolektory prądu - siatka ze stali, 7 szt. siatkowe elektrody węglowe, 7 szt. siatki przeciw elektrodowe i inne	Zaplanowano zakup materiałów badawczych służącym wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w swojej ofercie materiały elektrochemiczne: Redoxme AB - łączny koszt w kwocie 140 000,00 zł netto MSE Supplies - łączny koszt w kwocie 150 000 zł netto. Przyjęto średni koszt na poziomie 145 000 złotych netto. Jako koszt kw. podano łączną sumę wszystkich materiałów. Metodologia wyliczenia kosztu: 1 komplet x 145 000 zł netto = 145 000 zł.																		
+TRUE	3	Automatyk	230 400,00 zł	230 400,00 zł	0	184 320,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący
+i weryfikujący działanie baterii). Zakres obowiązków: Odpowiedzialny za opracowanie schematu
+działania oraz zaprogramowanie układu do zarządzania parametrami pracy pakietu baterii, układu
+do balansowania ogniw, układu bezpieczeństwa."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 19200 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 19200 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	19 200,00																	
+TRUE	3	Elektromonter	130 560,00 zł	130 560,00 zł	0	104 448,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: Odpowiedzialny za budowę i przygotowywanie
+do pracy stanowiska badawczego pakietu baterii, w tym za podłączenie układu pomiarowego i
+sterującego, a także za późniejsze modyfikowanie stanowiska."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 10880 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 10880 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	10 880,00																	
+TRUE	3	Elektromechanik	184 320,00 zł	184 320,00 zł	0	147 456,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: montaż i przygotowanie do pracy pakietu ogniw
+baterii ze strony mechanicznej, modyfikowanie konstrukcji i stanowiska do badań, uczestnictwo w
+badaniach na stanowisku, nadzór nad utrzymaniem i serwisowaniem stanowisk laboratoryjnych"	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 15360 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 15360 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	15 360,00																	
+TRUE	3	Stanowisko pomiarowe do pakietu ogniw	184 500,00 zł	150 000,00 zł	0	120 000,00 zł	Umożliwia realizację etapu 3. Zaawansowane stanowisko pomiarowe umożliwia moni torowanie, pomiar parametrów oraz digitalizację wyników takich jak napięcie, prąd, natężenie przepływu elektrolitów, pH elektrolitów, temperatura i pojemność, co jest niezbędne do analizy wydajności i zachowania ogniw baterii przepływowej. Na stanowisku będą możliwe długotrwałe oraz powtarzalne testy ogniw z założonym scenariuszem badań.	Zaplanowano wynajem zaawansowanego stanowiska pomiarowego służącemu wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w ofercie urządzenia pomiarowe. Jako koszt kw. podano łączną kwotę za wszystkie planowane do wynajmu stanowiska., Wartość została oszacowana na podstawie ofert od dwóch firm: Symatic Sp. z o. o. - łączny koszt 160 000 zł netto Greenrobotics Sp. z o.o. - łączny koszt 140 000 zł netto. Przyjęto średni koszt 150 000 zł netto.																		
+TRUE	3	Odczynniki chemiczne do badań	169 740,00 zł	138 000,00 zł	0	110 400,00 zł	Umożliwia realizację zadania 3. Na koszt odczynników chemicznych do badań składa się między innymi: 0,1 kg Rutenu (III) chlorku hydratu, 0,5 kg Tert-butanolanu tytanu (IV), 100 l 2-Propanolu (izopropanolu), 25 kg aktywnego węgla w proszku, 25 kg Sodu węglanu, 10 kg amonu diwodorofosforanu, 25 kg dwutleneku tytanu, 10 kg Poli(alkoholu winylowyego), zhydrolizowanego 98,0%-98,8%, 50 kg Cynku chlorku, 50 l 1-Metylo-2-pirolidynonu, 10 kg Karboksymetylocelulozowej soli sodowej i inne.	Zaplanowano zakup odczynników chemicznych do badań służącym wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających odczynniki chemiczne: POL-AURA - łączny koszt w kwocie 143 000 zł netto CHMES - łączny koszt w kwocie 133 000 zł netto. Przyjęto średni koszt na poziomie 138 000 zł netto. Jako koszt kw. podano łączną sumę wszystkich odczynników, Metodologia wyliczenia kosztu: 1 komplet x 138 000 zł netto = 138 000 zł.																		
+TRUE	3	Materiały badawcze	88 560,00 zł	72 000,00 zł	0	57 600,00 zł	Umożliwia realizację zadania 3. Na koszt materiałów badawczych składają się między innymi: 3 szt. klipsy druciany z zatyczką i przegrodą, 2 szt. elektrody pomocnicza z drutu metalowego, 2 szt. elektrody tytanowe powlekana z plytką z uchwytem, 2 szt elektrody prętowe grafitowa, 2 szt. elektrody metalowa, 1 szt. szkliste podłoża węglowe, 1 szt. kolektory prądu - folia ze stali, 1 szt. kolektory prądu - siatka ze stali, 3 szt. siatkowe elektrody węglowe, 3 szt. siatki przeciw elektrodowe i inne	Zaplanowano zakup materiałów badawczych służącym wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających materiały elektrochemiczne: Redoxme AB - łączny koszt 68 500,00 zł netto MSE Supplies - łączny koszt 75 500 zł netto. Przyjęto średni koszt na poziomie 72 000 zł netto. Jako koszt kw. podano sumę wszystkich materiałów, wycenioną przez firmy w oparciu o ilości zakupywanych materiałów. Metodologia wyliczenia: 1 kmp. x 72000 zł netto = 72000zł																		
+TRUE	3	Wynajem laboratorium	147 600,00 zł	120 000,00 zł	0	96 000,00 zł	Wnioskodawca nie dysponuje powierzchnią laboratoryjną umożliwiającą wykonanie badań. W ramach przedmiotowego kosztu wynajęta zostanie powierzchnia przystosowana do przeprowadzania badań ze względu na wymagane certyfikaty, bez aparatury badawczej. Powierzchnia zostanie wykorzystana do badań przemysłowych	Kwotę kosztu kwalifikowalnego ustalono na podstawie ofert cenowych w trzech nieruchomościach dysponujących niewyposażoną powierzchnią spełniającą wymagania Wnioskodawcy. Koszt oszacowana na podstawie wycen od takich podmiotów jak: Metodologia wyliczenia kosztu: Wartość najmu została oszacowana na podstawie ofert na portalu OTODOM i OLX.PL. Przyjęto średni koszt na poziomie 120 000 złotych netto.																		
+TRUE	4	Specjalista ds. analiz numerycznych CFD	138 240,00 zł	138 240,00 zł	0	82 944,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół modelowania
+i symulacji procesów CFD). Zakres obowiązków: przeprowadzanie analiz numerycznych,
+analizowanie wyników i interpretacja, opracowywanie raportów, koordynację zespołu specjalistów,
+wdrażanie nowych metod i optymalizację procesów badawczych, odpowiedzialny za
+przeprowadzenie analiz numerycznych rozchodzenia się ciepła oraz badania przepływu elektrolitów
+przez elektrody i układ hydrauliczny pakietu baterii"	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 80 godz. w miesiącu.
+Wynagrodzenie: 11560 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 23040 PLN/1 mies./0,5
+etatu. Czas realizacji: 12 mies"	23 040,00																	
+TRUE	4	Specjalista ds. badań i testów	322 560,00 zł	322 560,00 zł	0	193 536,00 zł	"Zatrudnienie 2 pracowników naukowo-badawczych w ramach umowy zlecenia (Zespół testujący
+i weryfikujący działanie baterii). Zakres obowiązków: planowanie, organizacja i nadzór nad
+pracami badawczymi i testowymi, analizowanie i interpretacja wyników, opracowywanie raportów
+i rekomendowanie działań usprawniających, utrzymywanie wiedzy na temat nowych technologii
+i metod, wdrażanie standardów jakości i bezpieczeństwa, koordynację zespołu specjalistów,
+współpracę z innymi działami"	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 17920 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 17920 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	17 920,00																	
+TRUE	4	Konstruktor	399 360,00 zł	399 360,00 zł	0	239 616,00 zł	"Zatrudnienie 2 pracowników naukowo-badawczych w ramach umowy zlecenia (Zespół testujący
+i weryfikujący działanie baterii). Zakres obowiązków: tworzenie i udoskonalanie konstrukcji,
+odpowiedzialny za stworzenie i udoskonalanie konstrukcji pakietu baterii, odpowiedzialny za projekt
+mechaniczny, dokumentację techniczną, dobór komponentów, proces zakupowy, nadzór nad
+wykonawstwem i montażem."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 16640 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 16640 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	16 640,00																	
+TRUE	4	Automatyk	230 400,00 zł	230 400,00 zł	0	138 240,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący
+i weryfikujący działanie baterii). Zakres obowiązków: Odpowiedzialny za opracowanie schematu
+działania oraz zaprogramowanie układu do zarządzania parametrami pracy pakietu baterii, układu
+do balansowania ogniw, układu bezpieczeństwa"	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 19200 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 19200 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	19 200,00																	
+TRUE	4	Specjalista ds. układów sterujących i pomiarowych	168 960,00 zł	168 960,00 zł	0	101 376,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: projektowanie i rozwijanie układów sterujących i
+pomiarowych stanowisk badawczych elektrod, elektrolitów, w tym za projektu układu pomiarowego
+i sterującego oraz oprogramowanie do zbierania i analizy wyników, optymalizacja i modernizacja
+układów, przygotowywanie dokumentacji technicznej, doskonalenie procesów projektowych i
+metodologii."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 14080 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 14080 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	14 080,00																	
+TRUE	4	Elektromonter	307 200,00 zł	307 200,00 zł	0	184 320,00 zł	"Zatrudnienie 2 pracowników naukowo-badawczych w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: Odpowiedzialny za budowę i przygotowywanie
+do pracy stanowiska badawczego pakietu baterii, w tym za podłączenie układu pomiarowego i
+sterującego, a także za późniejsze modyfikowanie stanowiska"	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 12800 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 12800 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	12 800,00																	
+TRUE	4	Mechanik	184 320,00 zł	184 320,00 zł	0	110 592,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: montaż i przygotowanie do pracy pakietu ogniw
+baterii ze strony mechanicznej, modyfikowanie konstrukcji i stanowiska do badań, uczestnictwo w
+badaniach na stanowisku, nadzór nad utrzymaniem i serwisowaniem stanowisk laboratoryjnych"	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 15360 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 15360 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	15 360,00																	
+TRUE	4	Specjalista ds. bezpieczeństwa	115 200,00 zł	115 200,00 zł	0	69 120,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół testujący i
+weryfikujący działanie baterii). Zakres obowiązków: tworzenie i wdrażanie strategii bezpieczeństwa,
+ocenę ryzyka i identyfikację zagrożeń, zarządzanie systemem zarządzania bezpieczeństwem
+informacji, prowadzenie szkoleń dla pracowników, nadzór nad wdrażaniem zasad bezpieczeństwa,
+przygotowywanie raportów i analiz,, odpowiedzialny za zapewnienie, że wszystkie aspekty projektu
+są zgodne z normami i prawem"	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 19200 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 19200 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	19 200,00																	
+TRUE	4	Specjalista ds. Badań Elektrochemicznych	138 240,00 zł	138 240,00 zł	0	82 944,00 zł	"Zatrudnienie 1 pracownika naukowo-badawczego w ramach umowy zlecenia (Zespół badawczy
+elektrochemiczny). Zakres obowiązków: planowanie i realizacja prac badawczych z zakresu opracowania
+elektrod i elektrolitów, analiza wyników badań, opracowywanie raportów i prezentacji
+naukowych, współpraca z innymi zespołami naukowo-technicznymi, propozycja dalszych modyfikacji."	"Na podstawie stawek rynkowych oparciu o dane pochodzące z platformy “wynagrodzenia.pl”, Raport
+Hays za rok 2022, Hays Raport Płacowy Contracting 2022 lub zgodnie ze stawkami obowiązującymi
+w przedsiębiorstwie Wnioskodawcy na tożsamych stanowiskach. Wymiar: 160 godz. w miesiącu.
+Wynagrodzenie: 23040 (brutto wraz z pozapłacowymi kosztami pracy). Stawka: 23040 PLN/1 mies./1
+etatu. Czas realizacji: 12 mies"	23 040,00																	
+TRUE	4	Odczynniki chemiczne do badań	168 510,00 zł	137 000,00 zł	0	82 200,00 zł	Umożliwia realizację zadania 4. Na koszt odczynników chemicznych do badań składa się między innymi: 0,1 kg Rutenu (III) chlorku hydratu, 0,5 kg Tert-butanolanu tytanu (IV), 100 l 2-Propanolu (izopropanolu), 25 kg aktywnego węgla w proszku, 25 kg Sodu węglanu, 10 kg amonu diwodorofosforanu, 25 kg dwutleneku tytanu, 10 kg Poli(alkoholu winylowyego), zhydrolizowanego 98,0%-98,8%, 50 kg Cynku chlorku, 50 l 1-Metylo-2-pirolidynonu, 10 kg Karboksymetylocelulozowej soli sodowej i inne.	"Zaplanowano zakup odczynników chemicznych do badań służącym wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających odczynniki chemiczne: POL-AURA - łączny koszt w kwocie 142 000 zł netto
+CHMES - łączny koszt w kwocie 133 000 zł netto. Przyjęto średni koszt na poziomie 137 000 zł netto. Jako koszt kw. podano łączną sumę wszystkich odczynników, Metodologia wyliczenia kosztu: 1 komplet x 137 000 zł netto = 137 000 zł."																		
+TRUE	4	Materiały badawcze	88 560,00 zł	72 000,00 zł	0	43 200,00 zł	Umożliwia realizację zadania 4. Na koszt materiałów badawczych składają się między innymi: 3 szt. klipsy druciany z zatyczką i przegrodą, 2 szt. elektrody pomocnicza z drutu metalowego, 2 szt. elektrody tytanowe powlekana z plytką z uchwytem, 2 szt elektrody prętowe grafitowa, 2 szt. elektrody metalowa, 1 szt. szkliste podłoża węglowe, 1 szt. kolektory prądu - folia ze stali, 1 szt. kolektory prądu - siatka ze stali, 3 szt. siatkowe elektrody węglowe, 3 szt. siatki przeciw elektrodowe i inne	Zaplanowano zakup materiałów badawczych służącym wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających materiały elektrochemiczne: Redoxme AB - łączny koszt 68 500,00 zł netto MSE Supplies - łączny koszt 75 500 zł netto. Przyjęto średni koszt na poziomie 72 000 zł netto. Jako koszt kw. podano sumę wszystkich materiałów, wycenioną przez firmy w oparciu o ilości zakupywanych materiałów. Metodologia wyliczenia: 1 kmp. x 72000 zł netto = 72000zł																		
+TRUE	4	Elektrody	1 242 300,00 zł	1 010 000,00 zł	0	606 000,00 zł	Umożliwia realizacje zadania 4. Na koszt materiałów do wykonania elektrod składają cię: filc węglowy 2000m2 (400 PLN/m2); blacha cynkowa 0,5mm 2000m2 (150 PLN/m2); siatka ocynkowana 2000 m2 (40 PLN/m2)	Wartość materiału została oszacowana na podstawie ofert od dwóch firm: Fuel Cell Store - łączny koszt w kwocie 930 000 zł netto SGL CARBON - łączny koszt w kwocie 1 090 000 zł netto. Przyjęto średni koszt na poziomie 1 010 000 złotych netto.																		
+TRUE	4	Konstrukcja	300 120,00 zł	244 000,00 zł	0	146 400,00 zł	Umożliwia realizację zadania 4. Na kosz materiałów konstrukcyjnych składa się: kontenery; konstrukcja wsporcza (ramy i obudowy); pozostałe elementy mechaniczne.	Wartość materiału została oszacowana na podstawie ofert od dwóch firm: El-Młyn - łączny koszt w kwocie 226 000 zł netto Greenrobotics Sp. z o.o. - łączny koszt w kwocie 262 000 zł netto. Przyjęto średni koszt na poziomie 244 000 złotych netto.																		
+TRUE	4	Instalacja Przepływowa	164 328,00 zł	133 600,00 zł	0	80 160,00 zł	Umożliwia realizację zadania 4. Na koszt instalacji przepływowej elektrolitu składa się: zbiorniki elektrolitu 1000l 24szt; pompy obiegowe 2 szt; pozostałe elementy instalacji (przewody, zawory, kołnierze itp)	Wartość materiału została oszacowana na podstawie ofert od dwóch firm: Denios - łączny koszt w kwocie 136 000 zł netto Sanilog Schneider - łączny koszt w kwocie 131 200 zł netto. Przyjęto średni koszt na poziomie 133 600 złotych netto.																		
+TRUE	4	Instalacja elektryczna i sterowanie	295 200,00 zł	240 000,00 zł	0	144 000,00 zł	Umożliwia realizację zadania 4. Na koszt instalacji elektrycznych i sterowania składa się: przetworniki energii; kontrolery zarządzania przepływem elektrolitu i kontroli ładowania i rozładowywania; układ monitorujący stan baterii (BMS); Wyświetlacz i panel sterowania; bezpieczniki i układ awaryjnego odłączania; przewody oraz elementy złaczne itp	Wartość materiału została oszacowana na podstawie ofert od dwóch firm: Greenrobotics Sp. z o.o. - łączny koszt w kwocie 225 000 zł netto Symatic Sp. z o. o.- łączny koszt w kwocie 255 000 zł netto. Przyjęto średni koszt na poziomie 240 000 złotych netto.																		
+TRUE	4	Stanowisko pomiarowe do baterii	270 600,00 zł	220 000,00 zł	0	132 000,00 zł	Umożliwia realizację etapu 4. Zaawansowane stanowisko pomiarowe umożliwia moni torowanie, pomiar parametrów oraz digitalizację wyników takich jak napięcie, prąd, natężenie przepływu elektrolitów, pH elektrolitów, temperatura i pojemność, co jest niezbędne do analizy wydajności i zachowania baterii przepływowej. Na stanowisku będą możliwe długotrwałe oraz powtarzalne testy baterii z założonym scenariuszem badań.	Zaplanowano wynajem zaawansowanego stanowiska pomiarowego służącemu wyłącznie celom badawczym w ramach projektu. Koszty oszacowano w oparciu o oferty firm – posiadających w ofercie urządzenia pomiarowe. Jako koszt kw. podano łączną kwotę za wszystkie planowane do wynajmu stanowiska., Wartość została oszacowana na podstawie ofert od dwóch firm: Symatic Sp. z o. o. - łączny koszt 240 000 zł netto Greenrobotics Sp. z o.o. - łączny koszt 200 000 zł netto. Przyjęto średni koszt 220 000 zł netto.																		
+TRUE	4	Wynajem laboratorium	147 600,00 zł	120 000,00 zł	0	72 000,00 zł	Wnioskodawca nie dysponuje powierzchnią laboratoryjną umożliwiającą wykonanie badań. W ramach przedmiotowego kosztu wynajęta zostanie powierzchnia przystosowana do przeprowadzania badań ze względu na wymagane certyfikaty, bez aparatury badawczej. Powierzchnia zostanie wykorzystana do badań przemysłowych	Kwotę kosztu kwalifikowalnego ustalono na podstawie ofert cenowych w trzech nieruchomościach dysponujących niewyposażoną powierzchnią spełniającą wymagania Wnioskodawcy. Koszt oszacowana na podstawie wycen od takich podmiotów jak: Metodologia wyliczenia kosztu: Wartość najmu została oszacowana na podstawie ofert na portalu OTODOM i OLX.PL. Przyjęto średni koszt na poziomie 120 000 złotych netto.																		
+						8 792 200,00 zł																				
+																										
+		Pośrednie																								
+		Zadanie 1		1 059 130,00 zł		847 304,00 zł																				
+		Zadanie 2		648 160,00 zł		518 528,00 zł																				
+		Zadanie 3		256 320,00 zł		205 056,00 zł																				
+		Zadanie 4		1 045 270,00 zł		627 162,00 zł																				
+				15 044 400,00 zł		2 198 050,00 zł																				
+																										
+																										
+				4 054 150,00 zł																						
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										
+																										

@@ -1,5 +1,23 @@
 import fetch from 'node-fetch';
 
+// Helper function to convert ISO date strings or Date objects to YYYY-MM-DD format
+const formatDateForAPI = (dateInput) => {
+  try {
+    const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid date');
+    }
+    return date.toISOString().split('T')[0];
+  } catch (error) {
+    console.error('Date formatting error:', error, 'Input:', dateInput);
+    // Fallback to original string if it's already in YYYY-MM-DD format
+    if (typeof dateInput === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateInput)) {
+      return dateInput;
+    }
+    throw new Error(`Invalid date format: ${dateInput}`);
+  }
+};
+
 class AmadeusAPI {
   constructor() {
     this.clientId = process.env.AMADEUS_CLIENT_ID;
@@ -116,14 +134,16 @@ class AmadeusAPI {
       params.destinationLocationCode = searchParams.destinations[0];
     }
 
-    // Departure date (required)
+    // Departure date (required) - CRITICAL FIX: Apply date formatting
     if (searchParams.dateRange?.from) {
-      params.departureDate = searchParams.dateRange.from;
+      params.departureDate = formatDateForAPI(searchParams.dateRange.from);
+      console.log(`✅ Formatted departure date: ${searchParams.dateRange.from} → ${params.departureDate}`);
     }
 
-    // Return date (optional)
+    // Return date (optional) - CRITICAL FIX: Apply date formatting
     if (searchParams.dateRange?.to) {
-      params.returnDate = searchParams.dateRange.to;
+      params.returnDate = formatDateForAPI(searchParams.dateRange.to);
+      console.log(`✅ Formatted return date: ${searchParams.dateRange.to} → ${params.returnDate}`);
     }
 
     // Number of adults (default to 1)

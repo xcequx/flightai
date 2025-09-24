@@ -451,32 +451,31 @@ const Index = () => {
             <div className="mb-8">
               <div className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
                 <Sparkles className="h-6 w-6" />
-                <span className="font-semibold">Nowość: AI Vacation Planner</span>
+                <span className="font-semibold">{t('features.aiPlanner.badge')}</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Pozwól AI Zaplanować <br />Twoją Idealną Podróż
+                {t('features.aiPlanner.title')}
               </h2>
               <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto">
-                Podaj budżet, preferencje i destynację marzeń. Nasza sztuczna inteligencja stworzy 
-                kompletny plan podróży: loty z przesiadkami, hotele, atrakcje i lokalne doświadczenia.
+                {t('features.aiPlanner.description')}
               </p>
             </div>
             
             <div className="grid md:grid-cols-3 gap-6 mb-10">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
                 <Compass className="h-8 w-8 mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Personalizacja</h3>
-                <p className="text-sm text-white/80">AI dobiera podróż do Twoich zainteresowań</p>
+                <h3 className="font-semibold mb-2">{t('features.aiPlanner.features.personalization.title')}</h3>
+                <p className="text-sm text-white/80">{t('features.aiPlanner.features.personalization.description')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
                 <DollarSign className="h-8 w-8 mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Optymalizacja Budżetu</h3>
-                <p className="text-sm text-white/80">Maksymalne wykorzystanie każdej złotówki</p>
+                <h3 className="font-semibold mb-2">{t('features.aiPlanner.features.optimization.title')}</h3>
+                <p className="text-sm text-white/80">{t('features.aiPlanner.features.optimization.description')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6">
                 <Map className="h-8 w-8 mx-auto mb-3" />
-                <h3 className="font-semibold mb-2">Kompleksowy Plan</h3>
-                <p className="text-sm text-white/80">Od lotu po ostatni dzień zwiedzania</p>
+                <h3 className="font-semibold mb-2">{t('features.aiPlanner.features.comprehensive.title')}</h3>
+                <p className="text-sm text-white/80">{t('features.aiPlanner.features.comprehensive.description')}</p>
               </div>
             </div>
             

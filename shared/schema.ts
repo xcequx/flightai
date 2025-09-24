@@ -140,8 +140,12 @@ export const flightSearchSchema = z.object({
     .min(1, "At least one destination is required")
     .max(5, "Maximum 5 destinations allowed"),
   dateRange: z.object({
-    from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
-    to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format").optional()
+    from: z.string().refine((date) => !isNaN(Date.parse(date)), {
+      message: "Invalid date format"
+    }),
+    to: z.string().refine((date) => !isNaN(Date.parse(date)), {
+      message: "Invalid date format"
+    }).optional()
   }),
   departureFlex: z.number().int().min(0).max(30).default(3),
   returnFlex: z.number().int().min(0).max(30).default(3),
