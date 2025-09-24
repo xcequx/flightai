@@ -681,6 +681,9 @@ const generateEnhancedMockFlights = async (searchParams: FlightSearchParams, ori
 
 // Main flight search endpoint
 router.post('/search', async (req, res) => {
+  // Declare searchId outside try-catch block so it's accessible in both try and catch
+  let searchId: string = '';
+  
   try {
     console.log('🔍 Flight search request received');
     
@@ -725,7 +728,7 @@ router.post('/search', async (req, res) => {
     console.log('✅ Zod validation passed! Validated search params:', JSON.stringify(searchParams, null, 2));
 
     // Generate unique searchId for AI correlation and tracking
-    const searchId = searchParams.searchId || `search_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    searchId = searchParams.searchId || `search_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     console.log(`🆔 Generated searchId: ${searchId}`);
 
     // Send initial progress event
@@ -961,12 +964,15 @@ router.post('/search', async (req, res) => {
       }
     }
 
-    // Generate enhanced mock flights if we don't have enough real data
-    if (allFlights.length < 10) {
-      console.log('🎭 Generating enhanced mock flight data to supplement results');
+    // Only generate mock flights if NO real data is available at all
+    // CRITICAL FIX: Don't mix real and mock data - this corrupts the results
+    if (allFlights.length === 0 && !amadeusResults) {
+      console.log('🎭 No real flight data found, generating mock flight data as fallback');
       
       const mockFlights = await generateEnhancedMockFlights(searchParams, originAirports, destinationAirports);
       allFlights = allFlights.concat(mockFlights);
+    } else if (allFlights.length > 0) {
+      console.log(`✅ Using ${allFlights.length} real flight offers from Amadeus API`);
     }
 
     // AI-powered stopover recommendations and route optimization
@@ -1196,7 +1202,7 @@ router.post('/search', async (req, res) => {
         directFlightsCount: directFlights.length,
         multiLegFlightsCount: multiLegFlights.length,
         bestSavingsFound,
-        dataSource: amadeusResults ? 'amadeus' : 'mock',
+        dataSource: (amadeusResults && allFlights.some(f => f.source === 'amadeus')) ? 'amadeus' : 'mock',
         searchedRoutes,
         timestamp: new Date().toISOString(),
         apiSource: 'amadeus',
