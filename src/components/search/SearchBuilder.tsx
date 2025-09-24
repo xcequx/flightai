@@ -109,7 +109,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
 
   // Helper function to format validation errors for display
   const formatValidationErrors = (errors: Array<{field: string, message: string}>): string => {
-    return errors.map(err => `${err.field}: ${err.message}`).join('\n');
+    return errors.map(err => t('search.validation.errorFormat', { field: err.field, message: err.message })).join('\n');
   };
 
   // Mapping function to transform SearchParams to API-compatible format
@@ -150,35 +150,50 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     console.log('  dateRange:', params.dateRange);
     console.log('  dateRange.from:', params.dateRange?.from);
     
-    // Validate required fields before sending with enhanced checks
+    // Enhanced validation with better user feedback
+    const errors = [];
+    
     if (!params.origins || !Array.isArray(params.origins) || params.origins.length === 0) {
-      console.error('❌ Frontend validation failed: Invalid origins', params.origins);
-      alert(t('search.errorOriginRequired') || 'Please select at least one origin airport');
-      return;
+      errors.push(t('search.errorOriginRequired'));
     }
     
     if (!params.destinations || !Array.isArray(params.destinations) || params.destinations.length === 0) {
-      console.error('❌ Frontend validation failed: Invalid destinations', params.destinations);
-      alert(t('search.errorDestinationRequired') || 'Please select at least one destination airport');
-      return;
+      errors.push(t('search.errorDestinationRequired'));
     }
     
     if (!params.dateRange || !params.dateRange.from) {
-      console.error('❌ Frontend validation failed: Invalid dateRange', params.dateRange);
-      alert(t('search.errorDateRequired') || 'Please select travel dates');
+      errors.push(t('search.errorDateRequired'));
+    } else {
+      // Validate dates are not in the past
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const departureDate = new Date(params.dateRange.from);
+      
+      if (departureDate < today) {
+        errors.push(t('search.validation.pastDate'));
+      }
+      
+      if (params.dateRange.to && new Date(params.dateRange.to) <= departureDate) {
+        errors.push(t('search.validation.returnBeforeDeparture'));
+      }
+    }
+    
+    if (errors.length > 0) {
+      const errorMessage = t('search.validation.checkSearchPrompt') + '\n\n' + errors.map(err => `• ${err}`).join('\n');
+      alert(errorMessage);
       return;
     }
     
     // Additional validation for data types and format
     if (params.origins.some(origin => typeof origin !== 'string' || origin.length < 2)) {
       console.error('❌ Frontend validation failed: Invalid origin codes', params.origins);
-      alert('Please select valid origin airports');
+      alert(t('search.validation.invalidOriginAirports'));
       return;
     }
     
     if (params.destinations.some(dest => typeof dest !== 'string' || dest.length < 2)) {
       console.error('❌ Frontend validation failed: Invalid destination codes', params.destinations);
-      alert('Please select valid destination airports');
+      alert(t('search.validation.invalidDestinationAirports'));
       return;
     }
     
@@ -195,17 +210,17 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       console.log('🔍 Post-transformation validation:');
       if (!apiParams.origins || apiParams.origins.length === 0) {
         console.error('❌ Post-transformation error: origins is empty!', apiParams.origins);
-        alert('Error: Origins became empty during transformation');
+        alert(t('search.validation.transformationErrorOrigins'));
         return;
       }
       if (!apiParams.destinations || apiParams.destinations.length === 0) {
         console.error('❌ Post-transformation error: destinations is empty!', apiParams.destinations);
-        alert('Error: Destinations became empty during transformation');
+        alert(t('search.validation.transformationErrorDestinations'));
         return;
       }
       if (!apiParams.dateRange || !apiParams.dateRange.from) {
         console.error('❌ Post-transformation error: dateRange.from is missing!', apiParams.dateRange);
-        alert('Error: Date range became invalid during transformation');
+        alert(t('search.validation.transformationErrorDateRange'));
         return;
       }
       console.log('✅ Post-transformation validation passed!');
@@ -313,15 +328,17 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           return;
         }
         
-        // Show user-friendly error message based on error type
-        let errorMessage = t('search.errorDefault');
+        // Enhanced user-friendly error messages
+        let errorMessage = 'We encountered an issue with your search. Please try again.';
         
         if (data.error?.includes('API')) {
-          errorMessage = t('search.errorApi');
+          errorMessage = '⚠️ Search service temporarily unavailable. Please try again in a moment.';
         } else if (data.error?.includes('timeout')) {
-          errorMessage = t('search.errorTimeout');
+          errorMessage = '⏱️ Search is taking longer than expected. Please try again.';
         } else if (data.error?.includes('rate limit')) {
-          errorMessage = t('search.errorRateLimit');
+          errorMessage = '🚦 Too many searches. Please wait a moment and try again.';
+        } else if (data.error?.includes('network')) {
+          errorMessage = '🌐 Network connection issue. Please check your internet and try again.';
         }
         
         alert(errorMessage);

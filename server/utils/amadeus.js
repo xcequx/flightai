@@ -22,7 +22,8 @@ class AmadeusAPI {
   constructor() {
     this.clientId = process.env.AMADEUS_CLIENT_ID;
     this.clientSecret = process.env.AMADEUS_CLIENT_SECRET;
-    this.baseUrl = 'https://api.amadeus.com';
+    // Use test environment for test credentials
+    this.baseUrl = 'https://test.api.amadeus.com';
     this.token = null;
     this.tokenExpiry = null;
   }

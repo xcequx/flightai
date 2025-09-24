@@ -83,9 +83,9 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
   const tabsConfig = [
     {
       value: "ai-recommended",
-      label: "AI Recommended",
+      label: t('results.paretoTabs.aiRecommended.label'),
       icon: Brain,
-      description: "Flights intelligently selected by AI based on your preferences and travel patterns",
+      description: t('results.paretoTabs.aiRecommended.description'),
       color: "text-purple-600",
       count: aiRecommendedCount,
     },
@@ -148,7 +148,7 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
                         </div>
                         {tab.count !== undefined && (
                           <div className="text-xs font-medium text-purple-600 mt-1">
-                            {tab.count} {tab.count === 1 ? 'recommendation' : 'recommendations'}
+                            {tab.count} {tab.count === 1 ? t('results.paretoTabs.counts.recommendation') : t('results.paretoTabs.counts.recommendations')}
                           </div>
                         )}
                       </div>
@@ -175,7 +175,7 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
               <div className="text-xs text-muted-foreground">
                 <div>📊 <strong>{results.length}</strong> {t('results.paretoTabs.info.optionsAvailable')}</div>
                 <div className="mt-1">
-                  💰 {t('results.paretoTabs.info.prices')}: {Math.min(...results.map(r => r.price))} - {Math.max(...results.map(r => r.price))} PLN
+                  💰 {t('results.paretoTabs.info.prices')}: {Math.min(...results.map(r => r.price)).toLocaleString()} - {Math.max(...results.map(r => r.price)).toLocaleString()} {t('results.currency')}
                 </div>
               </div>
             </div>

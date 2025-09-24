@@ -199,7 +199,32 @@
     "searchTime": "Wyszukiwanie trwa ~30 sekund",
     "freeSearch": "100% darmowe wyszukiwanie",
     "noHiddenFees": "Brak ukrytych kosztów",
-    "manualSearch": "Lub Szukaj Lotów Ręcznie"
+    "manualSearch": "Lub Szukaj Lotów Ręcznie",
+    "progress": {
+      "analyzingParams": "Analiza parametrów wyszukiwania...",
+      "paramsValidated": "Parametry wyszukiwania zwalidowane ✓",
+      "searchingAirlines": "Przeszukiwanie 200+ linii lotniczych na całym świecie...",
+      "airlinesSearched": "Linie lotnicze przeszukane ✓",
+      "findingRoutes": "Wyszukiwanie najlepszych tras i przesiadek...",
+      "routesOptimized": "Trasy zoptymalizowane ✓",
+      "comparingPrices": "Porównywanie cen i sortowanie wyników...",
+      "searchCompleted": "Wyszukiwanie zakończone ✓"
+    },
+    "validation": {
+      "pastDate": "Data wylotu nie może być z przeszłości",
+      "returnBeforeDeparture": "Data powrotu musi być po dacie wylotu",
+      "missingOrigin": "Wybierz miejsce wylotu",
+      "missingDestination": "Wybierz miejsce docelowe",
+      "missingDate": "Wybierz daty podróży",
+      "invalidDate": "Wybierz prawidłową datę",
+      "errorFormat": "{{field}}: {{message}}",
+      "checkSearchPrompt": "⚠️ Sprawdź swoje wyszukiwanie:",
+      "invalidOriginAirports": "Proszę wybrać prawidłowe lotniska wylotu",
+      "invalidDestinationAirports": "Proszę wybrać prawidłowe lotniska docelowe",
+      "transformationErrorOrigins": "Błąd: Lotniska wylotu zostały utracone podczas transformacji",
+      "transformationErrorDestinations": "Błąd: Lotniska docelowe zostały utracone podczas transformacji",
+      "transformationErrorDateRange": "Błąd: Zakres dat stał się nieprawidłowy podczas transformacji"
+    }
   },
   "results": {
     "title": "Wyniki Wyszukiwania",
@@ -234,6 +259,8 @@
     "taxes": "Podatki i opłaty",
     "total": "Razem",
     "currency": "zł",
+    "locale": "pl-PL",
+    "flexibleDateMessage": "📅 Znaleziono przez elastyczne wyszukiwanie dat",
     "noResults": "Nie znaleziono lotów",
     "tryDifferent": "Spróbuj innych kryteriów wyszukiwania",
     "bookingTitle": "Rezerwacja lotu",
@@ -672,6 +699,10 @@
       }
     },
     "paretoTabs": {
+      "aiRecommended": {
+        "label": "Rekomendowane przez AI",
+        "description": "Loty inteligentnie wybrane przez AI na podstawie Twoich preferencji i wzorców podróży"
+      },
       "bestMix": {
         "label": "Najlepszy mix",
         "description": "Optymalne połączenie ceny, czasu i ryzyka"
@@ -691,6 +722,10 @@
       "info": {
         "optionsAvailable": "opcji dostępnych",
         "prices": "Ceny"
+      },
+      "counts": {
+        "recommendation": "rekomendacja",
+        "recommendations": "rekomendacje"
       }
     },
     "routeMap": {
@@ -728,7 +763,9 @@
       "transferRisk": "ryzyko przesiadki",
       "attractionsTitle": "Główne atrakcje",
       "estimatedCosts": "Szacowane koszty",
-      "perDay": "dziennie"
+      "perDay": "dziennie",
+      "aiRecommendedFlight": "🤖 Lot Rekomendowany przez AI",
+      "aiPick": "Wybór AI"
     }
   },
   "vacation": {

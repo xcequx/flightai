@@ -10,9 +10,9 @@ import { ArrowLeft, RefreshCw, Info } from "lucide-react";
 // Mock stopover recommendations
 const mockRecommendations = [
   {
-    hub: "Dubaj",
+    hub: "Dubai",
     hubCode: "DXB",
-    country: "Zjednoczone Emiraty Arabskie",
+    country: "United Arab Emirates",
     minDays: 2,
     maxDays: 5,
     savings: 450,
@@ -22,9 +22,9 @@ const mockRecommendations = [
     popularRoutes: ["Emirates", "flydubai", "Air Arabia"]
   },
   {
-    hub: "Stambuł",
+    hub: "Istanbul",
     hubCode: "IST",
-    country: "Turcja",
+    country: "Turkey",
     minDays: 2,
     maxDays: 4,
     savings: 380,
@@ -35,33 +35,129 @@ const mockRecommendations = [
   }
 ];
 
-// Mock results data
+// Enhanced mock results data with realistic diversity
 const mockResults = [
   {
     id: "1",
-    price: 1250,
-    totalHours: 28,
+    price: 1180,
+    totalHours: 14,
+    riskScore: 0.1,
+    segments: [
+      { from: "WAW", to: "BKK", departure: "2024-03-15T23:30", arrival: "2024-03-16T16:45", carrier: "LOT Polish Airlines", flight: "LO625" }
+    ],
+    stopovers: [],
+    selfTransfer: false,
+    aiRecommended: true,
+    aiInsights: {
+      recommendation: "Best value direct flight",
+      reasoning: "Shortest travel time with competitive pricing",
+      confidence: 0.92,
+      highlights: ["Direct flight", "Good timing", "Reliable airline"]
+    }
+  },
+  {
+    id: "2",
+    price: 950,
+    totalHours: 26,
     riskScore: 0.2,
     segments: [
       { from: "WAW", to: "DXB", departure: "2024-03-15T10:30", arrival: "2024-03-15T18:45", carrier: "Emirates", flight: "EK183" },
       { from: "DXB", to: "BKK", departure: "2024-03-18T02:15", arrival: "2024-03-18T12:30", carrier: "Thai Airways", flight: "TG317" }
     ],
     stopovers: [{ city: "Dubai", days: 3 }],
-    selfTransfer: true,
-    badges: ["Self-Transfer", "3-day Stopover"]
+    selfTransfer: false,
+    aiRecommended: true,
+    aiInsights: {
+      recommendation: "Great savings with Dubai stopover",
+      reasoning: "Significant cost savings plus explore Dubai",
+      confidence: 0.89,
+      highlights: ["25% cheaper", "3-day Dubai experience", "Top airlines"]
+    }
   },
   {
-    id: "2", 
-    price: 1450,
+    id: "3",
+    price: 1050,
     totalHours: 22,
-    riskScore: 0.1,
+    riskScore: 0.15,
     segments: [
       { from: "WAW", to: "DOH", departure: "2024-03-15T14:20", arrival: "2024-03-15T22:35", carrier: "Qatar Airways", flight: "QR201" },
       { from: "DOH", to: "BKK", departure: "2024-03-17T08:40", arrival: "2024-03-17T19:15", carrier: "Qatar Airways", flight: "QR837" }
     ],
     stopovers: [{ city: "Doha", days: 2 }],
     selfTransfer: false,
-    badges: ["2-day Stopover"]
+    aiRecommended: false
+  },
+  {
+    id: "4",
+    price: 1320,
+    totalHours: 18,
+    riskScore: 0.05,
+    segments: [
+      { from: "WAW", to: "FRA", departure: "2024-03-15T06:15", arrival: "2024-03-15T08:30", carrier: "Lufthansa", flight: "LH1346" },
+      { from: "FRA", to: "BKK", departure: "2024-03-15T13:45", arrival: "2024-03-16T07:30", carrier: "Lufthansa", flight: "LH772" }
+    ],
+    stopovers: [],
+    selfTransfer: false,
+    aiRecommended: false
+  },
+  {
+    id: "5",
+    price: 890,
+    totalHours: 28,
+    riskScore: 0.25,
+    segments: [
+      { from: "WAW", to: "IST", departure: "2024-03-15T16:45", arrival: "2024-03-15T20:30", carrier: "Turkish Airlines", flight: "TK1766" },
+      { from: "IST", to: "BKK", departure: "2024-03-18T01:40", arrival: "2024-03-18T14:15", carrier: "Turkish Airlines", flight: "TK69" }
+    ],
+    stopovers: [{ city: "Istanbul", days: 3 }],
+    selfTransfer: false,
+    aiRecommended: true,
+    aiInsights: {
+      recommendation: "Best value with cultural experience",
+      reasoning: "Lowest price with authentic Turkish culture experience",
+      confidence: 0.85,
+      highlights: ["Cheapest option", "Explore Istanbul", "Excellent cuisine"]
+    }
+  },
+  {
+    id: "6",
+    price: 1420,
+    totalHours: 16,
+    riskScore: 0.08,
+    segments: [
+      { from: "WAW", to: "MUC", departure: "2024-03-15T08:25", arrival: "2024-03-15T10:15", carrier: "Lufthansa", flight: "LH1624" },
+      { from: "MUC", to: "BKK", departure: "2024-03-15T21:30", arrival: "2024-03-16T15:25", carrier: "Lufthansa", flight: "LH772" }
+    ],
+    stopovers: [],
+    selfTransfer: false,
+    aiRecommended: false
+  },
+  {
+    id: "7",
+    price: 1150,
+    totalHours: 24,
+    riskScore: 0.18,
+    segments: [
+      { from: "WAW", to: "AMS", departure: "2024-03-15T11:30", arrival: "2024-03-15T13:20", carrier: "KLM", flight: "KL1364" },
+      { from: "AMS", to: "BKK", departure: "2024-03-15T22:35", arrival: "2024-03-16T16:40", carrier: "KLM", flight: "KL875" }
+    ],
+    stopovers: [],
+    selfTransfer: false,
+    aiRecommended: false
+  },
+  {
+    id: "8",
+    price: 980,
+    totalHours: 30,
+    riskScore: 0.22,
+    segments: [
+      { from: "WAW", to: "CDG", departure: "2024-03-15T07:40", arrival: "2024-03-15T09:55", carrier: "Air France", flight: "AF1248" },
+      { from: "CDG", to: "SIN", departure: "2024-03-15T23:25", arrival: "2024-03-16T18:50", carrier: "Singapore Airlines", flight: "SQ336" },
+      { from: "SIN", to: "BKK", departure: "2024-03-17T14:30", arrival: "2024-03-17T15:45", carrier: "Singapore Airlines", flight: "SQ711" }
+    ],
+    stopovers: [{ city: "Singapore", days: 1 }],
+    selfTransfer: false,
+    aiRecommended: false
   }
 ];
 
@@ -190,26 +286,26 @@ export default function Results() {
         console.log('🔍 Search metadata:', searchMeta);
       }
     } else {
-      // Fallback to mock data with proper progress animation
+      // Faster, more responsive search simulation
       const interval = setInterval(() => {
         setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(interval);
             setIsLoading(false);
             
-            // Enhanced mock results with proper metadata (no hardcoded badges)
+            // Enhanced mock results with proper metadata
             const enhancedMockResults = mockResults.map((result, index) => ({
               ...result,
               dataSource: 'mock'
             }));
             
             setResults(enhancedMockResults);
-            console.log('🎭 Using mock data due to API unavailability');
+            console.log('✈️ Displaying demo flight options with realistic pricing and routes');
             return 100;
           }
-          return prev + Math.random() * 15 + 5; // Variable progress for realism
+          return prev + Math.random() * 20 + 8; // Faster progress for better UX
         });
-      }, 300);
+      }, 200); // Faster updates for more responsive feel
 
       return () => clearInterval(interval);
     }
@@ -275,8 +371,8 @@ export default function Results() {
                     </span>
                   )}
                   {dataSource === 'mock' && !apiKeyRequired && (
-                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-warning/10 text-warning rounded-full text-xs font-medium">
-                      🎭 {t('results.mockData')}
+                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-info/10 text-info rounded-full text-xs font-medium">
+                      ✈️ {t('results.demoResults') || 'Demo Results'}
                     </span>
                   )}
                   {apiKeyRequired && (

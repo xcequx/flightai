@@ -11,11 +11,28 @@ interface SearchProgressProps {
 export function SearchProgress({ progress }: SearchProgressProps) {
   const { t } = useTranslation();
   
+  // Dynamic search steps with more realistic messages
   const searchSteps = [
-    { icon: Search, label: t('results.searchProgress.steps.analyzing'), threshold: 10 },
-    { icon: Plane, label: t('results.searchProgress.steps.searching'), threshold: 30 },
-    { icon: Zap, label: t('results.searchProgress.steps.optimizing'), threshold: 60 },
-    { icon: CheckCircle, label: t('results.searchProgress.steps.finalizing'), threshold: 90 },
+    { 
+      icon: Search, 
+      label: progress < 15 ? t('search.progress.analyzingParams') : t('search.progress.paramsValidated'), 
+      threshold: 15 
+    },
+    { 
+      icon: Plane, 
+      label: progress < 40 ? t('search.progress.searchingAirlines') : t('search.progress.airlinesSearched'), 
+      threshold: 40 
+    },
+    { 
+      icon: Zap, 
+      label: progress < 70 ? t('search.progress.findingRoutes') : t('search.progress.routesOptimized'), 
+      threshold: 70 
+    },
+    { 
+      icon: CheckCircle, 
+      label: progress < 95 ? t('search.progress.comparingPrices') : t('search.progress.searchCompleted'), 
+      threshold: 95 
+    },
   ];
   
   const currentStep = searchSteps.findIndex(step => progress < step.threshold);

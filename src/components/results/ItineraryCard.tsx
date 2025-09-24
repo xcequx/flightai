@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 import { RiskMeter } from "./RiskMeter";
 import { RouteMap } from "./RouteMap";
 import { PriceBreakdown } from "./PriceBreakdown";
@@ -107,6 +108,17 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
   const [showPriceBreakdown, setShowPriceBreakdown] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
+  // Helper function to get locale-aware formatting
+  const getLocale = (): string => {
+    const currentLang = i18n.language || 'en';
+    const localeMap: { [key: string]: string } = {
+      'en': 'en-US',
+      'pl': 'pl-PL',
+      'es': 'es-ES'
+    };
+    return localeMap[currentLang] || 'en-US';
+  };
+
   const handleBooking = () => {
     // Enhanced booking with affiliate tracking and analytics
     const bookingData = {
@@ -144,10 +156,10 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
             <head><title>${t('results.bookingTitle')} - ${result.id}</title></head>
             <body style="font-family: Arial, sans-serif; padding: 20px;">
               <h1>${t('results.bookingTitle')}</h1>
-              <p>${t('results.priceLabel')}: ${result.price} PLN</p>
+              <p>${t('results.priceLabel')}: ${formatPrice(result.price)}</p>
               <p>${t('results.routeLabel')}: ${result.segments.map(s => `${s.from} → ${s.to}`).join(', ')}</p>
-              ${result.aiRecommended ? '<p style="color: #7c3aed; font-weight: bold;">🤖 AI Recommended Flight</p>' : ''}
-              ${result.flexibleDateInfo ? '<p style="color: #059669;">📅 Found through flexible date search</p>' : ''}
+              ${result.aiRecommended ? `<p style="color: #7c3aed; font-weight: bold;">${t('results.itineraryCard.aiRecommendedFlight')}</p>` : ''}
+              ${result.flexibleDateInfo ? `<p style="color: #059669;">${t('results.flexibleDateMessage')}</p>` : ''}
               <p>${t('results.bookingFormText')}</p>
               <pre>${JSON.stringify(bookingData, null, 2)}</pre>
             </body>
@@ -172,10 +184,17 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
 
   const formatDateTime = (dateTime: string) => {
     const date = new Date(dateTime);
+    const locale = t('results.locale', 'en-US'); // Get locale from translation, default to en-US
     return {
-      time: date.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' }),
-      date: date.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit' })
+      time: date.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' }),
+      date: date.toLocaleDateString(locale, { day: '2-digit', month: '2-digit' })
     };
+  };
+
+  const formatPrice = (amount: number) => {
+    const locale = t('results.locale', 'en-US');
+    const currency = t('results.currency', '$');
+    return `${amount.toLocaleString(locale)} ${currency}`;
   };
 
   const getRankBadgeVariant = () => {
@@ -203,7 +222,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
             <div>
               <div className="flex items-center gap-3 mb-1">
                 <div className="text-2xl font-bold text-foreground">
-                  {result.price.toLocaleString('pl-PL')} PLN
+                  {formatPrice(result.price)}
                 </div>
                 {result.stopoverInfo && result.stopoverInfo.savings > 0 && (
                   <div className="flex items-center gap-1 px-2 py-1 bg-success/10 text-success rounded-full">
@@ -216,9 +235,9 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
               </div>
               {result.stopoverInfo && result.stopoverInfo.savings > 0 && (
                 <div className="text-xs text-muted-foreground mb-2">
-                  <span className="line-through">{result.stopoverInfo.directPrice.toLocaleString('pl-PL')} PLN</span>
+                  <span className="line-through">{formatPrice(result.stopoverInfo.directPrice)}</span>
                   <span className="ml-2 text-success font-medium">
-                    {t('results.savingsAmount', { amount: result.stopoverInfo.savings.toLocaleString('pl-PL') })}
+                    {t('results.savingsAmount', { amount: result.stopoverInfo.savings.toLocaleString(getLocale()) })}
                   </span>
                 </div>
               )}
@@ -258,7 +277,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                 <div>
                   <h4 className="font-semibold text-purple-900 dark:text-purple-100 flex items-center gap-1">
                     <Sparkles className="h-4 w-4" />
-                    AI Recommended Flight
+                    {t('results.itineraryCard.aiRecommendedFlight')}
                   </h4>
                   <p className="text-xs text-purple-700 dark:text-purple-300">
                     Confidence: {Math.round(result.aiInsights.confidence * 100)}%
@@ -267,7 +286,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
               </div>
               <Badge variant="secondary" className="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
                 <Target className="h-3 w-3 mr-1" />
-                AI Pick
+                {t('results.itineraryCard.aiPick')}
               </Badge>
             </div>
             
@@ -305,7 +324,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
               {result.flexibleDateInfo.priceImprovement && result.flexibleDateInfo.priceImprovement > 0 && (
                 <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                   <TrendingDown className="h-3 w-3 mr-1" />
-                  -{result.flexibleDateInfo.priceImprovement} PLN
+                  -{formatPrice(result.flexibleDateInfo.priceImprovement)}
                 </Badge>
               )}
             </div>
@@ -437,7 +456,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                   <div className="flex items-center justify-between">
                     <span className="text-muted-foreground">{t('results.totalCostWithStay')}</span>
                     <span className="font-semibold text-foreground">
-                      {Math.round(result.stopoverInfo.totalCostWithStay).toLocaleString('pl-PL')} PLN
+                      {formatPrice(Math.round(result.stopoverInfo.totalCostWithStay))}
                     </span>
                   </div>
                 </div>
@@ -562,8 +581,8 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                 <div key={index} className="border-l-2 border-primary pl-3">
                   <div className="font-medium">{t('results.segment', { number: index + 1 })}</div>
                   <div className="grid grid-cols-2 gap-2 text-muted-foreground">
-                    <div>{t('results.departure')} {new Date(segment.departure).toLocaleString('pl-PL')}</div>
-                    <div>{t('results.arrival')} {new Date(segment.arrival).toLocaleString('pl-PL')}</div>
+                    <div>{t('results.departure')} {new Date(segment.departure).toLocaleString(getLocale())}</div>
+                    <div>{t('results.arrival')} {new Date(segment.arrival).toLocaleString(getLocale())}</div>
                     <div>{t('results.airline')} {segment.carrier}</div>
                     <div>{t('results.flightNumber')} {segment.flight}</div>
                     {segment.duration && <div>{t('results.flightDuration')} {segment.duration}</div>}
@@ -576,7 +595,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                   <div className="text-xs text-muted-foreground">
                     {t('results.flightId')} {result.rawData.id}<br/>
                     {t('results.dataSource')} Amadeus API<br/>
-                    {t('results.lastUpdate')} {new Date().toLocaleString('pl-PL')}
+                    {t('results.lastUpdate')} {new Date().toLocaleString(getLocale())}
                   </div>
                 </div>
               )}

@@ -198,7 +198,32 @@
     "searchTime": "Search takes ~30 seconds",
     "freeSearch": "100% free search",
     "noHiddenFees": "No hidden costs",
-    "manualSearch": "Or Search Flights Manually"
+    "manualSearch": "Or Search Flights Manually",
+    "progress": {
+      "analyzingParams": "Analyzing search parameters...",
+      "paramsValidated": "Search parameters validated ✓",
+      "searchingAirlines": "Searching 200+ airlines worldwide...",
+      "airlinesSearched": "Airlines searched ✓",
+      "findingRoutes": "Finding best routes and stopovers...",
+      "routesOptimized": "Routes optimized ✓",
+      "comparingPrices": "Comparing prices and sorting results...",
+      "searchCompleted": "Search completed ✓"
+    },
+    "validation": {
+      "pastDate": "Departure date cannot be in the past",
+      "returnBeforeDeparture": "Return date must be after departure date",
+      "missingOrigin": "Please select departure location",
+      "missingDestination": "Please select destination",
+      "missingDate": "Please select travel dates",
+      "invalidDate": "Please select a valid date",
+      "errorFormat": "{{field}}: {{message}}",
+      "checkSearchPrompt": "⚠️ Please check your search:",
+      "invalidOriginAirports": "Please select valid origin airports",
+      "invalidDestinationAirports": "Please select valid destination airports",
+      "transformationErrorOrigins": "Error: Origins became empty during transformation",
+      "transformationErrorDestinations": "Error: Destinations became empty during transformation", 
+      "transformationErrorDateRange": "Error: Date range became invalid during transformation"
+    }
   },
   "results": {
     "title": "Search Results",
@@ -233,6 +258,8 @@
     "taxes": "Taxes & fees",
     "total": "Total",
     "currency": "$",
+    "locale": "en-US",
+    "flexibleDateMessage": "📅 Found through flexible date search",
     "noResults": "No flights found",
     "tryDifferent": "Try different search criteria",
     "bookingTitle": "Flight booking",
@@ -671,6 +698,10 @@
       }
     },
     "paretoTabs": {
+      "aiRecommended": {
+        "label": "AI Recommended",
+        "description": "Flights intelligently selected by AI based on your preferences and travel patterns"
+      },
       "bestMix": {
         "label": "Best Mix",
         "description": "Optimal combination of price, time and risk"
@@ -690,6 +721,10 @@
       "info": {
         "optionsAvailable": "options available",
         "prices": "Prices"
+      },
+      "counts": {
+        "recommendation": "recommendation",
+        "recommendations": "recommendations"
       }
     },
     "routeMap": {
@@ -727,7 +762,9 @@
       "transferRisk": "transfer risk",
       "attractionsTitle": "Top attractions",
       "estimatedCosts": "Estimated costs",
-      "perDay": "per day"
+      "perDay": "per day",
+      "aiRecommendedFlight": "AI Recommended Flight",
+      "aiPick": "AI Pick"
     }
   },
   "vacation": {

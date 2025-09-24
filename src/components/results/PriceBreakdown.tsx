@@ -89,7 +89,7 @@ export function PriceBreakdown({ price, segments, selfTransfer }: PriceBreakdown
                 </div>
               </div>
               <div className={`text-sm font-medium ${isRisk ? 'text-warning' : 'text-foreground'}`}>
-                {item.amount.toLocaleString('pl-PL')} PLN
+                {item.amount.toLocaleString()} {t('results.currency')}
               </div>
             </div>
           );
@@ -100,7 +100,7 @@ export function PriceBreakdown({ price, segments, selfTransfer }: PriceBreakdown
         <div className="flex items-center justify-between pt-1">
           <div className="text-sm font-semibold">{t('results.priceBreakdown.total')}</div>
           <div className="text-lg font-bold text-primary">
-            {total.toLocaleString('pl-PL')} PLN
+            {total.toLocaleString()} {t('results.currency')}
           </div>
         </div>
 
