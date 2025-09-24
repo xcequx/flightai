@@ -5,6 +5,7 @@ import path from 'path';
 import { createServer as createViteServer } from 'vite';
 import { ensureSchema } from './db.js';
 import flightRoutes from './routes/flights.js';
+import hotelRoutes from './routes/hotels.js';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ async function createServer() {
 
   // API routes first - before Vite middleware
   app.use('/api/flights', flightRoutes);
+  app.use('/api/hotels', hotelRoutes);
   
   // Import and use vacation routes
   const vacationRoutes = await import('./routes/vacation.js');

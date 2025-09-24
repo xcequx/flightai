@@ -60,7 +60,67 @@ export const vacationPlans = pgTable("vacation_plans", {
   updatedAt: timestamp("updated_at").defaultNow()
 });
 
-// Zod validation schemas for flight search API
+// Enhanced flight searches table with new fields
+export const enhancedFlightSearches = pgTable("enhanced_flight_searches", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  origins: text("origins"), // JSON string of origin codes
+  destinations: text("destinations"), // JSON string of destination codes  
+  departureDate: varchar("departure_date", { length: 50 }),
+  returnDate: varchar("return_date", { length: 50 }),
+  departureFlex: integer("departure_flex").default(0),
+  returnFlex: integer("return_flex").default(0),
+  travelClass: varchar("travel_class", { length: 20 }).default("ECONOMY"), // ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST
+  adults: integer("adults").default(1),
+  children: integer("children").default(0),
+  infants: integer("infants").default(0),
+  maxResults: integer("max_results").default(50),
+  nonStop: boolean("non_stop").default(false),
+  autoRecommendStopovers: boolean("auto_recommend_stopovers").default(false),
+  includeNeighboringCountries: boolean("include_neighboring_countries").default(false),
+  affiliateProvider: varchar("affiliate_provider", { length: 50 }),
+  searchTimestamp: timestamp("search_timestamp").defaultNow(),
+  resultCount: integer("result_count").default(0),
+  apiSource: varchar("api_source", { length: 20 }).default("amadeus") // amadeus, aviationstack
+});
+
+// Hotel searches table
+export const hotelSearches = pgTable("hotel_searches", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  cityCode: varchar("city_code", { length: 3 }),
+  checkInDate: varchar("check_in_date", { length: 50 }),
+  checkOutDate: varchar("check_out_date", { length: 50 }),
+  adults: integer("adults").default(1),
+  children: integer("children").default(0),
+  rooms: integer("rooms").default(1),
+  priceRange: varchar("price_range", { length: 20 }).default("mid-range"), // budget, mid-range, luxury
+  amenities: text("amenities"), // JSON array of required amenities
+  chainCodes: text("chain_codes"), // JSON array of preferred hotel chains
+  ratings: text("ratings"), // JSON array of accepted star ratings
+  currency: varchar("currency", { length: 3 }).default("PLN"),
+  affiliateProvider: varchar("affiliate_provider", { length: 50 }),
+  searchTimestamp: timestamp("search_timestamp").defaultNow(),
+  resultCount: integer("result_count").default(0)
+});
+
+// Affiliate tracking table
+export const affiliateClicks = pgTable("affiliate_clicks", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").references(() => users.id),
+  searchId: varchar("search_id", { length: 100 }), // Can reference flight or hotel search
+  searchType: varchar("search_type", { length: 20 }), // flight, hotel
+  provider: varchar("provider", { length: 50 }), // amadeus, booking, expedia, etc.
+  affiliateUrl: text("affiliate_url"),
+  originalPrice: decimal("original_price", { precision: 10, scale: 2 }),
+  currency: varchar("currency", { length: 3 }),
+  commission: decimal("commission", { precision: 8, scale: 2 }),
+  clickTimestamp: timestamp("click_timestamp").defaultNow(),
+  conversionTracked: boolean("conversion_tracked").default(false),
+  conversionValue: decimal("conversion_value", { precision: 10, scale: 2 })
+});
+
+// Enhanced Zod validation schemas for flight search API
 export const flightSearchSchema = z.object({
   origins: z.array(z.string().min(2).max(3))
     .min(1, "At least one origin is required")
@@ -72,13 +132,37 @@ export const flightSearchSchema = z.object({
     from: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
     to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format").optional()
   }),
-  departureFlex: z.number().int().min(0).max(30),
-  returnFlex: z.number().int().min(0).max(30),
-  autoRecommendStopovers: z.boolean(),
-  includeNeighboringCountries: z.boolean()
+  departureFlex: z.number().int().min(0).max(30).default(3),
+  returnFlex: z.number().int().min(0).max(30).default(3),
+  travelClass: z.enum(["ECONOMY", "PREMIUM_ECONOMY", "BUSINESS", "FIRST"]).default("ECONOMY"),
+  adults: z.number().int().min(1).max(9).default(1),
+  children: z.number().int().min(0).max(8).default(0),
+  infants: z.number().int().min(0).max(8).default(0),
+  maxResults: z.number().int().min(1).max(250).default(50),
+  nonStop: z.boolean().default(false),
+  autoRecommendStopovers: z.boolean().default(false),
+  includeNeighboringCountries: z.boolean().default(false),
+  affiliateProvider: z.string().optional()
+});
+
+// Hotel search schema
+export const hotelSearchSchema = z.object({
+  cityCode: z.string().min(3).max(3),
+  checkInDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
+  checkOutDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
+  adults: z.number().int().min(1).max(9).default(1),
+  children: z.number().int().min(0).max(8).default(0),
+  rooms: z.number().int().min(1).max(8).default(1),
+  priceRange: z.enum(["budget", "mid-range", "luxury"]).default("mid-range"),
+  amenities: z.array(z.string()).default([]),
+  chainCodes: z.array(z.string()).default([]),
+  ratings: z.array(z.number().int().min(1).max(5)).default([]),
+  currency: z.string().length(3).default("PLN"),
+  affiliateProvider: z.string().optional()
 });
 
 export type FlightSearchRequest = z.infer<typeof flightSearchSchema>;
+export type HotelSearchRequest = z.infer<typeof hotelSearchSchema>;
 
 // Zod validation schemas for vacation planning API
 export const vacationPlanRequestSchema = z.object({
