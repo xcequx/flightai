@@ -98,9 +98,8 @@ const Index = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg font-semibold backdrop-blur-sm"
+                  size="lg"
+                  className="bg-white text-primary hover:bg-gray-100 border-2 border-white px-8 py-4 text-lg font-semibold shadow-lg"
                   onClick={() => navigate('/plan-vacation')}
                   data-testid="button-hero-ai-planner"
                 >
@@ -133,24 +132,24 @@ const Index = () => {
       </section>
       
       {/* Statistics Bar */}
-      <section className="bg-white dark:bg-card border-b shadow-sm">
-        <div className="container mx-auto px-4 py-8">
+      <section className="bg-gradient-to-r from-white to-gray-50 dark:from-card dark:to-background border-b shadow-sm">
+        <div className="container mx-auto px-4 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div data-testid="stat-searches">
-              <div className="text-2xl md:text-3xl font-bold text-primary mb-1">2M+</div>
-              <div className="text-sm text-muted-foreground">{t('common.searches') || 'Monthly Searches'}</div>
+            <div className="p-4 rounded-lg bg-white/80 dark:bg-card/80 shadow-sm hover:shadow-md transition-shadow" data-testid="stat-searches">
+              <div className="text-2xl md:text-3xl font-bold text-primary mb-2">2M+</div>
+              <div className="text-sm font-medium text-foreground dark:text-muted-foreground">{t('common.searches') || 'Monthly Searches'}</div>
             </div>
-            <div data-testid="stat-savings">
-              <div className="text-2xl md:text-3xl font-bold text-success mb-1">1,200 zł</div>
-              <div className="text-sm text-muted-foreground">{t('common.avgSavings') || 'Average Savings'}</div>
+            <div className="p-4 rounded-lg bg-white/80 dark:bg-card/80 shadow-sm hover:shadow-md transition-shadow" data-testid="stat-savings">
+              <div className="text-2xl md:text-3xl font-bold text-success mb-2">1,200 zł</div>
+              <div className="text-sm font-medium text-foreground dark:text-muted-foreground">{t('common.avgSavings') || 'Average Savings'}</div>
             </div>
-            <div data-testid="stat-countries">
-              <div className="text-2xl md:text-3xl font-bold text-accent mb-1">200+</div>
-              <div className="text-sm text-muted-foreground">{t('common.countriesCovered') || 'Countries Covered'}</div>
+            <div className="p-4 rounded-lg bg-white/80 dark:bg-card/80 shadow-sm hover:shadow-md transition-shadow" data-testid="stat-countries">
+              <div className="text-2xl md:text-3xl font-bold text-accent mb-2">200+</div>
+              <div className="text-sm font-medium text-foreground dark:text-muted-foreground">{t('common.countriesCovered') || 'Countries Covered'}</div>
             </div>
-            <div data-testid="stat-satisfaction">
-              <div className="text-2xl md:text-3xl font-bold text-warning mb-1">4.9/5</div>
-              <div className="text-sm text-muted-foreground">{t('common.customerRating') || 'Customer Rating'}</div>
+            <div className="p-4 rounded-lg bg-white/80 dark:bg-card/80 shadow-sm hover:shadow-md transition-shadow" data-testid="stat-satisfaction">
+              <div className="text-2xl md:text-3xl font-bold text-warning mb-2">4.9/5</div>
+              <div className="text-sm font-medium text-foreground dark:text-muted-foreground">{t('common.customerRating') || 'Customer Rating'}</div>
             </div>
           </div>
         </div>
