@@ -66,6 +66,8 @@
   },
   "search": {
     "title": "Zaawansowane Wyszukiwanie Lotów",
+    "idealFlights": "Idealnych Lotów",
+    "description": "Zaawansowane algorytmy AI przeszukują miliony kombinacji lotów, aby znaleźć najlepsze opcje podróży z przesiadkami, które pozwolą Ci odkryć nowe miejsca i zaoszczędzić pieniądze.",
     "departure": "Skąd",
     "destination": "Dokąd",
     "departureDate": "Data wylotu",
@@ -348,7 +350,11 @@
     "selectRegion": "Wybierz region...",
     "defaultCity": "Warszawa",
     "selectTravelStyle": "Wybierz styl podróżowania...",
-    "sampleData": "Przykładowe dane"
+    "sampleData": "Przykładowe dane",
+    "searches": "Wyszukiwań miesięcznie",
+    "avgSavings": "Średnia oszczędność",
+    "countriesCovered": "Krajów objętych",
+    "customerRating": "Ocena klientów"
   },
   "errors": {
     "required": "To pole jest wymagane",
