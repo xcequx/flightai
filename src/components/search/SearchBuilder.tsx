@@ -209,6 +209,8 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     setLocalLoading(true);
     setShowProgressModal(true);
     
+    console.log('🔍 MODAL DEBUG: Modal should show now - isOpen:', true, 'searchId:', newSearchId);
+    
     try {
       // Transform params to API-compatible format (only send fields that backend expects)
       console.log('🔄 Transforming params to API format...');
@@ -621,5 +623,5 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         searchId={searchId || ''}
       />
     </form>
-  );}
+  );
 }

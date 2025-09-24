@@ -41,6 +41,12 @@ export function SearchProgressModal({
   searchId 
 }: SearchProgressModalProps) {
   const { t } = useTranslation();
+  
+  // DEBUG: Log when modal should be visible
+  if (isOpen) {
+    console.log('🔍 MODAL: Should be visible with searchId:', searchId);
+  }
+  
   const [progress, setProgress] = useState<ProgressEvent | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
