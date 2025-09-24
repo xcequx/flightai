@@ -64,6 +64,42 @@
       "securityDesc": "Szyfrowanie klasy bankowej",
       "insurance": "Ubezpieczenie Podróży",
       "insuranceDesc": "Pełna ochrona Twojej podróży"
+    },
+    "ai": {
+      "title": "Sztuczna Inteligencja AI",
+      "subtitle": "Najinteligentniejsze algorytmy w branży",
+      "description": "Nasze algorytmy AI analizują miliony kombinacji lotów w czasie rzeczywistym, uwzględniając ceny, czas podróży, wygodę i możliwości zwiedzania podczas przesiadek.",
+      "benefits": [
+        "Analiza 50M+ opcji lotów dziennie",
+        "Uczenie maszynowe z preferencji użytkowników",
+        "Predykcja cen i rekomendacje terminów"
+      ]
+    },
+    "intelligentStopovers": {
+      "title": "Inteligentne Przesiadki",
+      "subtitle": "Odkrywaj nowe miasta podczas podróży",
+      "description": "Znajdź loty z długimi przesiadkami w fascynujących miastach. Zamiast czekać na lotnisku, zwiedzaj nowe miejsca i płać mniej za bilety.",
+      "benefits": [
+        "Przesiadki 6-72 godziny w 500+ miastach",
+        "Rekomendacje atrakcji i hoteli na przesiadki",
+        "Oszczędności do 60% na kosztach podróży"
+      ]
+    },
+    "globalCoverage": {
+      "title": "Globalne Pokrycie",
+      "description": "200+ krajów, 5000+ lotnisk, współpraca z 800+ liniami lotniczymi na całym świecie"
+    },
+    "personalization": {
+      "title": "Personalizacja",
+      "description": "AI dostosowuje się do Twoich preferencji, pamiętając ulubione linie i destynacje"
+    },
+    "security": {
+      "title": "Bezpieczeństwo",
+      "description": "Szyfrowane połączenia, bezpieczne płatności i ochrona danych osobowych"
+    },
+    "support247": {
+      "title": "24/7 Wsparcie",
+      "description": "Całodobowe wsparcie klienta w języku polskim przez ekspertów podróżniczych"
     }
   },
   "search": {
@@ -314,6 +350,32 @@
   "meta": {
     "title": "FlightAI - Najinteligentniejsza Platforma Wyszukiwania Lotów",
     "description": "Pierwszy na świecie wyszukiwacz lotów oparty na sztucznej inteligencji. Znajdź najtańsze opcje podróży z wielodniowymi przesiadkami i zaoszczędź nawet do 60% kosztów lotów."
+  },
+  "testimonials": {
+    "title": "Opinie Klientów",
+    "subtitle": "Ponad 500,000 Zadowolonych Podróżników",
+    "description": "Dołącz do tysięcy klientów, którzy już oszczędzili miliony złotych na podróżach",
+    "testimonial1": {
+      "text": "Zaoszczędziłam 1,400 zł na locie do Tokio! 2 dni w Helsinkach podczas przesiadki były niesamowite.",
+      "author": "Anna Kowalska",
+      "location": "Warszawa"
+    },
+    "testimonial2": {
+      "text": "Niesamowite! Lot do Bali z 20-godzinną przesiadką w Dubaju. Zwiedziliśmy miasto i zapłaciliśmy 800 zł mniej.",
+      "author": "Marcin Wiśniewski",
+      "location": "Kraków"
+    },
+    "testimonial3": {
+      "text": "Najlepsze odkrycie podróżnicze! Wielodniowe przesiadki w 3 miastach podczas jednej podróży do Azji. Zaoszczędziłem ponad 1,600 zł!",
+      "author": "Piotr Nowak",
+      "location": "Gdańsk"
+    }
+  },
+  "stats": {
+    "monthlySearches": "2M+",
+    "avgSavings": "1,200 zł",
+    "countries": "200+",
+    "rating": "4.9/5"
   },
   "common": {
     "loading": "Ładowanie...",

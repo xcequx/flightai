@@ -140,7 +140,7 @@ const Index = () => {
               <div className="text-sm font-medium text-foreground dark:text-muted-foreground">{t('common.searches') || 'Monthly Searches'}</div>
             </div>
             <div className="p-4 rounded-lg bg-white/80 dark:bg-card/80 shadow-sm hover:shadow-md transition-shadow" data-testid="stat-savings">
-              <div className="text-2xl md:text-3xl font-bold text-success mb-2">1,200 zł</div>
+              <div className="text-2xl md:text-3xl font-bold text-success mb-2">{t('stats.avgSavings')}</div>
               <div className="text-sm font-medium text-foreground dark:text-muted-foreground">{t('common.avgSavings') || 'Average Savings'}</div>
             </div>
             <div className="p-4 rounded-lg bg-white/80 dark:bg-card/80 shadow-sm hover:shadow-md transition-shadow" data-testid="stat-countries">
@@ -231,30 +231,29 @@ const Index = () => {
                       <Zap className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl mb-2">Sztuczna Inteligencja AI</CardTitle>
+                      <CardTitle className="text-2xl mb-2">{t('features.ai.title')}</CardTitle>
                       <CardDescription className="text-base">
-                        Najinteligentniejsze algorytmy w branży
+                        {t('features.ai.subtitle')}
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    Nasze algorytmy AI analizują miliony kombinacji lotów w czasie rzeczywistym, 
-                    uwzględniając ceny, czas podróży, wygodę i możliwości zwiedzania podczas przesiadek.
+                    {t('features.ai.description')}
                   </p>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-success" />
-                      <span className="text-sm">Analiza 50M+ opcji lotów dziennie</span>
+                      <span className="text-sm">{t('features.ai.benefits.0')}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-success" />
-                      <span className="text-sm">Uczenie maszynowe z preferencji użytkowników</span>
+                      <span className="text-sm">{t('features.ai.benefits.1')}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-success" />
-                      <span className="text-sm">Predykcja cen i rekomendacje terminów</span>
+                      <span className="text-sm">{t('features.ai.benefits.2')}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -268,30 +267,29 @@ const Index = () => {
                       <MapPin className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl mb-2">Inteligentne Przesiadki</CardTitle>
+                      <CardTitle className="text-2xl mb-2">{t('features.intelligentStopovers.title')}</CardTitle>
                       <CardDescription className="text-base">
-                        Odkrywaj nowe miasta podczas podróży
+                        {t('features.intelligentStopovers.subtitle')}
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    Znajdź loty z długimi przesiadkami w fascynujących miastach. 
-                    Zamiast czekać na lotnisku, zwiedzaj nowe miejsca i płać mniej za bilety.
+                    {t('features.intelligentStopovers.description')}
                   </p>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-success" />
-                      <span className="text-sm">Przesiadki 6-72 godziny w 500+ miastach</span>
+                      <span className="text-sm">{t('features.intelligentStopovers.benefits.0')}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-success" />
-                      <span className="text-sm">Rekomendacje atrakcji i hoteli na przesiadki</span>
+                      <span className="text-sm">{t('features.intelligentStopovers.benefits.1')}</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <CheckCircle className="h-5 w-5 text-success" />
-                      <span className="text-sm">Oszczędności do 60% na kosztach podróży</span>
+                      <span className="text-sm">{t('features.intelligentStopovers.benefits.2')}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -305,9 +303,9 @@ const Index = () => {
                   <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Globe className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold mb-3">Globalne Pokrycie</h3>
+                  <h3 className="text-lg font-bold mb-3">{t('features.globalCoverage.title')}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    200+ krajów, 5000+ lotnisk, współpraca z 800+ liniami lotniczymi na całym świecie
+                    {t('features.globalCoverage.description')}
                   </p>
                 </CardContent>
               </Card>
@@ -317,9 +315,9 @@ const Index = () => {
                   <div className="bg-gradient-to-r from-purple-500 to-pink-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Heart className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold mb-3">Personalizacja</h3>
+                  <h3 className="text-lg font-bold mb-3">{t('features.personalization.title')}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    AI dostosowuje się do Twoich preferencji, pamiętając ulubione linie i destynacje
+                    {t('features.personalization.description')}
                   </p>
                 </CardContent>
               </Card>
@@ -329,9 +327,9 @@ const Index = () => {
                   <div className="bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Shield className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold mb-3">Bezpieczeństwo</h3>
+                  <h3 className="text-lg font-bold mb-3">{t('features.security.title')}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Szyfrowane połączenia, bezpieczne płatności i ochrona danych osobowych
+                    {t('features.security.description')}
                   </p>
                 </CardContent>
               </Card>
@@ -341,9 +339,9 @@ const Index = () => {
                   <div className="bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Clock className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-lg font-bold mb-3">24/7 Wsparcie</h3>
+                  <h3 className="text-lg font-bold mb-3">{t('features.support247.title')}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    Całodobowe wsparcie klienta w języku polskim przez ekspertów podróżniczych
+                    {t('features.support247.description')}
                   </p>
                 </CardContent>
               </Card>
@@ -359,13 +357,13 @@ const Index = () => {
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 bg-success/10 rounded-full px-6 py-2 mb-6">
                 <Star className="h-5 w-5 text-success" />
-                <span className="text-success font-medium">Opinie Klientów</span>
+                <span className="text-success font-medium">{t('testimonials.title')}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Ponad <span className="text-success">500,000</span> Zadowolonych Podróżników
+                {t('testimonials.subtitle')}
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Dołącz do tysięcy klientów, którzy już oszczędzili miliony złotych na podróżach
+                {t('testimonials.description')}
               </p>
             </div>
             
@@ -375,15 +373,15 @@ const Index = () => {
                 <CardContent className="pt-6">
                   <Quote className="h-8 w-8 text-primary/30 mb-4" />
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    "Zaoszczędziłam 1,400 zł na locie do Tokio! 2 dni w Helsinkach podczas przesiadki były niesamowite."
+                    "{t('testimonials.testimonial1.text')}"
                   </p>
                   <div className="flex items-center gap-3">
                     <Avatar>
                       <AvatarFallback className="bg-primary text-primary-foreground">AK</AvatarFallback>
                     </Avatar>
                     <div>
-                      <div className="font-semibold text-sm">Anna Kowalska</div>
-                      <div className="text-muted-foreground text-xs">Warszawa</div>
+                      <div className="font-semibold text-sm">{t('testimonials.testimonial1.author')}</div>
+                      <div className="text-muted-foreground text-xs">{t('testimonials.testimonial1.location')}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-1 mt-3">
@@ -399,15 +397,15 @@ const Index = () => {
                 <CardContent className="pt-6">
                   <Quote className="h-8 w-8 text-primary/30 mb-4" />
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    "Niesamowite! Lot do Bali z 20-godzinną przesiadką w Dubaju. Zwiedziliśmy miasto i zapłaciliśmy 800 zł mniej."
+                    "{t('testimonials.testimonial2.text')}"
                   </p>
                   <div className="flex items-center gap-3">
                     <Avatar>
                       <AvatarFallback className="bg-accent text-accent-foreground">MW</AvatarFallback>
                     </Avatar>
                     <div>
-                      <div className="font-semibold text-sm">Marcin Wiśniewski</div>
-                      <div className="text-muted-foreground text-xs">Kraków</div>
+                      <div className="font-semibold text-sm">{t('testimonials.testimonial2.author')}</div>
+                      <div className="text-muted-foreground text-xs">{t('testimonials.testimonial2.location')}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-1 mt-3">
@@ -423,15 +421,15 @@ const Index = () => {
                 <CardContent className="pt-6">
                   <Quote className="h-8 w-8 text-primary/30 mb-4" />
                   <p className="text-muted-foreground mb-6 leading-relaxed">
-                    "FlightAI to rewolucja! Plan podróży po 3 krajach w cenie zwykłego lotu. Polecam wszystkim!"
+                    "{t('testimonials.testimonial3.text')}"
                   </p>
                   <div className="flex items-center gap-3">
                     <Avatar>
-                      <AvatarFallback className="bg-success text-success-foreground">KN</AvatarFallback>
+                      <AvatarFallback className="bg-success text-success-foreground">PN</AvatarFallback>
                     </Avatar>
                     <div>
-                      <div className="font-semibold text-sm">Katarzyna Nowak</div>
-                      <div className="text-muted-foreground text-xs">Gdańsk</div>
+                      <div className="font-semibold text-sm">{t('testimonials.testimonial3.author')}</div>
+                      <div className="text-muted-foreground text-xs">{t('testimonials.testimonial3.location')}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-1 mt-3">

@@ -64,10 +64,47 @@
       "securityDesc": "Bank-grade encryption",
       "insurance": "Travel Insurance",
       "insuranceDesc": "Full protection for your trip"
+    },
+    "ai": {
+      "title": "Artificial Intelligence AI",
+      "subtitle": "Most intelligent algorithms in the industry",
+      "description": "Our AI algorithms analyze millions of flight combinations in real-time, considering prices, travel time, comfort and sightseeing opportunities during stopovers.",
+      "benefits": [
+        "Analysis of 50M+ flight options daily",
+        "Machine learning from user preferences",
+        "Price prediction and timing recommendations"
+      ]
+    },
+    "intelligentStopovers": {
+      "title": "Intelligent Stopovers",
+      "subtitle": "Discover new cities during travel",
+      "description": "Find flights with long stopovers in fascinating cities. Instead of waiting at the airport, explore new places and pay less for tickets.",
+      "benefits": [
+        "Stopovers 6-72 hours in 500+ cities",
+        "Recommendations for attractions and hotels for stopovers",
+        "Savings up to 60% on travel costs"
+      ]
+    },
+    "globalCoverage": {
+      "title": "Global Coverage",
+      "description": "200+ countries, 5000+ airports, cooperation with 800+ airlines worldwide"
+    },
+    "personalization": {
+      "title": "Personalization",
+      "description": "AI adapts to your preferences, remembering favorite airlines and destinations"
+    },
+    "security": {
+      "title": "Security",
+      "description": "Encrypted connections, secure payments and personal data protection"
+    },
+    "support247": {
+      "title": "24/7 Support",
+      "description": "Round-the-clock customer support in English by travel experts"
     }
   },
   "search": {
     "title": "Advanced Flight Search",
+    "idealFlights": "Perfect Flights",
     "departure": "From",
     "destination": "To",
     "departureDate": "Departure date",
@@ -312,6 +349,32 @@
   "meta": {
     "title": "FlightAI - The World's Smartest Flight Search Platform",
     "description": "The world's first AI-powered flight searcher. Find the cheapest travel options with multi-day stopovers and save up to 60% on flight costs."
+  },
+  "testimonials": {
+    "title": "Customer Reviews",
+    "subtitle": "Over 500,000 Happy Travelers",
+    "description": "Join thousands of customers who have already saved millions on travel",
+    "testimonial1": {
+      "text": "I saved $350 on a flight to Tokyo! 2 days in Helsinki during the stopover were amazing.",
+      "author": "Anna Smith",
+      "location": "New York"
+    },
+    "testimonial2": {
+      "text": "Incredible! Flight to Bali with a 20-hour stopover in Dubai. We explored the city and paid $200 less.",
+      "author": "Michael Johnson",
+      "location": "Chicago"
+    },
+    "testimonial3": {
+      "text": "The best travel discovery! Multi-day stopovers in 3 cities during one trip to Asia. Saved over $400!",
+      "author": "Sarah Williams",
+      "location": "Los Angeles"
+    }
+  },
+  "stats": {
+    "monthlySearches": "2M+",
+    "avgSavings": "$300",
+    "countries": "200+",
+    "rating": "4.9/5"
   },
   "common": {
     "loading": "Loading...",
