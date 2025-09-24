@@ -594,23 +594,45 @@ router.post('/search', async (req, res) => {
   try {
     console.log('🔍 Flight search request received');
     
+    // 🔍 DEBUGGING: Log the exact request body received
+    console.log('📥 Raw req.body received:', JSON.stringify(req.body, null, 2));
+    console.log('📋 Request body field analysis:');
+    Object.keys(req.body || {}).forEach(key => {
+      console.log(`  ${key}:`, req.body[key], '(type:', typeof req.body[key], ')');
+    });
+    
     // Validate request body with Zod
+    console.log('🔍 Starting Zod validation with flightSearchSchema...');
     const validation = flightSearchSchema.safeParse(req.body);
     
     if (!validation.success) {
+      console.error('❌ ZOD VALIDATION FAILED!');
+      console.error('📋 Zod validation errors:', JSON.stringify(validation.error.errors, null, 2));
+      console.error('🚨 Detailed error breakdown:');
+      validation.error.errors.forEach((err, index) => {
+        console.error(`  ${index + 1}. Path: [${err.path.join('.')}] - ${err.message} (code: ${err.code})`);
+        if ('expected' in err && err.expected !== undefined) console.error(`      Expected: ${err.expected}`);
+        if ('received' in err && err.received !== undefined) console.error(`      Received: ${err.received}`);
+      });
+      
+      const errorDetails = validation.error.errors.map(err => ({
+        field: err.path.join('.'),
+        message: err.message,
+        code: err.code
+      }));
+      
+      console.error('📤 Sending validation error response:', errorDetails);
       return res.status(400).json({
         success: false,
         error: 'Validation failed',
-        details: validation.error.errors.map(err => ({
-          field: err.path.join('.'),
-          message: err.message,
-          code: err.code
-        }))
+        details: errorDetails
       });
     }
+    
+    console.log('✅ Zod validation successful!');
 
     const searchParams: FlightSearchRequest = validation.data;
-    console.log('📊 Validated search params:', JSON.stringify(searchParams, null, 2));
+    console.log('✅ Zod validation passed! Validated search params:', JSON.stringify(searchParams, null, 2));
 
     // Enhanced airport expansion logic
     const originAirports = searchParams.origins.flatMap(code => {

@@ -116,41 +116,92 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate required fields before sending
-    if (!params.origins.length) {
+    // 🔍 DEBUGGING: Enhanced validation with detailed logging
+    console.log('🔍 Frontend validation starting...');
+    console.log('  origins:', params.origins, '(length:', params.origins?.length, ')');
+    console.log('  destinations:', params.destinations, '(length:', params.destinations?.length, ')');
+    console.log('  dateRange:', params.dateRange);
+    console.log('  dateRange.from:', params.dateRange?.from);
+    
+    // Validate required fields before sending with enhanced checks
+    if (!params.origins || !Array.isArray(params.origins) || params.origins.length === 0) {
+      console.error('❌ Frontend validation failed: Invalid origins', params.origins);
       alert(t('search.errorOriginRequired') || 'Please select at least one origin airport');
       return;
     }
     
-    if (!params.destinations.length) {
+    if (!params.destinations || !Array.isArray(params.destinations) || params.destinations.length === 0) {
+      console.error('❌ Frontend validation failed: Invalid destinations', params.destinations);
       alert(t('search.errorDestinationRequired') || 'Please select at least one destination airport');
       return;
     }
     
-    if (!params.dateRange?.from) {
+    if (!params.dateRange || !params.dateRange.from) {
+      console.error('❌ Frontend validation failed: Invalid dateRange', params.dateRange);
       alert(t('search.errorDateRequired') || 'Please select travel dates');
       return;
     }
+    
+    // Additional validation for data types and format
+    if (params.origins.some(origin => typeof origin !== 'string' || origin.length < 2)) {
+      console.error('❌ Frontend validation failed: Invalid origin codes', params.origins);
+      alert('Please select valid origin airports');
+      return;
+    }
+    
+    if (params.destinations.some(dest => typeof dest !== 'string' || dest.length < 2)) {
+      console.error('❌ Frontend validation failed: Invalid destination codes', params.destinations);
+      alert('Please select valid destination airports');
+      return;
+    }
+    
+    console.log('✅ Frontend validation passed!');
     
     setLocalLoading(true);
     
     try {
       // Transform params to API-compatible format (only send fields that backend expects)
+      console.log('🔄 Transforming params to API format...');
       const apiParams = transformToAPIFormat(params);
       
-      console.log('🔄 Sending search request with API-compatible params:', {
-        origins: apiParams.origins,
-        destinations: apiParams.destinations,
-        dateRange: apiParams.dateRange,
-        departureFlex: apiParams.departureFlex,
-        returnFlex: apiParams.returnFlex,
-        travelClass: apiParams.travelClass,
-        adults: apiParams.adults,
-        children: apiParams.children,
-        infants: apiParams.infants,
-        maxResults: apiParams.maxResults,
-        nonStop: apiParams.nonStop
-      });
+      // 🔍 DEBUGGING: Validate the transformed data before sending
+      console.log('🔍 Post-transformation validation:');
+      if (!apiParams.origins || apiParams.origins.length === 0) {
+        console.error('❌ Post-transformation error: origins is empty!', apiParams.origins);
+        alert('Error: Origins became empty during transformation');
+        return;
+      }
+      if (!apiParams.destinations || apiParams.destinations.length === 0) {
+        console.error('❌ Post-transformation error: destinations is empty!', apiParams.destinations);
+        alert('Error: Destinations became empty during transformation');
+        return;
+      }
+      if (!apiParams.dateRange || !apiParams.dateRange.from) {
+        console.error('❌ Post-transformation error: dateRange.from is missing!', apiParams.dateRange);
+        alert('Error: Date range became invalid during transformation');
+        return;
+      }
+      console.log('✅ Post-transformation validation passed!');
+      
+      // 🔍 DEBUGGING: Add comprehensive logging to understand exactly what we're sending
+      console.log('🔄 Sending search request with API-compatible params:');
+      console.log('📝 Full apiParams object:', JSON.stringify(apiParams, null, 2));
+      console.log('🗂️ Field-by-field breakdown:');
+      console.log('  📍 origins:', apiParams.origins, '(type:', typeof apiParams.origins, ', length:', apiParams.origins?.length, ')');
+      console.log('  🎯 destinations:', apiParams.destinations, '(type:', typeof apiParams.destinations, ', length:', apiParams.destinations?.length, ')');
+      console.log('  📅 dateRange:', apiParams.dateRange, '(type:', typeof apiParams.dateRange, ')');
+      console.log('    📅 dateRange.from:', apiParams.dateRange?.from, '(type:', typeof apiParams.dateRange?.from, ')');
+      console.log('    📅 dateRange.to:', apiParams.dateRange?.to, '(type:', typeof apiParams.dateRange?.to, ')');
+      console.log('  🕐 departureFlex:', apiParams.departureFlex, '(type:', typeof apiParams.departureFlex, ')');
+      console.log('  🕑 returnFlex:', apiParams.returnFlex, '(type:', typeof apiParams.returnFlex, ')');
+      console.log('  ✈️ travelClass:', apiParams.travelClass, '(type:', typeof apiParams.travelClass, ')');
+      console.log('  👥 adults:', apiParams.adults, '(type:', typeof apiParams.adults, ')');
+      console.log('  👶 children:', apiParams.children, '(type:', typeof apiParams.children, ')');
+      console.log('  🍼 infants:', apiParams.infants, '(type:', typeof apiParams.infants, ')');
+      console.log('  📊 maxResults:', apiParams.maxResults, '(type:', typeof apiParams.maxResults, ')');
+      console.log('  🚫 nonStop:', apiParams.nonStop, '(type:', typeof apiParams.nonStop, ')');
+      console.log('  🎯 autoRecommendStopovers:', apiParams.autoRecommendStopovers, '(type:', typeof apiParams.autoRecommendStopovers, ')');
+      console.log('  🗺️ includeNeighboringCountries:', apiParams.includeNeighboringCountries, '(type:', typeof apiParams.includeNeighboringCountries, ')');
       
       // Call our Express API for flight search using Aviationstack
       const response = await fetch('/api/flights/search', {
@@ -162,6 +213,10 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       });
 
       const data = await response.json();
+      
+      // 🔍 DEBUGGING: Log the response details
+      console.log('📥 Server response status:', response.status);
+      console.log('📥 Server response data:', JSON.stringify(data, null, 2));
 
       // Handle API key missing scenario
       if (data.requiresApiKey) {
@@ -215,11 +270,16 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         
         // Handle validation errors specifically
         if (data.error === 'Validation failed' && data.details && Array.isArray(data.details)) {
-          console.error('📋 Validation errors:', data.details);
+          console.error('❌ VALIDATION FAILED! Server validation errors:', data.details);
+          console.error('📋 Detailed validation breakdown:');
+          data.details.forEach((err, index) => {
+            console.error(`  ${index + 1}. Field "${err.field}": ${err.message} (code: ${err.code})`);
+          });
           
           // Format validation errors for user display
           const formattedErrors = formatValidationErrors(data.details);
           const errorTitle = t('search.errorValidation') || 'Please check your search parameters:';
+          console.error('🚨 Showing user error message:', `${errorTitle}\n\n${formattedErrors}`);
           alert(`${errorTitle}\n\n${formattedErrors}`);
           
           // Don't fall back to mock data for validation errors - user needs to fix their input
