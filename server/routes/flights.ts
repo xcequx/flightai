@@ -3,8 +3,79 @@ import { db } from '../db.js';
 import { enhancedFlightSearches, flightSearchSchema, FlightSearchRequest } from '../../shared/schema.js';
 import amadeus from '../utils/amadeus.js';
 import { generateStopoverRecommendations, analyzeFlexibleDatePricing } from '../utils/openai.js';
+import { Request, Response } from 'express';
 
 const router = Router();
+
+// Store active SSE connections for real-time progress updates
+const progressConnections = new Map<string, Response>();
+
+// Helper function to send progress events to connected clients
+const sendProgressEvent = (searchId: string, progress: {
+  step: string;
+  percentage: number;
+  current: number;
+  total: number;
+  message: string;
+  details?: string;
+}) => {
+  const connection = progressConnections.get(searchId);
+  if (connection && !connection.destroyed) {
+    try {
+      const data = JSON.stringify({
+        type: 'progress',
+        timestamp: new Date().toISOString(),
+        ...progress
+      });
+      connection.write(`data: ${data}\n\n`);
+      console.log(`📡 Progress sent for ${searchId}: ${progress.percentage}% - ${progress.message}`);
+    } catch (error) {
+      console.warn(`⚠️ Failed to send progress for ${searchId}:`, error);
+      progressConnections.delete(searchId);
+    }
+  }
+};
+
+// SSE endpoint for real-time progress updates
+router.get('/progress/:searchId', (req: Request, res: Response) => {
+  const { searchId } = req.params;
+  
+  // Set SSE headers
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Cache-Control'
+  });
+
+  // Store the connection
+  progressConnections.set(searchId, res);
+  console.log(`📡 SSE connection established for search ${searchId}`);
+
+  // Send initial connection confirmation
+  try {
+    const data = JSON.stringify({
+      type: 'connected',
+      timestamp: new Date().toISOString(),
+      message: 'Progress tracking connected'
+    });
+    res.write(`data: ${data}\n\n`);
+  } catch (error) {
+    console.warn(`⚠️ Failed to send initial message for ${searchId}:`, error);
+  }
+
+  // Handle client disconnect
+  req.on('close', () => {
+    console.log(`📡 SSE connection closed for search ${searchId}`);
+    progressConnections.delete(searchId);
+  });
+
+  req.on('error', (error) => {
+    console.warn(`⚠️ SSE connection error for ${searchId}:`, error);
+    progressConnections.delete(searchId);
+  });
+});
 
 // Helper function to convert ISO date strings or Date objects to YYYY-MM-DD format
 const formatDateForAPI = (dateInput: string | Date): string => {
@@ -657,6 +728,16 @@ router.post('/search', async (req, res) => {
     const searchId = searchParams.searchId || `search_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     console.log(`🆔 Generated searchId: ${searchId}`);
 
+    // Send initial progress event
+    sendProgressEvent(searchId, {
+      step: 'initialization',
+      percentage: 5,
+      current: 1,
+      total: 100,
+      message: 'Starting flight search...',
+      details: 'Validating search parameters and expanding airport options'
+    });
+
     // Enhanced airport expansion logic
     const originAirports = searchParams.origins.flatMap(code => {
       const airports = getAirportCodes(code);
@@ -666,6 +747,16 @@ router.post('/search', async (req, res) => {
       }
       return airports;
     }).slice(0, 10); // Limit to 10 airports
+
+    // Send airport expansion progress
+    sendProgressEvent(searchId, {
+      step: 'airport_expansion',
+      percentage: 10,
+      current: 2,
+      total: 100,
+      message: 'Analyzing flight routes...',
+      details: `Expanded to ${originAirports.length} origin airports`
+    });
 
     const destinationAirports = searchParams.destinations.flatMap(code => {
       const airports = getAirportCodes(code);
@@ -716,6 +807,16 @@ router.post('/search', async (req, res) => {
       const totalCombinations = departureDates.length * returnDates.length;
       let searchedCombinations = 0;
       console.log(`🔍 Will search ALL ${totalCombinations} flexible date combinations as promised`);
+
+      // Send flexible date search start progress
+      sendProgressEvent(searchId, {
+        step: 'flexible_dates_start',
+        percentage: 20,
+        current: 3,
+        total: 100,
+        message: `Searching ${totalCombinations} date combinations...`,
+        details: `${departureDates.length} departure dates × ${returnDates.length} return dates`
+      });
 
       for (const departureDate of departureDates) {
         for (const returnDate of returnDates) {
@@ -782,6 +883,19 @@ router.post('/search', async (req, res) => {
           
           searchedCombinations++;
           
+          // Calculate progress percentage (20% to 70% for date search)
+          const dateSearchProgress = 20 + (searchedCombinations / totalCombinations) * 50;
+          
+          // Send progress update for every combination
+          sendProgressEvent(searchId, {
+            step: 'date_search',
+            percentage: Math.round(dateSearchProgress),
+            current: searchedCombinations,
+            total: totalCombinations,
+            message: `Searching date combination ${searchedCombinations}/${totalCombinations}`,
+            details: `Found ${allFlights.length} flights so far. Current: ${dateKey}`
+          });
+          
           // Log progress for transparency
           if (searchedCombinations % 10 === 0 || searchedCombinations === totalCombinations) {
             console.log(`📊 Flexible date progress: ${searchedCombinations}/${totalCombinations} combinations searched`);
@@ -799,6 +913,16 @@ router.post('/search', async (req, res) => {
       })).sort((a, b) => a.price - b.price);
 
       console.log(`✅ Flexible date search completed: ${searchedCombinations} combinations, cheapest: ${cheapestPrice} PLN on ${bestDateCombination?.departure}${bestDateCombination?.return ? ` - ${bestDateCombination.return}` : ''}`);
+
+      // Send flexible date search completion
+      sendProgressEvent(searchId, {
+        step: 'flexible_dates_complete',
+        percentage: 70,
+        current: searchedCombinations,
+        total: totalCombinations,
+        message: 'Comparing prices and options...',
+        details: `Found ${allFlights.length} flights. Best price: ${cheapestPrice} PLN`
+      });
 
     } catch (flexSearchError) {
       console.warn('⚠️ Flexible date search failed, falling back to standard search:', flexSearchError instanceof Error ? flexSearchError.message : 'Unknown error');
@@ -853,6 +977,16 @@ router.post('/search', async (req, res) => {
     if (searchParams.enableAI !== false && (searchParams.autoRecommendStopovers || searchParams.userPreferences)) {
       const aiStartTime = Date.now();
       console.log('🤖 Starting AI-powered flight analysis...');
+      
+      // Send AI analysis start progress
+      sendProgressEvent(searchId, {
+        step: 'ai_analysis_start',
+        percentage: 75,
+        current: 4,
+        total: 100,
+        message: 'Generating AI recommendations...',
+        details: 'Analyzing stopovers and optimizing routes'
+      });
       
       try {
         // Prepare route data for AI analysis
@@ -923,6 +1057,16 @@ router.post('/search', async (req, res) => {
 
         aiProcessingTime = Date.now() - aiStartTime;
         console.log(`⚡ Total AI processing completed in ${aiProcessingTime}ms`);
+        
+        // Send AI analysis completion
+        sendProgressEvent(searchId, {
+          step: 'ai_analysis_complete',
+          percentage: 85,
+          current: 5,
+          total: 100,
+          message: 'AI analysis completed',
+          details: `Generated recommendations in ${aiProcessingTime}ms`
+        });
         
       } catch (aiError) {
         console.warn('⚠️ AI analysis failed, continuing with standard search:', aiError instanceof Error ? aiError.message : 'Unknown AI error');
@@ -1096,10 +1240,55 @@ router.post('/search', async (req, res) => {
     };
 
     console.log(`✅ Flight search completed: ${allFlights.length} flights found`);
+    
+    // Send final completion progress
+    sendProgressEvent(searchId, {
+      step: 'complete',
+      percentage: 100,
+      current: 100,
+      total: 100,
+      message: 'Search completed successfully!',
+      details: `Found ${allFlights.length} flights. Redirecting to results...`
+    });
+    
+    // Clean up the connection after a brief delay
+    setTimeout(() => {
+      const connection = progressConnections.get(searchId);
+      if (connection && !connection.destroyed) {
+        try {
+          connection.end();
+        } catch (error) {
+          console.warn(`⚠️ Error closing connection for ${searchId}:`, error);
+        }
+      }
+      progressConnections.delete(searchId);
+    }, 1000);
+    
     res.json(responseData);
 
   } catch (error) {
     console.error('❌ Flight search error:', error);
+    
+    // Send error progress event
+    sendProgressEvent(searchId, {
+      step: 'error',
+      percentage: 0,
+      current: 0,
+      total: 100,
+      message: 'Search failed',
+      details: error instanceof Error ? error.message : 'Unknown error occurred'
+    });
+    
+    // Clean up connection on error
+    const connection = progressConnections.get(searchId);
+    if (connection && !connection.destroyed) {
+      try {
+        connection.end();
+      } catch (err) {
+        console.warn(`⚠️ Error closing connection on error for ${searchId}:`, err);
+      }
+    }
+    progressConnections.delete(searchId);
     
     res.status(500).json({
       success: false,

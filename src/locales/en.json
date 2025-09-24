@@ -200,14 +200,43 @@
     "noHiddenFees": "No hidden costs",
     "manualSearch": "Or Search Flights Manually",
     "progress": {
-      "analyzingParams": "Analyzing search parameters...",
-      "paramsValidated": "Search parameters validated ✓",
-      "searchingAirlines": "Searching 200+ airlines worldwide...",
-      "airlinesSearched": "Airlines searched ✓",
-      "findingRoutes": "Finding best routes and stopovers...",
-      "routesOptimized": "Routes optimized ✓",
-      "comparingPrices": "Comparing prices and sorting results...",
-      "searchCompleted": "Search completed ✓"
+      "title": "Searching Flights",
+      "connecting": "Connecting to search...",
+      "connectionError": "Connection error. Please try again.",
+      
+      "initialization": "Starting flight search...",
+      "airportExpansion": "Analyzing flight routes...",
+      "flexibleDatesStart": "Searching date combinations...",
+      "dateSearch": "Searching dates...",
+      "flexibleDatesComplete": "Comparing prices...",
+      "aiAnalysisStart": "Generating AI recommendations...",
+      "aiAnalysisComplete": "AI analysis completed",
+      "complete": "Search completed!",
+      "error": "Search failed",
+      
+      "progressLabel": "Progress",
+      "currentStep": "Step",
+      "cancel": "Cancel",
+      "completionMessage": "Redirecting to results...",
+      
+      "timeRemaining": {
+        "seconds": "~{{seconds}} seconds remaining",
+        "minutes": "~{{minutes}}:{{seconds}} remaining"
+      },
+      
+      "messages": {
+        "searchStarting": "Starting comprehensive flight search...",
+        "expandingAirports": "Expanding search to nearby airports and regions...",
+        "flexibleDatesStarting": "Beginning flexible date analysis across {{total}} combinations...",
+        "searchingCombination": "Searching date combination {{current}}/{{total}}",
+        "foundFlightsForDates": "Found {{count}} flights for {{dates}}",
+        "flexibleDatesCompleted": "Analyzed {{total}} date combinations, found {{count}} options",
+        "aiStarting": "Initializing AI analysis for personalized recommendations...",
+        "aiGeneratingRecommendations": "AI analyzing {{count}} flights for optimal recommendations...",
+        "aiCompleted": "AI generated {{count}} personalized recommendations",
+        "finalizingResults": "Finalizing results and preparing best options...",
+        "searchSuccessful": "Search completed! Found {{count}} flights. Redirecting..."
+      }
     },
     "validation": {
       "pastDate": "Departure date cannot be in the past",

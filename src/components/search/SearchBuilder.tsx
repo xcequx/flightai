@@ -10,6 +10,7 @@ import { StopoverEditor } from "./StopoverEditor";
 import { ConstraintSliders } from "./ConstraintSliders";
 import { DateRangePicker } from "./DateRangePicker";
 import { DateFlexibility } from "./DateFlexibility";
+import { SearchProgressModal } from "./SearchProgressModal";
 import { Search, Lightbulb, TrendingDown, DollarSign, MapPin, Info } from "lucide-react";
 import { DateRange } from "react-day-picker";
 
@@ -79,6 +80,8 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     includeNeighboringCountries: false,
   });
   const [localLoading, setLocalLoading] = useState(false);
+  const [showProgressModal, setShowProgressModal] = useState(false);
+  const [searchId, setSearchId] = useState<string | null>(null);
 
   // Helper function to convert Date object or ISO string to YYYY-MM-DD string (timezone-safe)
   const formatDateForAPI = (date: Date | string): string => {
@@ -199,12 +202,20 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     
     console.log('✅ Frontend validation passed!');
     
+    // Generate unique searchId for progress tracking
+    const newSearchId = `search_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    setSearchId(newSearchId);
+    
     setLocalLoading(true);
+    setShowProgressModal(true);
     
     try {
       // Transform params to API-compatible format (only send fields that backend expects)
       console.log('🔄 Transforming params to API format...');
-      const apiParams = transformToAPIFormat(params);
+      const apiParams = {
+        ...transformToAPIFormat(params),
+        searchId: newSearchId // Include searchId for progress tracking
+      };
       
       // 🔍 DEBUGGING: Validate the transformed data before sending
       console.log('🔍 Post-transformation validation:');
@@ -264,7 +275,8 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       if (data.requiresApiKey) {
         console.log('⚠️ API key required:', data.message);
         
-        // Show user-friendly message about API key setup
+        // Hide progress modal and show user-friendly message about API key setup
+        setShowProgressModal(false);
         const alertMessage = `${data.message}\n\n${data.instructions.join('\n')}\n\n${t('search.mockDataNotice')}`;
         alert(alertMessage);
         
@@ -296,7 +308,8 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           }
         }
         
-        // Pass the real data to the parent component with enhanced metadata
+        // Hide progress modal and pass the real data to the parent component
+        setShowProgressModal(false);
         onSearch({ 
           ...params, 
           realFlightData: data,
@@ -343,7 +356,8 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         
         alert(errorMessage);
         
-        // Fall back to mock data with error information
+        // Hide progress modal and fall back to mock data with error information
+        setShowProgressModal(false);
         onSearch({ 
           ...params, 
           realFlightData: null, 
@@ -366,7 +380,8 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       
       alert(errorMessage);
       
-      // Fall back to mock data with network error information
+      // Hide progress modal and fall back to mock data with network error information
+      setShowProgressModal(false);
       onSearch({ 
         ...params, 
         realFlightData: null, 
@@ -376,6 +391,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
       });
     } finally {
       setLocalLoading(false);
+      // Note: Don't hide progress modal here - let the modal handle its own lifecycle
     }
   };
 
@@ -592,6 +608,18 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
           </Button>
         </div>
       </div>
+      
+      {/* Search Progress Modal */}
+      <SearchProgressModal
+        isOpen={showProgressModal}
+        onClose={() => setShowProgressModal(false)}
+        onCancel={() => {
+          setShowProgressModal(false);
+          setLocalLoading(false);
+          // TODO: Add actual search cancellation logic here if needed
+        }}
+        searchId={searchId || ''}
+      />
     </form>
-  );
+  );}
 }

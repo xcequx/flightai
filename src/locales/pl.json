@@ -201,14 +201,43 @@
     "noHiddenFees": "Brak ukrytych kosztów",
     "manualSearch": "Lub Szukaj Lotów Ręcznie",
     "progress": {
-      "analyzingParams": "Analiza parametrów wyszukiwania...",
-      "paramsValidated": "Parametry wyszukiwania zwalidowane ✓",
-      "searchingAirlines": "Przeszukiwanie 200+ linii lotniczych na całym świecie...",
-      "airlinesSearched": "Linie lotnicze przeszukane ✓",
-      "findingRoutes": "Wyszukiwanie najlepszych tras i przesiadek...",
-      "routesOptimized": "Trasy zoptymalizowane ✓",
-      "comparingPrices": "Porównywanie cen i sortowanie wyników...",
-      "searchCompleted": "Wyszukiwanie zakończone ✓"
+      "title": "Wyszukiwanie Lotów",
+      "connecting": "Łączenie z wyszukiwarką...",
+      "connectionError": "Błąd połączenia. Spróbuj ponownie.",
+      
+      "initialization": "Rozpoczynanie wyszukiwania lotów...",
+      "airportExpansion": "Analiza tras lotniczych...",
+      "flexibleDatesStart": "Wyszukiwanie kombinacji dat...",
+      "dateSearch": "Przeszukiwanie dat...",
+      "flexibleDatesComplete": "Porównywanie cen...",
+      "aiAnalysisStart": "Generowanie rekomendacji AI...",
+      "aiAnalysisComplete": "Analiza AI zakończona",
+      "complete": "Wyszukiwanie zakończone!",
+      "error": "Wyszukiwanie nieudane",
+      
+      "progressLabel": "Postęp",
+      "currentStep": "Krok",
+      "cancel": "Anuluj",
+      "completionMessage": "Przekierowanie do wyników...",
+      
+      "timeRemaining": {
+        "seconds": "~{{seconds}} sekund pozostało",
+        "minutes": "~{{minutes}}:{{seconds}} pozostało"
+      },
+      
+      "messages": {
+        "searchStarting": "Rozpoczynanie kompleksowego wyszukiwania lotów...",
+        "expandingAirports": "Rozszerzanie wyszukiwania na pobliskie lotniska i regiony...",
+        "flexibleDatesStarting": "Rozpoczynanie analizy elastycznych dat dla {{total}} kombinacji...",
+        "searchingCombination": "Wyszukiwanie kombinacji dat {{current}}/{{total}}",
+        "foundFlightsForDates": "Znaleziono {{count}} lotów dla {{dates}}",
+        "flexibleDatesCompleted": "Przeanalizowano {{total}} kombinacji dat, znaleziono {{count}} opcji",
+        "aiStarting": "Inicjalizacja analizy AI dla spersonalizowanych rekomendacji...",
+        "aiGeneratingRecommendations": "AI analizuje {{count}} lotów dla optymalnych rekomendacji...",
+        "aiCompleted": "AI wygenerowało {{count}} spersonalizowanych rekomendacji",
+        "finalizingResults": "Finalizowanie wyników i przygotowywanie najlepszych opcji...",
+        "searchSuccessful": "Wyszukiwanie zakończone! Znaleziono {{count}} lotów. Przekierowanie..."
+      }
     },
     "validation": {
       "pastDate": "Data wylotu nie może być z przeszłości",
