@@ -80,9 +80,31 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
   });
   const [localLoading, setLocalLoading] = useState(false);
 
-  // Helper function to convert Date to YYYY-MM-DD string (timezone-safe)
-  const formatDateForAPI = (date: Date): string => {
-    return format(date, 'yyyy-MM-dd');
+  // Helper function to convert Date object or ISO string to YYYY-MM-DD string (timezone-safe)
+  const formatDateForAPI = (date: Date | string): string => {
+    if (!date) {
+      throw new Error('Date is null or undefined');
+    }
+    
+    let dateObj: Date;
+    
+    if (typeof date === 'string') {
+      // If it's already a string (ISO format), convert to Date first
+      dateObj = new Date(date);
+      if (isNaN(dateObj.getTime())) {
+        throw new Error(`Invalid date string: ${date}`);
+      }
+    } else if (date instanceof Date) {
+      // If it's a Date object, use directly
+      dateObj = date;
+      if (isNaN(dateObj.getTime())) {
+        throw new Error(`Invalid Date object: ${date}`);
+      }
+    } else {
+      throw new Error(`Unsupported date type: ${typeof date}`);
+    }
+    
+    return format(dateObj, 'yyyy-MM-dd');
   };
 
   // Helper function to format validation errors for display
@@ -92,11 +114,16 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
 
   // Mapping function to transform SearchParams to API-compatible format
   const transformToAPIFormat = (searchParams: SearchParams) => {
+    // Safe date transformation with proper null checks
+    if (!searchParams.dateRange || !searchParams.dateRange.from) {
+      throw new Error('Date range is required but missing');
+    }
+
     return {
       origins: searchParams.origins,
       destinations: searchParams.destinations,
       dateRange: {
-        from: formatDateForAPI(searchParams.dateRange!.from!),
+        from: formatDateForAPI(searchParams.dateRange.from),
         to: searchParams.dateRange?.to ? formatDateForAPI(searchParams.dateRange.to) : undefined
       },
       departureFlex: searchParams.departureFlex,
