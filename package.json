@@ -11,7 +11,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "tsx server/index.ts"
+    "start": "bun run server/index.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
