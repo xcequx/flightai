@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=production bun run server/index.ts",
+    "dev": "bun run server/index.ts",
     "dev:frontend-only": "vite",
     "dev:separate": "concurrently \"bun run server/index.ts\" \"vite\"",
     "build": "vite build",
