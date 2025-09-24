@@ -1,6 +1,7 @@
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
-import { pl } from "date-fns/locale";
+import { pl, enUS } from "date-fns/locale";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
 
@@ -15,7 +16,10 @@ interface DateRangePickerProps {
   placeholder?: string;
 }
 
-export function DateRangePicker({ dateRange, onChange, placeholder = "Wybierz daty" }: DateRangePickerProps) {
+export function DateRangePicker({ dateRange, onChange, placeholder }: DateRangePickerProps) {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language === 'pl' ? pl : enUS;
+  const defaultPlaceholder = placeholder || t('search.dateRange.placeholder');
   return (
     <div className="grid gap-2">
       <Popover>
@@ -32,14 +36,14 @@ export function DateRangePicker({ dateRange, onChange, placeholder = "Wybierz da
             {dateRange?.from ? (
               dateRange.to ? (
                 <>
-                  {format(dateRange.from, "dd LLL y", { locale: pl })} -{" "}
-                  {format(dateRange.to, "dd LLL y", { locale: pl })}
+                  {format(dateRange.from, "dd LLL y", { locale })} -{" "}
+                  {format(dateRange.to, "dd LLL y", { locale })}
                 </>
               ) : (
-                format(dateRange.from, "dd LLL y", { locale: pl })
+                format(dateRange.from, "dd LLL y", { locale })
               )
             ) : (
-              <span>{placeholder}</span>
+              <span>{defaultPlaceholder}</span>
             )}
           </Button>
         </PopoverTrigger>
@@ -53,7 +57,7 @@ export function DateRangePicker({ dateRange, onChange, placeholder = "Wybierz da
             numberOfMonths={2}
             disabled={(date) => date < new Date()}
             className="p-3 pointer-events-auto"
-            locale={pl}
+            locale={locale}
           />
         </PopoverContent>
       </Popover>

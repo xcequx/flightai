@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Card } from "@/components/ui/card";
@@ -28,6 +29,7 @@ export function ConstraintSliders({
   onPreferencesChange,
   onConstraintsChange,
 }: ConstraintSlidersProps) {
+  const { t } = useTranslation();
   const updatePreference = (key: keyof typeof preferences, value: number) => {
     const total = Object.values(preferences).reduce((sum, val) => sum + val, 0);
     const others = Object.entries(preferences).filter(([k]) => k !== key);
@@ -61,7 +63,7 @@ export function ConstraintSliders({
       <div>
         <h5 className="text-sm font-medium mb-4 flex items-center gap-2">
           <Settings className="h-4 w-4" />
-          Priorytet wyszukiwania (suma: 100%)
+          {t('search.constraints.title')}
         </h5>
         
         <div className="space-y-4">
@@ -69,7 +71,7 @@ export function ConstraintSliders({
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <DollarSign className="h-4 w-4 text-success" />
-                <span className="text-sm">Najniższa cena</span>
+                <span className="text-sm">{t('search.constraints.lowestPrice')}</span>
               </div>
               <span className="text-sm font-medium text-success">
                 {preferences.price}%
@@ -89,7 +91,7 @@ export function ConstraintSliders({
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-primary" />
-                <span className="text-sm">Najkrótszy czas</span>
+                <span className="text-sm">{t('search.constraints.shortestTime')}</span>
               </div>
               <span className="text-sm font-medium text-primary">
                 {preferences.time}%
@@ -109,7 +111,7 @@ export function ConstraintSliders({
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <AlertTriangle className="h-4 w-4 text-warning" />
-                <span className="text-sm">Najmniejsze ryzyko</span>
+                <span className="text-sm">{t('search.constraints.lowestRisk')}</span>
               </div>
               <span className="text-sm font-medium text-warning">
                 {preferences.risk}%
@@ -129,14 +131,14 @@ export function ConstraintSliders({
 
       {/* Hard Constraints */}
       <div className="pt-4 border-t border-border">
-        <h5 className="text-sm font-medium mb-4">Ograniczenia</h5>
+        <h5 className="text-sm font-medium mb-4">{t('search.constraints.timeConstraints')}</h5>
         
         <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm">Maksymalny czas podróży</span>
+              <span className="text-sm">{t('search.constraints.maxTravelTime')}</span>
               <span className="text-sm font-medium">
-                {constraints.maxTotalHours}h
+                {constraints.maxTotalHours}{t('search.constraints.hours')}
               </span>
             </div>
             <Slider
@@ -157,9 +159,9 @@ export function ConstraintSliders({
 
           <div className="flex items-center justify-between py-2">
             <div>
-              <div className="text-sm font-medium">Samodzielne przesiadki</div>
+              <div className="text-sm font-medium">{t('search.constraints.allowSelfTransfer')}</div>
               <div className="text-xs text-muted-foreground">
-                Osobne bilety, wyższe ryzyko, niższa cena
+                {t('search.constraints.selfTransferDesc')}
               </div>
             </div>
             <Switch
@@ -172,9 +174,9 @@ export function ConstraintSliders({
 
           <div className="flex items-center justify-between py-2">
             <div>
-              <div className="text-sm font-medium">Loty pozycjonujące</div>
+              <div className="text-sm font-medium">{t('search.constraints.allowPositioningFlights')}</div>
               <div className="text-xs text-muted-foreground">
-                Dodatkowe loty do tanich hubów komunikacyjnych
+                {t('search.constraints.positioningDesc')}
               </div>
             </div>
             <Switch

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { AlertTriangle, CheckCircle, AlertCircle } from "lucide-react";
 
@@ -14,6 +15,7 @@ export function RiskMeter({
   showLabel = true, 
   className 
 }: RiskMeterProps) {
+  const { t } = useTranslation();
   const getRiskLevel = () => {
     if (score <= 0.3) return "low";
     if (score <= 0.6) return "medium";
@@ -25,27 +27,27 @@ export function RiskMeter({
     switch (level) {
       case "low":
         return {
-          label: "Niskie ryzyko",
+          label: t('results.risk.low'),
           color: "text-risk-low",
           bgColor: "bg-risk-low",
           icon: CheckCircle,
-          description: "Bezpieczna opcja"
+          description: t('results.risk.safeOption')
         };
       case "medium":
         return {
-          label: "Średnie ryzyko", 
+          label: t('results.risk.medium'), 
           color: "text-risk-medium",
           bgColor: "bg-risk-medium",
           icon: AlertCircle,
-          description: "Wymagana ostrożność"
+          description: t('results.risk.cautionRequired')
         };
       case "high":
         return {
-          label: "Wysokie ryzyko",
+          label: t('results.risk.high'),
           color: "text-risk-high", 
           bgColor: "bg-risk-high",
           icon: AlertTriangle,
-          description: "Tylko dla doświadczonych"
+          description: t('results.risk.experiencedOnly')
         };
     }
   };
@@ -126,6 +128,7 @@ export function RiskMeterWithTooltip({
 }: RiskMeterProps & { 
   factors?: string[] 
 }) {
+  const { t } = useTranslation();
   const config = score <= 0.3 ? "low" : score <= 0.6 ? "medium" : "high";
   
   return (
@@ -136,7 +139,7 @@ export function RiskMeterWithTooltip({
       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity z-50 pointer-events-none">
         <div className="bg-popover border border-border rounded-lg p-3 shadow-lg min-w-48">
           <div className="text-sm font-medium mb-2">
-            Czynniki ryzyka (wynik: {Math.round(score * 100)}%)
+            {t('results.risk.factors', { score: Math.round(score * 100) })}
           </div>
           {factors.length > 0 ? (
             <ul className="text-xs text-muted-foreground space-y-1">
@@ -149,9 +152,9 @@ export function RiskMeterWithTooltip({
             </ul>
           ) : (
             <div className="text-xs text-muted-foreground">
-              {config === "low" && "Standardowe połączenia, wystarczające czasy przesiadek"}
-              {config === "medium" && "Krótsze przesiadki lub zmiana lotniska"}
-              {config === "high" && "Bardzo krótkie przesiadki, samodzielne transfery"}
+              {config === "low" && t('results.risk.lowDesc')}
+              {config === "medium" && t('results.risk.mediumDesc')}
+              {config === "high" && t('results.risk.highDesc')}
             </div>
           )}
         </div>

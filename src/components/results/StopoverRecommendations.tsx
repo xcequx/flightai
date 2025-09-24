@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, Coins, TrendingDown } from "lucide-react";
@@ -21,6 +22,7 @@ interface StopoverRecommendationsProps {
 }
 
 export function StopoverRecommendations({ recommendations, route }: StopoverRecommendationsProps) {
+  const { t } = useTranslation();
   if (recommendations.length === 0) {
     return null;
   }
@@ -29,14 +31,14 @@ export function StopoverRecommendations({ recommendations, route }: StopoverReco
     <Card className="p-6">
       <div className="flex items-center gap-2 mb-4">
         <MapPin className="h-5 w-5 text-primary" />
-        <h3 className="text-lg font-semibold">Rekomendowane przesiadki</h3>
+        <h3 className="text-lg font-semibold">{t('results.stopovers.title')}</h3>
         <Badge variant="secondary" className="text-xs">
-          Dla trasy {route}
+          {t('results.stopovers.subtitle', { route })}
         </Badge>
       </div>
       
       <p className="text-sm text-muted-foreground mb-6">
-        Odkryj nowe miasta i zaoszczędź pieniądze dzięki strategicznym przesiadkom
+        {t('results.stopovers.description')}
       </p>
 
       <div className="grid gap-4">
@@ -62,7 +64,7 @@ export function StopoverRecommendations({ recommendations, route }: StopoverReco
                   <span className="font-semibold">-{rec.savingsPercent}%</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  oszczędność {rec.savings} zł
+                  {t('results.stopovers.savings', { amount: rec.savings })} {t('results.stopovers.currency')}
                 </p>
               </div>
             </div>
@@ -71,19 +73,19 @@ export function StopoverRecommendations({ recommendations, route }: StopoverReco
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm">
-                  {rec.minDays}-{rec.maxDays} dni
+                  {t('results.stopovers.days', { min: rec.minDays, max: rec.maxDays })}
                 </span>
               </div>
               
               <div className="flex items-center gap-2">
                 <Coins className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm font-medium">
-                  {rec.totalPrice} zł
+                  {rec.totalPrice} {t('results.stopovers.currency')}
                 </span>
               </div>
               
               <div className="text-sm text-muted-foreground line-through">
-                {rec.originalPrice} zł
+                {rec.originalPrice} {t('results.stopovers.currency')}
               </div>
             </div>
 
@@ -96,7 +98,7 @@ export function StopoverRecommendations({ recommendations, route }: StopoverReco
             </div>
             
             <div className="mt-3 p-2 bg-muted/30 rounded text-xs text-muted-foreground">
-              💡 Spędź {rec.minDays}-{rec.maxDays} dni w {rec.hub} i zaoszczędź {rec.savings} zł na locie!
+              💡 {t('results.stopovers.spendDays', { min: rec.minDays, max: rec.maxDays, city: rec.hub, amount: rec.savings })}
             </div>
           </div>
         ))}

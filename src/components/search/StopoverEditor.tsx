@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -30,6 +31,7 @@ interface StopoverEditorProps {
 }
 
 export function StopoverEditor({ stopovers, onChange }: StopoverEditorProps) {
+  const { t } = useTranslation();
   const [internalStopovers, setInternalStopovers] = useState<Stopover[]>(
     stopovers.map((s, i) => ({ ...s, id: i.toString() }))
   );
@@ -71,14 +73,14 @@ export function StopoverEditor({ stopovers, onChange }: StopoverEditorProps) {
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   <MapPin className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Lokalizacja przesiadki</span>
+                  <span className="text-sm font-medium">{t('search.stopovers.location')}</span>
                 </div>
                 <AirportMultiSelect
                   value={stopover.location ? [stopover.location] : []}
                   onChange={(values) =>
                     updateStopover(stopover.id, { location: values[0] || "" })
                   }
-                  placeholder="Dubai, Bliski Wschód..."
+                  placeholder={t('search.stopovers.locationPlaceholder')}
                 />
               </div>
               
@@ -97,7 +99,7 @@ export function StopoverEditor({ stopovers, onChange }: StopoverEditorProps) {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium">
-                    Czas trwania: {stopover.minDays}-{stopover.maxDays} dni
+                    {t('search.stopovers.duration', { min: stopover.minDays, max: stopover.maxDays })}
                   </span>
                 </div>
                 <div className="px-3">
@@ -112,19 +114,19 @@ export function StopoverEditor({ stopovers, onChange }: StopoverEditorProps) {
                     className="w-full"
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                    <span>1 dzień</span>
-                    <span>7 dni</span>
+                    <span>1 {t('common.day')}</span>
+                    <span>7 {t('search.stopovers.days')}</span>
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-medium">Obowiązkowa przesiadka</div>
+                  <div className="text-sm font-medium">{t('search.stopovers.mandatory')}</div>
                   <div className="text-xs text-muted-foreground">
                     {stopover.mandatory 
-                      ? "Zawsze uwzględniaj w wynikach" 
-                      : "Pokaż tylko jeśli opłacalne"
+                      ? t('search.stopovers.alwaysInclude')
+                      : t('search.stopovers.onlyIfProfitable')
                     }
                   </div>
                 </div>
@@ -147,17 +149,17 @@ export function StopoverEditor({ stopovers, onChange }: StopoverEditorProps) {
         className="w-full border-dashed border-2 h-12 text-muted-foreground hover:text-foreground hover:border-solid"
       >
         <Plus className="mr-2 h-4 w-4" />
-        Dodaj przesiadkę
+        {t('search.stopovers.addStopover')}
       </Button>
 
       {internalStopovers.length === 0 && (
         <div className="text-center py-8 text-muted-foreground">
           <MapPin className="h-12 w-12 mx-auto mb-3 opacity-50" />
           <p className="text-sm">
-            Dodaj przesiadki, aby znaleźć tańsze opcje podróży
+            {t('search.stopovers.emptyStateTitle')}
           </p>
           <p className="text-xs mt-1">
-            Przykład: 3-dniowa przesiadka w Dubaju w drodze do Bangkoku
+            {t('search.stopovers.emptyStateExample')}
           </p>
         </div>
       )}

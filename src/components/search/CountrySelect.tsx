@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronDown, Check, Globe, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -11,25 +12,28 @@ interface CountrySelectProps {
   className?: string;
 }
 
-const countries = [
-  { code: "PL", name: "Polska", flag: "🇵🇱", neighbors: ["DE", "CZ", "SK", "LT", "BY", "UA"] },
-  { code: "DE", name: "Niemcy", flag: "🇩🇪", neighbors: ["PL", "CZ", "AT", "CH", "FR", "BE", "NL", "DK"] },
-  { code: "FR", name: "Francja", flag: "🇫🇷", neighbors: ["ES", "IT", "CH", "DE", "BE", "LU"] },
-  { code: "IT", name: "Włochy", flag: "🇮🇹", neighbors: ["FR", "CH", "AT", "SI", "HR"] },
-  { code: "ES", name: "Hiszpania", flag: "🇪🇸", neighbors: ["FR", "PT"] },
-  { code: "GB", name: "Wielka Brytania", flag: "🇬🇧", neighbors: ["IE", "FR"] },
-  { code: "NL", name: "Holandia", flag: "🇳🇱", neighbors: ["DE", "BE"] },
-  { code: "CZ", name: "Czechy", flag: "🇨🇿", neighbors: ["PL", "DE", "AT", "SK"] },
-  { code: "AT", name: "Austria", flag: "🇦🇹", neighbors: ["DE", "CZ", "SK", "HU", "SI", "IT", "CH"] },
-  { code: "CH", name: "Szwajcaria", flag: "🇨🇭", neighbors: ["DE", "FR", "IT", "AT"] },
+const getCountries = (t: any) => [
+  { code: "PL", name: t('search.countries.poland'), flag: "🇵🇱", neighbors: ["DE", "CZ", "SK", "LT", "BY", "UA"] },
+  { code: "DE", name: t('search.countries.germany'), flag: "🇩🇪", neighbors: ["PL", "CZ", "AT", "CH", "FR", "BE", "NL", "DK"] },
+  { code: "FR", name: t('search.countries.france'), flag: "🇫🇷", neighbors: ["ES", "IT", "CH", "DE", "BE", "LU"] },
+  { code: "IT", name: t('search.countries.italy'), flag: "🇮🇹", neighbors: ["FR", "CH", "AT", "SI", "HR"] },
+  { code: "ES", name: t('search.countries.spain'), flag: "🇪🇸", neighbors: ["FR", "PT"] },
+  { code: "GB", name: t('search.countries.unitedKingdom'), flag: "🇬🇧", neighbors: ["IE", "FR"] },
+  { code: "NL", name: t('search.countries.netherlands'), flag: "🇳🇱", neighbors: ["DE", "BE"] },
+  { code: "CZ", name: t('search.countries.czechRepublic'), flag: "🇨🇿", neighbors: ["PL", "DE", "AT", "SK"] },
+  { code: "AT", name: t('search.countries.austria'), flag: "🇦🇹", neighbors: ["DE", "CZ", "SK", "HU", "SI", "IT", "CH"] },
+  { code: "CH", name: t('search.countries.switzerland'), flag: "🇨🇭", neighbors: ["DE", "FR", "IT", "AT"] },
 ];
 
-export function CountrySelect({ value, onChange, placeholder = "Wybierz kraj", className }: CountrySelectProps) {
+export function CountrySelect({ value, onChange, placeholder, className }: CountrySelectProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [includeNeighbors, setIncludeNeighbors] = useState(false);
   const [neighboringCountries, setNeighboringCountries] = useState<string[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  
+  const countries = getCountries(t);
+  const defaultPlaceholder = placeholder || t('search.countries.placeholder');
   const selectedCountries = countries.filter(country => value.includes(country.code));
   const allSelectedCodes = includeNeighbors ? [...value, ...neighboringCountries] : value;
 
@@ -68,12 +72,12 @@ export function CountrySelect({ value, onChange, placeholder = "Wybierz kraj", c
   };
 
   const getDisplayNames = () => {
-    if (allSelectedCodes.length === 0) return placeholder;
+    if (allSelectedCodes.length === 0) return defaultPlaceholder;
     if (allSelectedCodes.length === 1) {
       const country = countries.find(c => c.code === allSelectedCodes[0]);
       return country ? `${country.flag} ${country.name}` : allSelectedCodes[0];
     }
-    return `${allSelectedCodes.length} krajów`;
+    return `${allSelectedCodes.length} ${t('search.countries.countriesSelected')}`;
   };
 
   return (
@@ -104,7 +108,7 @@ export function CountrySelect({ value, onChange, placeholder = "Wybierz kraj", c
           ))}
           {includeNeighbors && neighboringCountries.length > 0 && (
             <Badge variant="outline" className="text-xs bg-success/10 border-success text-success">
-              📈 +{neighboringCountries.length} sąsiadów (tańsze opcje)
+              📈 +{neighboringCountries.length} {t('search.countries.neighborsInfo', { count: neighboringCountries.length })}
             </Badge>
           )}
         </div>
@@ -125,21 +129,21 @@ export function CountrySelect({ value, onChange, placeholder = "Wybierz kraj", c
                       data-testid="checkbox-include-neighbors-dropdown"
                     />
                     <label htmlFor="includeNeighbors" className="text-sm font-medium cursor-pointer">
-                      Uwzględnij kraje sąsiednie
+                      {t('search.countries.includeNeighbors')}
                     </label>
                   </div>
                   <div className="space-y-2 text-xs text-muted-foreground">
                     <p className="font-medium text-primary">
-                      📈 Rozszerzamy wyszukiwanie na kraje sąsiadujące
+                      📈 {t('search.countries.neighborsToggle')}
                     </p>
                     <div className="grid grid-cols-1 gap-2 mt-2">
                       <div className="bg-info/10 px-2 py-1 rounded text-info text-center">
-                        <div className="font-medium">Dodatkowe lokalizacje</div>
-                        <div>{neighboringCountries.length} krajów sąsiadujących</div>
+                        <div className="font-medium">{t('search.countries.additionalLocations')}</div>
+                        <div>{neighboringCountries.length} {t('search.countries.neighboringCountries')}</div>
                       </div>
                     </div>
                     <p className="mt-2">
-                      <span className="font-medium">Przykład:</span> Z Polski rozszerzamy wyszukiwanie na Niemcy, Czechy, Słowację - często znajdziesz tam tańsze loty.
+                      <span className="font-medium">{t('common.example')}:</span> {t('search.countries.neighborsDescription')}
                     </p>
                   </div>
                 </div>
@@ -169,7 +173,7 @@ export function CountrySelect({ value, onChange, placeholder = "Wybierz kraj", c
                     <div className="font-medium">{country.name}</div>
                     {isNeighbor && (
                       <div className="text-xs text-primary font-medium">
-                        🔗 Sąsiad - może być taniej
+                        🔗 {t('search.countries.neighborBenefit')}
                       </div>
                     )}
                   </div>
