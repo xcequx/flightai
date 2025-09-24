@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ItineraryCard } from "./ItineraryCard";
-import { DollarSign, Clock, Shield, Zap } from "lucide-react";
+import { DollarSign, Clock, Shield, Zap, Brain, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface FlightResult {
@@ -20,6 +20,29 @@ interface FlightResult {
   stopovers: Array<{ city: string; days: number }>;
   selfTransfer: boolean;
   badges: string[];
+  
+  // Enhanced AI-powered features
+  aiRecommended?: boolean;
+  aiInsights?: {
+    recommendation: string;
+    reasoning: string;
+    confidence: number;
+    highlights: string[];
+  };
+  flexibleDateInfo?: {
+    originalDeparture: string;
+    originalReturn: string;
+    actualDeparture: string;
+    actualReturn: string;
+    dayDifference: {
+      departure: number;
+      return: number;
+    };
+    priceImprovement?: number;
+    isOptimalDate?: boolean;
+  };
+  affiliateUrl?: string;
+  searchId?: string;
 }
 
 interface ParetoTabsProps {
@@ -28,10 +51,21 @@ interface ParetoTabsProps {
 
 export function ParetoTabs({ results }: ParetoTabsProps) {
   const { t } = useTranslation();
-  const [selectedTab, setSelectedTab] = useState("best-mix");
+  const [selectedTab, setSelectedTab] = useState("ai-recommended");
 
   // Sort results for different tabs
   const sortedResults = {
+    "ai-recommended": [...results]
+      .filter(result => result.aiRecommended)
+      .sort((a, b) => {
+        // Sort by AI confidence score, then by price
+        const confidenceA = a.aiInsights?.confidence || 0;
+        const confidenceB = b.aiInsights?.confidence || 0;
+        if (confidenceA !== confidenceB) {
+          return confidenceB - confidenceA; // Higher confidence first
+        }
+        return a.price - b.price; // Then by price
+      }),
     cheapest: [...results].sort((a, b) => a.price - b.price),
     fastest: [...results].sort((a, b) => a.totalHours - b.totalHours),
     safest: [...results].sort((a, b) => a.riskScore - b.riskScore),
@@ -43,7 +77,18 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
     }),
   };
 
+  // Count AI recommended flights
+  const aiRecommendedCount = results.filter(r => r.aiRecommended).length;
+  
   const tabsConfig = [
+    {
+      value: "ai-recommended",
+      label: "AI Recommended",
+      icon: Brain,
+      description: "Flights intelligently selected by AI based on your preferences and travel patterns",
+      color: "text-purple-600",
+      count: aiRecommendedCount,
+    },
     {
       value: "best-mix",
       label: t('results.paretoTabs.bestMix.label'),
@@ -92,13 +137,26 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
                     <div className="flex items-center gap-3 w-full">
                       <Icon className={`h-5 w-5 ${tab.color}`} />
                       <div className="hidden lg:block text-left">
-                        <div className="font-medium">{tab.label}</div>
+                        <div className="font-medium flex items-center gap-1">
+                          {tab.label}
+                          {tab.value === "ai-recommended" && tab.count > 0 && (
+                            <Sparkles className="h-3 w-3 text-purple-500" />
+                          )}
+                        </div>
                         <div className="text-xs text-muted-foreground">
                           {tab.description}
                         </div>
+                        {tab.count !== undefined && (
+                          <div className="text-xs font-medium text-purple-600 mt-1">
+                            {tab.count} {tab.count === 1 ? 'recommendation' : 'recommendations'}
+                          </div>
+                        )}
                       </div>
-                      <div className="lg:hidden text-sm font-medium">
+                      <div className="lg:hidden text-sm font-medium flex items-center gap-1">
                         {tab.label}
+                        {tab.value === "ai-recommended" && tab.count > 0 && (
+                          <Sparkles className="h-3 w-3 text-purple-500" />
+                        )}
                       </div>
                     </div>
                   </TabsTrigger>
@@ -133,7 +191,7 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
                       key={result.id} 
                       result={result} 
                       rank={index + 1}
-                      sortBy={tab.value as 'cheapest' | 'fastest' | 'safest' | 'best-mix'}
+                      sortBy={tab.value as 'ai-recommended' | 'cheapest' | 'fastest' | 'safest' | 'best-mix'}
                     />
                   ))}
                 </div>

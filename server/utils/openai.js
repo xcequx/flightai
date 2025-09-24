@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { vacationPlanResponseSchema, errorResponseSchema } from '../../shared/schema.js';
+import { vacationPlanResponseSchema, errorResponseSchema, aiFlightRecommendationSchema } from '../../shared/schema.js';
 
 // Validate OpenAI API key presence
 if (!process.env.OPENAI_API_KEY) {
@@ -277,7 +277,7 @@ Return comprehensive JSON with structure:
           content: simplified ? prompt.substring(0, 2000) + "\n\nProvide a simplified response." : prompt
         }
       ],
-      response_format: { type: "json_object" }
+      // response_format removed - was causing 400 errors
     });
 
     // Define fallback response for this function
@@ -486,7 +486,7 @@ Return JSON structure:
           content: prompt
         }
       ],
-      response_format: { type: "json_object" },
+      // response_format removed - was causing 400 errors,
       temperature: 0.6,
       max_tokens: 3500
     }, {
@@ -633,7 +633,7 @@ Return comprehensive JSON:
           content: prompt
         }
       ],
-      response_format: { type: "json_object" },
+      // response_format removed - was causing 400 errors,
       temperature: 0.6,
       max_tokens: 3500
     }, {
@@ -785,7 +785,7 @@ Return comprehensive allocation:
           content: prompt
         }
       ],
-      response_format: { type: "json_object" },
+      // response_format removed - was causing 400 errors,
       temperature: 0.5,
       max_tokens: 3000
     }, {
@@ -953,7 +953,7 @@ Return detailed analysis:
           content: prompt
         }
       ],
-      response_format: { type: "json_object" },
+      // response_format removed - was causing 400 errors,
       temperature: 0.6,
       max_tokens: 3500
     }, {
@@ -1026,4 +1026,231 @@ Return detailed analysis:
       }
     };
   }
+}
+
+/**
+ * Generate intelligent stopover recommendations using AI
+ * @param {Object} searchParams - Flight search parameters
+ * @param {Object} routeData - Origin and destination information
+ * @param {Array} availableHubs - Available hub airports
+ * @returns {Object} - AI-generated stopover recommendations
+ */
+export async function generateStopoverRecommendations(searchParams, routeData, availableHubs = []) {
+  const startTime = Date.now();
+  
+  console.log('🤖 Starting AI stopover recommendation generation...');
+  console.log('📊 Search params:', JSON.stringify(searchParams, null, 2));
+  console.log('🗺️ Route data:', JSON.stringify(routeData, null, 2));
+  console.log('🛩️ Available hubs:', availableHubs.map(h => h.iata).join(', '));
+  
+  // Prepare the AI prompt with comprehensive context
+  const userPrefs = searchParams.userPreferences || {};
+  const origins = Array.isArray(searchParams.origins) ? searchParams.origins : [searchParams.origins];
+  const destinations = Array.isArray(searchParams.destinations) ? searchParams.destinations : [searchParams.destinations];
+  
+  const prompt = `As an expert travel advisor with deep knowledge of international flight routing and city destinations, analyze this flight search request and provide intelligent stopover recommendations.
+
+FLIGHT SEARCH DETAILS:
+- Route: ${origins.join(', ')} → ${destinations.join(', ')}
+- Departure: ${searchParams.dateRange?.from || 'flexible'}
+- Travel Class: ${searchParams.travelClass || 'ECONOMY'}
+- Travelers: ${searchParams.adults || 1} adults, ${searchParams.children || 0} children
+- Date Flexibility: ±${searchParams.departureFlex || 3} days
+
+USER PREFERENCES:
+- Travel Style: ${userPrefs.travelStyle || 'balanced'}
+- Interests: ${userPrefs.interests ? userPrefs.interests.join(', ') : 'general tourism'}
+- Budget Sensitivity: ${userPrefs.budgetSensitivity || 'medium'}
+- Layover Preference: ${userPrefs.layoverPreference || 'no_preference'}
+- Priority: ${userPrefs.timeVsPrice || 'balanced'} (time vs price)
+
+AVAILABLE STOPOVER HUBS:
+${availableHubs.map(hub => `- ${hub.city} (${hub.iata}): ${hub.description || 'Major international hub'}
+  Attractions: ${hub.attractions ? hub.attractions.join(', ') : 'Various attractions'}
+  Avg Daily Cost: $${hub.averageDailyCost || 100}`).join('\n')}
+
+PROVIDE ANALYSIS:
+1. Recommend the best 2-3 stopover options ranked by overall value
+2. For each recommendation, provide:
+   - Specific reasoning based on user preferences and route efficiency
+   - Estimated savings potential and layover duration
+   - Top 3 attractions/experiences during the stopover
+   - Value score (1-10) considering price, experience, and convenience
+   - Attraction score (1-10) based on user interests and city offerings
+
+3. Overall recommendation: direct flight vs best stopover option
+
+IMPORTANT: Consider route geography, airline networks, typical pricing patterns, and seasonal factors. Focus on practical recommendations that balance savings with travel experience.
+
+Respond in valid JSON format matching this exact structure:
+{
+  "summary": {
+    "bestOption": "direct" | "stopover" | "flexible_dates",
+    "maxSavings": number,
+    "recommendedStopover": string | null,
+    "reasoning": "detailed explanation of recommendation"
+  },
+  "stopovers": [
+    {
+      "hub": {
+        "iata": "DXB",
+        "name": "Dubai International Airport",
+        "city": "Dubai",
+        "country": "UAE",
+        "attractions": ["Burj Khalifa", "Dubai Mall", "Desert Safari"],
+        "description": "Luxury hub with world-class shopping and experiences",
+        "averageDailyCost": 150
+      },
+      "layoverDays": 2,
+      "savings": 800,
+      "savingsPercent": 25,
+      "directPrice": 3200,
+      "multiLegPrice": 2400,
+      "totalCostWithStay": 2700,
+      "reasoning": "Detailed explanation of why this stopover is recommended",
+      "attractionScore": 8.5,
+      "valueScore": 9.0
+    }
+  ],
+  "confidence": 0.85
+}`;
+
+  const fallbackResponse = {
+    summary: {
+      bestOption: "direct",
+      maxSavings: 0,
+      recommendedStopover: null,
+      reasoning: "AI analysis unavailable - showing direct flight options"
+    },
+    stopovers: [],
+    confidence: 0.0
+  };
+
+  try {
+    const aiCall = async (simplified = false) => {
+      console.log(`🧠 Making OpenAI API call (simplified: ${simplified})...`);
+      
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4",
+        messages: [{
+          role: "system",
+          content: "You are an expert travel advisor specializing in flight routing and stopover optimization. Provide detailed, practical recommendations based on real travel patterns and user preferences."
+        }, {
+          role: "user",
+          content: simplified ? prompt.slice(0, Math.floor(prompt.length * 0.7)) : prompt
+        }],
+        max_tokens: simplified ? Math.floor(MAX_TOKENS * 0.7) : MAX_TOKENS,
+        temperature: 0.3, // Lower temperature for more consistent, factual responses
+        // response_format removed - was causing 400 errors
+      });
+
+      const content = completion.choices[0]?.message?.content;
+      if (!content) {
+        throw new Error('No response content from OpenAI');
+      }
+
+      console.log('📄 Raw AI response received:', content.substring(0, 200) + '...');
+      
+      const parsedResponse = safeJsonParse(content, fallbackResponse);
+      console.log('✅ AI response parsed successfully');
+      
+      // Validate AI response with schema
+      const validationResult = aiFlightRecommendationSchema.safeParse(parsedResponse);
+      
+      if (validationResult.success) {
+        console.log('✅ AI response validated successfully');
+        return validationResult.data;
+      } else {
+        console.warn('⚠️ AI response validation failed:', validationResult.error.issues);
+        return fallbackResponse;
+      }
+    };
+
+    // Use retry logic for reliability
+    const result = await retryOpenAIRequest(aiCall, fallbackResponse);
+    
+    const processingTime = Date.now() - startTime;
+    console.log(`⏱️ AI stopover recommendations completed in ${processingTime}ms`);
+    
+    return {
+      ...result,
+      processingTime
+    };
+    
+  } catch (error) {
+    console.error('❌ AI stopover recommendation failed:', error);
+    return {
+      ...fallbackResponse,
+      processingTime: Date.now() - startTime,
+      error: error.message
+    };
+  }
+}
+
+/**
+ * Analyze flexible date options for price optimization
+ * @param {Object} searchParams - Flight search parameters
+ * @param {Array} dateOptions - Available date combinations
+ * @returns {Object} - Price band analysis and recommendations
+ */
+export async function analyzeFlexibleDatePricing(searchParams, dateOptions = []) {
+  console.log('📅 Starting flexible date price analysis...');
+  
+  // This would typically integrate with real pricing APIs
+  // For now, providing intelligent analysis based on travel patterns
+  
+  const baseDate = new Date(searchParams.dateRange?.from || new Date());
+  const flexibility = searchParams.departureFlex || 3;
+  
+  // Generate date range for analysis
+  const dateRanges = [];
+  for (let i = -flexibility; i <= flexibility; i++) {
+    const date = new Date(baseDate.getTime() + i * 24 * 60 * 60 * 1000);
+    const dateStr = date.toISOString().split('T')[0];
+    
+    // Mock price calculation with realistic patterns
+    const dayOfWeek = date.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    const isMiddleWeek = dayOfWeek >= 2 && dayOfWeek <= 4;
+    
+    let priceMultiplier = 1.0;
+    if (isWeekend) priceMultiplier = 1.15; // Weekend surcharge
+    if (isMiddleWeek) priceMultiplier = 0.9; // Midweek discount
+    
+    const basePrice = 3200;
+    const price = Math.round(basePrice * priceMultiplier);
+    const savings = basePrice - price;
+    
+    dateRanges.push({
+      date: dateStr,
+      price,
+      savings,
+      dayOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][dayOfWeek]
+    });
+  }
+  
+  // Find best deals
+  const sortedByPrice = [...dateRanges].sort((a, b) => a.price - b.price);
+  const cheapest = sortedByPrice[0];
+  const median = sortedByPrice[Math.floor(sortedByPrice.length / 2)].price;
+  
+  return {
+    dateRange: {
+      from: dateRanges[0].date,
+      to: dateRanges[dateRanges.length - 1].date
+    },
+    priceRange: {
+      min: cheapest.price,
+      max: sortedByPrice[sortedByPrice.length - 1].price,
+      median
+    },
+    bestDeal: {
+      date: cheapest.date,
+      price: cheapest.price,
+      savingsFromMedian: median - cheapest.price
+    },
+    flexibility: flexibility > 7 ? 'high' : flexibility > 3 ? 'medium' : 'low',
+    recommendedDates: sortedByPrice.slice(0, 3).map(d => d.date),
+    allOptions: dateRanges
+  };
 }

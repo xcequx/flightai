@@ -18,7 +18,12 @@ import {
   Star,
   Heart,
   Globe,
-  Camera
+  Camera,
+  Brain,
+  Sparkles,
+  Target,
+  ArrowRight,
+  ShoppingBag
 } from "lucide-react";
 import { useState } from "react";
 
@@ -41,6 +46,30 @@ interface FlightResult {
   badges: string[];
   rawData?: any; // Store original API data for booking
   multiLeg?: boolean;
+  
+  // Enhanced AI-powered features
+  aiRecommended?: boolean;
+  aiInsights?: {
+    recommendation: string;
+    reasoning: string;
+    confidence: number;
+    highlights: string[];
+  };
+  flexibleDateInfo?: {
+    originalDeparture: string;
+    originalReturn: string;
+    actualDeparture: string;
+    actualReturn: string;
+    dayDifference: {
+      departure: number;
+      return: number;
+    };
+    priceImprovement?: number;
+    isOptimalDate?: boolean;
+  };
+  affiliateUrl?: string;
+  searchId?: string;
+  
   stopoverInfo?: {
     hub: {
       iata: string;
@@ -58,13 +87,19 @@ interface FlightResult {
     savingsPercent: number;
     directPrice: number;
     totalCostWithStay: number;
+    // NEW: AI-enhanced stopover insights
+    aiRecommendation?: {
+      reason: string;
+      highlights: string[];
+      valueProposition: string;
+    };
   };
 }
 
 interface ItineraryCardProps {
   result: FlightResult;
   rank: number;
-  sortBy: 'cheapest' | 'fastest' | 'safest' | 'best-mix';
+  sortBy: 'ai-recommended' | 'cheapest' | 'fastest' | 'safest' | 'best-mix';
 }
 
 export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
@@ -73,28 +108,52 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
   const [showDetails, setShowDetails] = useState(false);
 
   const handleBooking = () => {
-    // In a real implementation, this would redirect to booking page with flight data
+    // Enhanced booking with affiliate tracking and analytics
     const bookingData = {
       flightOffer: result.rawData,
-      searchId: result.id,
-      price: result.price
+      searchId: result.searchId || result.id,
+      price: result.price,
+      affiliateTracking: result.affiliateUrl ? true : false,
+      aiRecommended: result.aiRecommended || false,
+      flexibleDate: result.flexibleDateInfo ? true : false
     };
-    
-    // For now, open a new window with booking information
-    const bookingWindow = window.open('', '_blank');
-    if (bookingWindow) {
-      bookingWindow.document.write(`
-        <html>
-          <head><title>${t('results.bookingTitle')} - ${result.id}</title></head>
-          <body style="font-family: Arial, sans-serif; padding: 20px;">
-            <h1>${t('results.bookingTitle')}</h1>
-            <p>${t('results.priceLabel')}: ${result.price} PLN</p>
-            <p>${t('results.routeLabel')}: ${result.segments.map(s => `${s.from} → ${s.to}`).join(', ')}</p>
-            <p>${t('results.bookingFormText')}</p>
-            <pre>${JSON.stringify(bookingData, null, 2)}</pre>
-          </body>
-        </html>
-      `);
+
+    // Track booking click for analytics (affiliate tracking)
+    if (result.searchId) {
+      // In a real implementation, this would send analytics to backend
+      console.log('📊 Booking clicked:', {
+        searchId: result.searchId,
+        flightId: result.id,
+        isAiRecommended: result.aiRecommended,
+        hasFlexibleDate: !!result.flexibleDateInfo,
+        price: result.price,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    // Use affiliate URL if available, otherwise fallback to booking window
+    if (result.affiliateUrl) {
+      console.log('🔗 Redirecting to affiliate URL:', result.affiliateUrl);
+      window.open(result.affiliateUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      // Fallback to booking information window
+      const bookingWindow = window.open('', '_blank');
+      if (bookingWindow) {
+        bookingWindow.document.write(`
+          <html>
+            <head><title>${t('results.bookingTitle')} - ${result.id}</title></head>
+            <body style="font-family: Arial, sans-serif; padding: 20px;">
+              <h1>${t('results.bookingTitle')}</h1>
+              <p>${t('results.priceLabel')}: ${result.price} PLN</p>
+              <p>${t('results.routeLabel')}: ${result.segments.map(s => `${s.from} → ${s.to}`).join(', ')}</p>
+              ${result.aiRecommended ? '<p style="color: #7c3aed; font-weight: bold;">🤖 AI Recommended Flight</p>' : ''}
+              ${result.flexibleDateInfo ? '<p style="color: #059669;">📅 Found through flexible date search</p>' : ''}
+              <p>${t('results.bookingFormText')}</p>
+              <pre>${JSON.stringify(bookingData, null, 2)}</pre>
+            </body>
+          </html>
+        `);
+      }
     }
   };
 
@@ -122,6 +181,7 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
   const getRankBadgeVariant = () => {
     if (rank === 1) {
       switch (sortBy) {
+        case 'ai-recommended': return 'bg-purple-600 text-white';
         case 'cheapest': return 'bg-success text-success-foreground';
         case 'fastest': return 'bg-primary text-primary-foreground';
         case 'safest': return 'bg-warning text-warning-foreground';
@@ -186,6 +246,92 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
             )}
           </div>
         </div>
+
+        {/* AI Recommendations Section */}
+        {result.aiRecommended && result.aiInsights && (
+          <div className="mb-4 p-4 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 border border-purple-200 dark:border-purple-800 rounded-lg" data-testid={`ai-recommendation-${result.id}`}>
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <div className="bg-purple-100 dark:bg-purple-900 p-2 rounded-full">
+                  <Brain className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-purple-900 dark:text-purple-100 flex items-center gap-1">
+                    <Sparkles className="h-4 w-4" />
+                    AI Recommended Flight
+                  </h4>
+                  <p className="text-xs text-purple-700 dark:text-purple-300">
+                    Confidence: {Math.round(result.aiInsights.confidence * 100)}%
+                  </p>
+                </div>
+              </div>
+              <Badge variant="secondary" className="bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                <Target className="h-3 w-3 mr-1" />
+                AI Pick
+              </Badge>
+            </div>
+            
+            <p className="text-sm text-purple-800 dark:text-purple-200 mb-3 font-medium">
+              {result.aiInsights.recommendation}
+            </p>
+            
+            <p className="text-xs text-purple-600 dark:text-purple-400 mb-3">
+              {result.aiInsights.reasoning}
+            </p>
+            
+            {result.aiInsights.highlights && result.aiInsights.highlights.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {result.aiInsights.highlights.map((highlight, idx) => (
+                  <Badge key={idx} variant="outline" className="text-xs border-purple-300 text-purple-700 dark:border-purple-700 dark:text-purple-300">
+                    <Star className="h-3 w-3 mr-1" />
+                    {highlight}
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Flexible Date Information */}
+        {result.flexibleDateInfo && (
+          <div className="mb-4 p-3 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 border border-green-200 dark:border-green-800 rounded-lg" data-testid={`flexible-date-info-${result.id}`}>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-green-600 dark:text-green-400" />
+                <span className="font-medium text-green-900 dark:text-green-100 text-sm">
+                  {result.flexibleDateInfo.isOptimalDate ? 'Optimal Date Found' : 'Alternative Date'}
+                </span>
+              </div>
+              {result.flexibleDateInfo.priceImprovement && result.flexibleDateInfo.priceImprovement > 0 && (
+                <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                  <TrendingDown className="h-3 w-3 mr-1" />
+                  -{result.flexibleDateInfo.priceImprovement} PLN
+                </Badge>
+              )}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-2 text-xs text-green-700 dark:text-green-300">
+              <div>
+                <span className="text-green-600 dark:text-green-400">Original:</span> {result.flexibleDateInfo.originalDeparture}
+                {result.flexibleDateInfo.originalReturn && ` - ${result.flexibleDateInfo.originalReturn}`}
+              </div>
+              <div>
+                <span className="text-green-600 dark:text-green-400">Found:</span> {result.flexibleDateInfo.actualDeparture}
+                {result.flexibleDateInfo.actualReturn && ` - ${result.flexibleDateInfo.actualReturn}`}
+              </div>
+            </div>
+            
+            {(result.flexibleDateInfo.dayDifference.departure > 0 || result.flexibleDateInfo.dayDifference.return > 0) && (
+              <div className="mt-2 text-xs text-green-600 dark:text-green-400">
+                <ArrowRight className="h-3 w-3 inline mr-1" />
+                {result.flexibleDateInfo.dayDifference.departure > 0 && 
+                  `${result.flexibleDateInfo.dayDifference.departure} days different departure`}
+                {result.flexibleDateInfo.dayDifference.return > 0 && 
+                  `, ${result.flexibleDateInfo.dayDifference.return} days different return`}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Price Breakdown */}
         {showPriceBreakdown && (
@@ -308,6 +454,41 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
                 })}
               </span>
             </div>
+            
+            {/* AI-Enhanced Stopover Recommendations */}
+            {result.stopoverInfo.aiRecommendation && (
+              <div className="mt-3 p-3 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 border border-indigo-200 dark:border-indigo-800 rounded-lg" data-testid={`ai-stopover-recommendation-${result.id}`}>
+                <div className="flex items-start gap-2 mb-2">
+                  <div className="bg-indigo-100 dark:bg-indigo-900 p-1 rounded-full">
+                    <Brain className="h-3 w-3 text-indigo-600 dark:text-indigo-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h5 className="font-medium text-indigo-900 dark:text-indigo-100 text-xs mb-1">
+                      AI Travel Insight
+                    </h5>
+                    <p className="text-xs text-indigo-800 dark:text-indigo-200 leading-relaxed">
+                      {result.stopoverInfo.aiRecommendation.reason}
+                    </p>
+                  </div>
+                </div>
+                
+                {result.stopoverInfo.aiRecommendation.highlights && result.stopoverInfo.aiRecommendation.highlights.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {result.stopoverInfo.aiRecommendation.highlights.map((highlight, idx) => (
+                      <Badge key={idx} variant="outline" className="text-xs border-indigo-300 text-indigo-700 dark:border-indigo-700 dark:text-indigo-300 px-2 py-0.5">
+                        <Sparkles className="h-2 w-2 mr-1" />
+                        {highlight}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+                
+                <div className="text-xs text-indigo-600 dark:text-indigo-400 font-medium">
+                  <ShoppingBag className="h-3 w-3 inline mr-1" />
+                  {result.stopoverInfo.aiRecommendation.valueProposition}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -348,11 +529,26 @@ export function ItineraryCard({ result, rank, sortBy }: ItineraryCardProps) {
 
         {/* Action buttons */}
         <div className="flex gap-2">
-          <Button className="flex-1" size="lg" onClick={handleBooking}>
+          <Button 
+            className="flex-1" 
+            size="lg" 
+            onClick={handleBooking}
+            data-testid={`button-book-${result.id}`}
+          >
             <ExternalLink className="h-4 w-4 mr-2" />
             {t('results.bookNowCard')}
+            {result.affiliateUrl && (
+              <Badge variant="outline" className="ml-2 text-xs">
+                Partner
+              </Badge>
+            )}
           </Button>
-          <Button variant="outline" size="lg" onClick={handleShowDetails}>
+          <Button 
+            variant="outline" 
+            size="lg" 
+            onClick={handleShowDetails}
+            data-testid={`button-details-${result.id}`}
+          >
             {showDetails ? t('results.hideDetails') : t('results.showDetailsCard')}
           </Button>
         </div>

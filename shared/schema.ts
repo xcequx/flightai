@@ -60,7 +60,7 @@ export const vacationPlans = pgTable("vacation_plans", {
   updatedAt: timestamp("updated_at").defaultNow()
 });
 
-// Enhanced flight searches table with new fields
+// Enhanced flight searches table with new fields for AI intelligence
 export const enhancedFlightSearches = pgTable("enhanced_flight_searches", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id),
@@ -79,8 +79,19 @@ export const enhancedFlightSearches = pgTable("enhanced_flight_searches", {
   autoRecommendStopovers: boolean("auto_recommend_stopovers").default(false),
   includeNeighboringCountries: boolean("include_neighboring_countries").default(false),
   affiliateProvider: varchar("affiliate_provider", { length: 50 }),
+  
+  // NEW: AI-powered features
+  searchId: varchar("search_id", { length: 100 }).unique(), // Unique identifier for tracking AI recommendations
+  userPreferences: text("user_preferences"), // JSON: travel style, interests, budget sensitivity
+  stopoverInsights: text("stopover_insights"), // JSON: AI-generated stopover recommendations with reasoning
+  priceBands: text("price_bands"), // JSON: flexible date pricing analysis across date ranges
+  aiRecommendations: text("ai_recommendations"), // JSON: full AI analysis and recommendations
+  
   searchTimestamp: timestamp("search_timestamp").defaultNow(),
   resultCount: integer("result_count").default(0),
+  multiLegCount: integer("multi_leg_count").default(0), // NEW: count of multi-leg options found
+  bestSavingsFound: decimal("best_savings_found", { precision: 8, scale: 2 }), // NEW: best savings amount discovered
+  aiProcessingTime: integer("ai_processing_time").default(0), // NEW: AI processing time in ms
   apiSource: varchar("api_source", { length: 20 }).default("amadeus") // amadeus, aviationstack
 });
 
@@ -120,7 +131,7 @@ export const affiliateClicks = pgTable("affiliate_clicks", {
   conversionValue: decimal("conversion_value", { precision: 10, scale: 2 })
 });
 
-// Enhanced Zod validation schemas for flight search API
+// Enhanced Zod validation schemas for intelligent flight search API
 export const flightSearchSchema = z.object({
   origins: z.array(z.string().min(2).max(3))
     .min(1, "At least one origin is required")
@@ -142,7 +153,18 @@ export const flightSearchSchema = z.object({
   nonStop: z.boolean().default(false),
   autoRecommendStopovers: z.boolean().default(false),
   includeNeighboringCountries: z.boolean().default(false),
-  affiliateProvider: z.string().optional()
+  affiliateProvider: z.string().optional(),
+  
+  // NEW: AI-powered search enhancements
+  userPreferences: z.object({
+    travelStyle: z.enum(["budget", "comfort", "luxury", "adventure", "business"]).optional(),
+    interests: z.array(z.string()).optional(),
+    budgetSensitivity: z.enum(["low", "medium", "high"]).default("medium"),
+    layoverPreference: z.enum(["none", "short", "explore", "no_preference"]).default("no_preference"),
+    timeVsPrice: z.enum(["time", "price", "balanced"]).default("balanced")
+  }).optional(),
+  enableAI: z.boolean().default(true), // Enable AI-powered recommendations
+  searchId: z.string().optional() // For tracking and correlation
 });
 
 // Hotel search schema
@@ -304,6 +326,93 @@ export const errorResponseSchema = z.object({
 });
 
 // Type exports
+// NEW: AI-powered flight search schemas
+export const stopoverInsightSchema = z.object({
+  hub: z.object({
+    iata: z.string(),
+    name: z.string(),
+    city: z.string(),
+    country: z.string(),
+    attractions: z.array(z.string()).optional(),
+    description: z.string().optional(),
+    averageDailyCost: z.number().optional()
+  }),
+  layoverDays: z.number().int().min(1).max(7),
+  savings: z.number(),
+  savingsPercent: z.number(),
+  directPrice: z.number(),
+  multiLegPrice: z.number(),
+  totalCostWithStay: z.number().optional(),
+  reasoning: z.string().optional(), // AI explanation for recommendation
+  attractionScore: z.number().min(0).max(10).optional(),
+  valueScore: z.number().min(0).max(10).optional() // Overall value proposition
+});
+
+export const priceBandSchema = z.object({
+  dateRange: z.object({
+    from: z.string(),
+    to: z.string()
+  }),
+  priceRange: z.object({
+    min: z.number(),
+    max: z.number(),
+    median: z.number()
+  }),
+  bestDeal: z.object({
+    date: z.string(),
+    price: z.number(),
+    savingsFromMedian: z.number()
+  }).optional(),
+  flexibility: z.enum(["low", "medium", "high"]),
+  recommendedDates: z.array(z.string()).optional()
+});
+
+export const aiFlightRecommendationSchema = z.object({
+  summary: z.object({
+    bestOption: z.enum(["direct", "stopover", "flexible_dates"]),
+    maxSavings: z.number(),
+    recommendedStopover: z.string().optional(),
+    reasoning: z.string()
+  }),
+  stopovers: z.array(stopoverInsightSchema).optional(),
+  priceBands: z.array(priceBandSchema).optional(),
+  alternatives: z.object({
+    cheaperDates: z.array(z.object({
+      date: z.string(),
+      price: z.number(),
+      savings: z.number()
+    })).optional(),
+    nearbyAirports: z.array(z.object({
+      iata: z.string(),
+      name: z.string(),
+      savings: z.number().optional()
+    })).optional()
+  }).optional(),
+  confidence: z.number().min(0).max(1) // AI confidence in recommendations
+});
+
+// Enhanced flight search response with AI insights
+export const enhancedFlightSearchResponseSchema = z.object({
+  searchId: z.string(),
+  directFlights: z.array(z.any()).optional(), // Amadeus flight offers
+  multiLegFlights: z.array(z.any()).optional(), // Multi-leg options
+  aiRecommendations: aiFlightRecommendationSchema.optional(),
+  totalResults: z.number(),
+  searchParams: z.any(),
+  processingTime: z.object({
+    amadeus: z.number().optional(),
+    ai: z.number().optional(),
+    total: z.number()
+  }),
+  affiliateUrls: z.record(z.string(), z.string()).optional(), // flightId -> affiliate URL mapping
+  metadata: z.object({
+    currency: z.string().default("PLN"),
+    searchTimestamp: z.string(),
+    bestSavings: z.number().optional(),
+    totalSavingsFound: z.number().optional()
+  })
+});
+
 export type VacationPlanRequest = z.infer<typeof vacationPlanRequestSchema>;
 export type CityOptimizeRequest = z.infer<typeof cityOptimizeRequestSchema>;
 export type BudgetOptimizeRequest = z.infer<typeof budgetOptimizeRequestSchema>;
@@ -312,3 +421,9 @@ export type RouteOptimizeRequest = z.infer<typeof routeOptimizeRequestSchema>;
 export type VacationPlanResponse = z.infer<typeof vacationPlanResponseSchema>;
 export type ApiResponse = z.infer<typeof apiResponseSchema>;
 export type ErrorResponse = z.infer<typeof errorResponseSchema>;
+
+// NEW: AI-powered flight search types
+export type StopoverInsight = z.infer<typeof stopoverInsightSchema>;
+export type PriceBand = z.infer<typeof priceBandSchema>;
+export type AIFlightRecommendation = z.infer<typeof aiFlightRecommendationSchema>;
+export type EnhancedFlightSearchResponse = z.infer<typeof enhancedFlightSearchResponseSchema>;
