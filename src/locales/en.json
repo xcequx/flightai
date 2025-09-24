@@ -31,6 +31,7 @@
     "description": "The world's first AI-powered flight searcher that automatically creates multi-day stopovers and combines different carriers to find the cheapest travel options.",
     "searchButton": "Search Smart Flights",
     "learnMore": "Learn more",
+    "planVacation": "Plan Vacation with AI",
     "trustIndicators": {
       "customers": "500,000+ Happy Customers",
       "savings": "Average Savings: $300",
@@ -526,8 +527,5 @@
     "copyright": "© 2024 FlightAI. All rights reserved.",
     "madeInPoland": "Made with ❤️ in Poland",
     "securePayments": "Secure SSL payments"
-  },
-  "hero": {
-    "planVacation": "Plan Vacation with AI"
   }
 }

@@ -31,6 +31,7 @@
     "description": "Pierwszy na świecie wyszukiwacz lotów oparty na sztucznej inteligencji, który automatycznie tworzy wielodniowe przesiadki i kombinuje różnych przewoźników, aby znaleźć najtańsze opcje podróży.",
     "searchButton": "Wyszukaj Inteligentne Loty",
     "learnMore": "Dowiedz się więcej",
+    "planVacation": "Zaplanuj Wakacje z AI",
     "trustIndicators": {
       "customers": "500,000+ Zadowolonych Klientów",
       "savings": "Średnie Oszczędności: 1,200 zł",
@@ -532,8 +533,5 @@
     "copyright": "© 2024 FlightAI. Wszelkie prawa zastrzeżone.",
     "madeInPoland": "Wykonane z ❤️ w Polsce",
     "securePayments": "Bezpieczne płatności SSL"
-  },
-  "hero": {
-    "planVacation": "Zaplanuj Wakacje z AI"
   }
 }

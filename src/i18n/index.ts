@@ -14,6 +14,8 @@ const resources = {
   }
 };
 
+// Resources loaded successfully
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)

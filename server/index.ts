@@ -12,7 +12,7 @@ async function createServer() {
   const app = express();
   const PORT = parseInt(process.env.PORT || '5000', 10);
 
-  // Force production mode to serve static files instead of using Vite middleware
+  // Force production mode to serve static files
   process.env.NODE_ENV = 'production';
 
   // Initialize database schema on startup
