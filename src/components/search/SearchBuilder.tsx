@@ -24,6 +24,14 @@ export interface SearchParams {
   dateRange: DateRange | undefined;
   departureFlex: number;
   returnFlex: number;
+  // API-required fields
+  travelClass: "ECONOMY" | "PREMIUM_ECONOMY" | "BUSINESS" | "FIRST";
+  adults: number;
+  children: number;
+  infants: number;
+  maxResults: number;
+  nonStop: boolean;
+  // UI-only fields (not sent to API)
   stopovers: Array<{
     location: string;
     minDays: number;
@@ -52,6 +60,14 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     dateRange: undefined,
     departureFlex: 3,
     returnFlex: 3,
+    // API-required fields with defaults
+    travelClass: "ECONOMY",
+    adults: 1,
+    children: 0,
+    infants: 0,
+    maxResults: 50,
+    nonStop: false,
+    // UI-only fields
     stopovers: [],
     preferences: { price: 60, time: 25, risk: 15 },
     constraints: {
@@ -72,6 +88,29 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
   // Helper function to format validation errors for display
   const formatValidationErrors = (errors: Array<{field: string, message: string}>): string => {
     return errors.map(err => `${err.field}: ${err.message}`).join('\n');
+  };
+
+  // Mapping function to transform SearchParams to API-compatible format
+  const transformToAPIFormat = (searchParams: SearchParams) => {
+    return {
+      origins: searchParams.origins,
+      destinations: searchParams.destinations,
+      dateRange: {
+        from: formatDateForAPI(searchParams.dateRange!.from!),
+        to: searchParams.dateRange?.to ? formatDateForAPI(searchParams.dateRange.to) : undefined
+      },
+      departureFlex: searchParams.departureFlex,
+      returnFlex: searchParams.returnFlex,
+      travelClass: searchParams.travelClass,
+      adults: searchParams.adults,
+      children: searchParams.children,
+      infants: searchParams.infants,
+      maxResults: searchParams.maxResults,
+      nonStop: searchParams.nonStop,
+      autoRecommendStopovers: searchParams.autoRecommendStopovers,
+      includeNeighboringCountries: searchParams.includeNeighboringCountries
+      // Note: stopovers, preferences, constraints are NOT included as they're not in the backend schema
+    };
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -96,21 +135,21 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
     setLocalLoading(true);
     
     try {
-      // Convert params to API format (convert Date objects to strings)
-      const apiParams = {
-        ...params,
-        dateRange: {
-          from: formatDateForAPI(params.dateRange.from),
-          to: params.dateRange.to ? formatDateForAPI(params.dateRange.to) : undefined
-        }
-      };
+      // Transform params to API-compatible format (only send fields that backend expects)
+      const apiParams = transformToAPIFormat(params);
       
-      console.log('🔄 Sending search request with formatted params:', {
+      console.log('🔄 Sending search request with API-compatible params:', {
         origins: apiParams.origins,
         destinations: apiParams.destinations,
         dateRange: apiParams.dateRange,
         departureFlex: apiParams.departureFlex,
-        returnFlex: apiParams.returnFlex
+        returnFlex: apiParams.returnFlex,
+        travelClass: apiParams.travelClass,
+        adults: apiParams.adults,
+        children: apiParams.children,
+        infants: apiParams.infants,
+        maxResults: apiParams.maxResults,
+        nonStop: apiParams.nonStop
       });
       
       // Call our Express API for flight search using Aviationstack
@@ -172,6 +211,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         });
       } else {
         console.error('❌ Flight search error:', data.error);
+        console.error('📋 Full error response:', data);
         
         // Handle validation errors specifically
         if (data.error === 'Validation failed' && data.details && Array.isArray(data.details)) {
