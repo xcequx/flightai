@@ -2,6 +2,14 @@
 
 This is a modern flight search application called "FlightAI" that helps users find affordable flights with strategic stopovers. The application specializes in intelligent flight search with multi-day layovers, allowing travelers to explore new cities while saving money. Built with React, TypeScript, and modern web technologies, it provides an intuitive interface for complex flight search scenarios.
 
+# Recent Changes
+
+## September 24, 2025 - Critical Bug Fixes
+- **Fixed Date Format Validation Error**: Resolved critical issue where flight searches failed due to date format mismatch between frontend (ISO strings) and backend (YYYY-MM-DD format). Updated Zod validation schema and added date conversion helpers.
+- **Complete Polish Text Internationalization**: Fixed all hardcoded Polish text appearing in English interface including statistics section, AI vacation planner, and navigation elements. Added comprehensive translation keys to both English and Polish locale files.
+- **Enhanced DateRangePicker UX**: Added confirmation buttons to date picker component for better user experience when selecting travel dates.
+- **Flight Search Functionality Restored**: Applied proper date formatting to all Amadeus API calls, ensuring end-to-end flight search functionality works correctly.
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.
