@@ -4,6 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import pl from '../locales/pl.json';
 import en from '../locales/en.json';
+import es from '../locales/es.json';
 
 const resources = {
   pl: {
@@ -11,6 +12,9 @@ const resources = {
   },
   en: {
     translation: en
+  },
+  es: {
+    translation: es
   }
 };
 
@@ -22,7 +26,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'pl',
-    supportedLngs: ['pl', 'en'],
+    supportedLngs: ['pl', 'en', 'es'],
     load: 'languageOnly',
     debug: false,
 

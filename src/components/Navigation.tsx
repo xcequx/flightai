@@ -160,6 +160,14 @@ export function Navigation() {
                   <span className="mr-3">🇺🇸</span>
                   English
                 </DropdownMenuItem>
+                <DropdownMenuItem 
+                  onClick={() => changeLanguage('es')}
+                  className={cn("cursor-pointer", currentLanguage === 'es' && "bg-accent")}
+                  data-testid="button-language-es"
+                >
+                  <span className="mr-3">🇪🇸</span>
+                  Español
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -246,12 +254,12 @@ export function Navigation() {
                       {/* Mobile Language Switcher */}
                       <div className="mb-4">
                         <div className="text-sm font-medium text-muted-foreground mb-2">{t('common.language') || 'Language'}</div>
-                        <div className="flex gap-2">
+                        <div className="grid grid-cols-2 gap-2">
                           <Button
                             variant={currentLanguage === 'pl' ? 'default' : 'outline'}
                             size="sm"
                             onClick={() => changeLanguage('pl')}
-                            className="flex-1 justify-center gap-2"
+                            className="justify-center gap-2"
                             data-testid="button-language-pl-mobile"
                           >
                             <span>🇵🇱</span>
@@ -261,11 +269,21 @@ export function Navigation() {
                             variant={currentLanguage === 'en' ? 'default' : 'outline'}
                             size="sm"
                             onClick={() => changeLanguage('en')}
-                            className="flex-1 justify-center gap-2"
+                            className="justify-center gap-2"
                             data-testid="button-language-en-mobile"
                           >
                             <span>🇺🇸</span>
                             English
+                          </Button>
+                          <Button
+                            variant={currentLanguage === 'es' ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => changeLanguage('es')}
+                            className="col-span-2 justify-center gap-2"
+                            data-testid="button-language-es-mobile"
+                          >
+                            <span>🇪🇸</span>
+                            Español
                           </Button>
                         </div>
                       </div>

@@ -9,7 +9,12 @@ import i18n from '../i18n';
  */
 export function getCurrentLocale(): string {
   const language = i18n.resolvedLanguage || i18n.language || 'pl';
-  return language === 'pl' ? 'pl-PL' : 'en-US';
+  switch(language) {
+    case 'pl': return 'pl-PL';
+    case 'en': return 'en-US';
+    case 'es': return 'es-ES';
+    default: return 'en-US';
+  }
 }
 
 /**
@@ -17,7 +22,12 @@ export function getCurrentLocale(): string {
  */
 export function getCurrentCurrency(): string {
   const language = i18n.resolvedLanguage || i18n.language || 'pl';
-  return language === 'pl' ? 'PLN' : 'USD';
+  switch(language) {
+    case 'pl': return 'PLN';
+    case 'en': return 'USD';
+    case 'es': return 'EUR';
+    default: return 'USD';
+  }
 }
 
 /**
@@ -114,6 +124,14 @@ export function formatDuration(totalMinutes: number): string {
   const language = i18n.resolvedLanguage || i18n.language || 'pl';
   
   if (language === 'pl') {
+    if (hours > 0 && minutes > 0) {
+      return `${hours}h ${minutes}min`;
+    } else if (hours > 0) {
+      return `${hours}h`;
+    } else {
+      return `${minutes}min`;
+    }
+  } else if (language === 'es') {
     if (hours > 0 && minutes > 0) {
       return `${hours}h ${minutes}min`;
     } else if (hours > 0) {
