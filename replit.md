@@ -55,6 +55,20 @@ The application integrates with external flight data providers:
 
 The search functionality supports complex multi-city searches with flexibility options for dates and routing preferences.
 
+## Internationalization System
+
+The application features a comprehensive multilingual system:
+
+- **Professional Translation System** with react-i18next configuration
+- **Complete Polish and English Support** with 200+ translation keys
+- **Spanish Language Ready** with full template and currency support (EUR)
+- **Locale-Aware Formatters** for dates, numbers, currencies, and durations
+- **Dynamic Language Switching** with browser detection and localStorage persistence
+- **Scalable Architecture** designed for easy addition of new languages (German, French, Italian, etc.)
+- **SEO Optimization** with automatic meta tags updates based on selected language
+
+The internationalization system replaces all hardcoded texts with structured translation keys and supports professional multilingual expansion.
+
 # External Dependencies
 
 ## Core Framework Dependencies
