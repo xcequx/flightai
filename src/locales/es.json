@@ -340,7 +340,11 @@
     "lastYear": "Año pasado",
     "nextWeek": "Próxima semana",
     "nextMonth": "Próximo mes",
-    "nextYear": "Próximo año"
+    "nextYear": "Próximo año",
+    "searches": "Búsquedas mensuales",
+    "avgSavings": "Ahorro promedio",
+    "countriesCovered": "Países cubiertos",
+    "customerRating": "Calificación del cliente"
   },
   "toast": {
     "searchStarted": "Búsqueda iniciada",
