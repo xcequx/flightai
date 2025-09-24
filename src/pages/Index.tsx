@@ -490,7 +490,7 @@ const Index = () => {
                 data-testid="button-ai-vacation-planner"
               >
                 <Sparkles className="mr-2 h-5 w-5" />
-                Zaplanuj Wakacje z AI
+                {t('hero.planVacation')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button 
@@ -500,7 +500,7 @@ const Index = () => {
                 onClick={() => document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' })}
                 data-testid="button-search-flights-secondary"
               >
-                Lub Szukaj Lotów Ręcznie
+                {t('search.manualSearch')}
               </Button>
             </div>
           </div>
@@ -521,8 +521,7 @@ const Index = () => {
                   <span className="text-2xl font-bold">FlightAI</span>
                 </div>
                 <p className="text-muted-foreground mb-6 leading-relaxed max-w-md">
-                  Najinteligentniejsza platforma wyszukiwania lotów z przesiadkami. 
-                  Odkrywaj świat i oszczędzaj pieniądze dzięki sztucznej inteligencji.
+                  {t('footer.description')}
                 </p>
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -538,23 +537,23 @@ const Index = () => {
               
               {/* Quick Links */}
               <div>
-                <h3 className="font-semibold mb-4">Szybkie Linki</h3>
+                <h3 className="font-semibold mb-4">{t('footer.quickLinks')}</h3>
                 <div className="space-y-3 text-sm">
-                  <div><a href="/" className="text-muted-foreground hover:text-primary transition-colors">Wyszukaj Loty</a></div>
-                  <div><a href="/plan-vacation" className="text-muted-foreground hover:text-primary transition-colors">AI Planner</a></div>
-                  <div><a href="/about" className="text-muted-foreground hover:text-primary transition-colors">O Nas</a></div>
-                  <div><a href="/contact" className="text-muted-foreground hover:text-primary transition-colors">Kontakt</a></div>
+                  <div><a href="/" className="text-muted-foreground hover:text-primary transition-colors">{t('footer.searchFlights')}</a></div>
+                  <div><a href="/plan-vacation" className="text-muted-foreground hover:text-primary transition-colors">{t('footer.aiPlanner')}</a></div>
+                  <div><a href="/about" className="text-muted-foreground hover:text-primary transition-colors">{t('footer.about')}</a></div>
+                  <div><a href="/contact" className="text-muted-foreground hover:text-primary transition-colors">{t('footer.contact')}</a></div>
                 </div>
               </div>
               
               {/* Support */}
               <div>
-                <h3 className="font-semibold mb-4">Wsparcie</h3>
+                <h3 className="font-semibold mb-4">{t('footer.support')}</h3>
                 <div className="space-y-3 text-sm">
-                  <div><a href="/help" className="text-muted-foreground hover:text-primary transition-colors">Centrum Pomocy</a></div>
-                  <div><a href="/faq" className="text-muted-foreground hover:text-primary transition-colors">FAQ</a></div>
-                  <div><a href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">Prywatność</a></div>
-                  <div><a href="/terms" className="text-muted-foreground hover:text-primary transition-colors">Regulamin</a></div>
+                  <div><a href="/help" className="text-muted-foreground hover:text-primary transition-colors">{t('footer.helpCenter')}</a></div>
+                  <div><a href="/faq" className="text-muted-foreground hover:text-primary transition-colors">{t('footer.faq')}</a></div>
+                  <div><a href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">{t('footer.privacy')}</a></div>
+                  <div><a href="/terms" className="text-muted-foreground hover:text-primary transition-colors">{t('footer.terms')}</a></div>
                 </div>
               </div>
             </div>
@@ -562,13 +561,13 @@ const Index = () => {
             {/* Bottom Bar */}
             <div className="pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="text-sm text-muted-foreground">
-                © 2024 FlightAI. Wszelkie prawa zastrzeżone.
+                {t('footer.copyright')}
               </div>
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                <span>Wykonane z ❤️ w Polsce</span>
+                <span>{t('footer.madeInPoland')}</span>
                 <div className="flex items-center gap-2">
                   <Shield className="h-4 w-4" />
-                  <span>Bezpieczne płatności SSL</span>
+                  <span>{t('footer.securePayments')}</span>
                 </div>
               </div>
             </div>

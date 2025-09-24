@@ -40,6 +40,7 @@
   "features": {
     "title": "Why FlightAI Finds Cheaper Flights?",
     "subtitle": "Our breakthrough AI features allow us to discover hidden deals that other search engines can't see",
+    "description": "Our breakthrough AI features allow us to discover hidden deals that other search engines can't see",
     "aiStopover": {
       "title": "AI-Powered Stopovers",
       "description": "Our algorithm automatically creates multi-day stopovers that let you explore additional cities while saving up to 60% on flight costs."
@@ -131,7 +132,11 @@
     "mockDataNotice": "Meanwhile we use sample data.",
     "placeholderOrigin": "Poland, Warsaw, Europe...",
     "placeholderDestination": "Bangkok, Tokyo, Asia...",
-    "placeholderDateRange": "Select travel date range"
+    "placeholderDateRange": "Select travel date range",
+    "searchTime": "Search takes ~30 seconds",
+    "freeSearch": "100% free search",
+    "noHiddenFees": "No hidden costs",
+    "manualSearch": "Or Search Flights Manually"
   },
   "results": {
     "title": "Search Results",
@@ -505,5 +510,24 @@
     "shareText": "Check out my personalized travel plan to {{region}} region!",
     "flightDetailsPlaceholder": "Detailed information about flight routes and booking strategies will be displayed here soon.",
     "accommodationDetailsPlaceholder": "Detailed information about recommended hotels will be displayed here soon."
+  },
+  "footer": {
+    "description": "The world's smartest flight search platform with stopovers. Explore the world and save money with artificial intelligence.",
+    "quickLinks": "Quick Links",
+    "searchFlights": "Search Flights",
+    "aiPlanner": "AI Planner",
+    "about": "About",
+    "contact": "Contact",
+    "support": "Support",
+    "helpCenter": "Help Center",
+    "faq": "FAQ",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "copyright": "© 2024 FlightAI. All rights reserved.",
+    "madeInPoland": "Made with ❤️ in Poland",
+    "securePayments": "Secure SSL payments"
+  },
+  "hero": {
+    "planVacation": "Plan Vacation with AI"
   }
 }

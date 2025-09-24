@@ -40,6 +40,7 @@
   "features": {
     "title": "Dlaczego FlightAI Znajduje Tańsze Loty?",
     "subtitle": "Nasze przełomowe funkcje AI pozwalają nam odkrywać ukryte okazje, których inne wyszukiwarki nie widzą",
+    "description": "Nasze przełomowe funkcje AI pozwalają nam odkrywać ukryte okazje, których inne wyszukiwarki nie widzą",
     "aiStopover": {
       "title": "Przesiadki AI",
       "description": "Nasz algorytm automatycznie tworzy wielodniowe przesiadki, które pozwalają zwiedzić dodatkowe miasta i zaoszczędzić nawet do 60% kosztów lotów."
@@ -133,7 +134,11 @@
     "mockDataNotice": "W międzyczasie używamy przykładowych danych.",
     "placeholderOrigin": "Polska, Warszawa, Europa...",
     "placeholderDestination": "Bangkok, Tokio, Azja...",
-    "placeholderDateRange": "Wybierz zakres dat podróży"
+    "placeholderDateRange": "Wybierz zakres dat podróży",
+    "searchTime": "Wyszukiwanie trwa ~30 sekund",
+    "freeSearch": "100% darmowe wyszukiwanie",
+    "noHiddenFees": "Brak ukrytych kosztów",
+    "manualSearch": "Lub Szukaj Lotów Ręcznie"
   },
   "results": {
     "title": "Wyniki Wyszukiwania",
@@ -511,5 +516,24 @@
     "shareText": "Sprawdź mój spersonalizowany plan podróży do regionu {{region}}!",
     "flightDetailsPlaceholder": "Szczegółowe informacje o trasach lotów i strategii rezerwacji zostaną wkrótce wyświetlone w tym miejscu.",
     "accommodationDetailsPlaceholder": "Szczegółowe informacje o rekomendowanych hotelach zostaną wkrótce wyświetlone w tym miejscu."
+  },
+  "footer": {
+    "description": "Najinteligentniejsza platforma wyszukiwania lotów z przesiadkami. Odkrywaj świat i oszczędzaj pieniądze dzięki sztucznej inteligencji.",
+    "quickLinks": "Szybkie Linki",
+    "searchFlights": "Wyszukaj Loty",
+    "aiPlanner": "AI Planner",
+    "about": "O Nas",
+    "contact": "Kontakt",
+    "support": "Wsparcie",
+    "helpCenter": "Centrum Pomocy",
+    "faq": "FAQ",
+    "privacy": "Prywatność",
+    "terms": "Regulamin",
+    "copyright": "© 2024 FlightAI. Wszelkie prawa zastrzeżone.",
+    "madeInPoland": "Wykonane z ❤️ w Polsce",
+    "securePayments": "Bezpieczne płatności SSL"
+  },
+  "hero": {
+    "planVacation": "Zaplanuj Wakacje z AI"
   }
 }

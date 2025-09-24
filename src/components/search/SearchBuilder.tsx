@@ -216,7 +216,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
                   <span className="font-medium text-sm">{t('search.howItWorks')}</span>
                 </div>
                 <div className="text-xs space-y-1 text-muted-foreground">
-                  {t('search.howItWorksSteps', { returnObjects: true }).map((step: string, index: number) => (
+                  {(t('search.howItWorksSteps', { returnObjects: true }) as string[]).map((step: string, index: number) => (
                     <div key={index}>• {step}</div>
                   ))}
                 </div>
@@ -228,7 +228,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
                   <span className="font-medium text-sm">{t('search.expertTip')}</span>
                 </div>
                 <div className="text-xs space-y-1 text-muted-foreground">
-                  {t('search.expertTipText', { returnObjects: true }).map((tip: string, index: number) => (
+                  {(t('search.expertTipText', { returnObjects: true }) as string[]).map((tip: string, index: number) => (
                     <div key={index} className={index === 2 ? 'text-success font-medium' : ''}>{tip}</div>
                   ))}
                 </div>
