@@ -479,7 +479,10 @@
       "emptyStateExample": "Przykład: 3-dniowa przesiadka w Dubaju w drodze do Bangkoku"
     },
     "dateRange": {
-      "placeholder": "Wybierz daty"
+      "placeholder": "Wybierz daty",
+      "confirm": "Potwierdź",
+      "cancel": "Anuluj",
+      "selectDates": "Wybierz daty"
     }
   },
   "results": {
