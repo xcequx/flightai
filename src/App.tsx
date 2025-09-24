@@ -10,7 +10,7 @@ import Results from "./pages/Results";
 import PlanVacation from "./pages/PlanVacation";
 import VacationResults from "./pages/VacationResults";
 import NotFound from "./pages/NotFound";
-import "./i18n";
+import "./i18n/index";
 
 const queryClient = new QueryClient();
 
