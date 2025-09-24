@@ -1,19 +1,23 @@
 import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { Plane, Search, Zap, CheckCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface SearchProgressProps {
   progress: number;
 }
 
-const searchSteps = [
-  { icon: Search, label: "Analizuję parametry wyszukiwania", threshold: 10 },
-  { icon: Plane, label: "Wyszukuję loty w bazach danych", threshold: 30 },
-  { icon: Zap, label: "Optymalizuję kombinacje przesiadek", threshold: 60 },
-  { icon: CheckCircle, label: "Obliczam ryzyko i finalizuję wyniki", threshold: 90 },
-];
 
 export function SearchProgress({ progress }: SearchProgressProps) {
+  const { t } = useTranslation();
+  
+  const searchSteps = [
+    { icon: Search, label: t('results.searchProgress.steps.analyzing'), threshold: 10 },
+    { icon: Plane, label: t('results.searchProgress.steps.searching'), threshold: 30 },
+    { icon: Zap, label: t('results.searchProgress.steps.optimizing'), threshold: 60 },
+    { icon: CheckCircle, label: t('results.searchProgress.steps.finalizing'), threshold: 90 },
+  ];
+  
   const currentStep = searchSteps.findIndex(step => progress < step.threshold);
   const activeStepIndex = currentStep === -1 ? searchSteps.length - 1 : Math.max(0, currentStep - 1);
 
@@ -25,16 +29,16 @@ export function SearchProgress({ progress }: SearchProgressProps) {
             <Plane className="h-8 w-8 text-primary animate-pulse" />
           </div>
           <h2 className="text-2xl font-semibold mb-2">
-            Wyszukuję najlepsze opcje podróży
+            {t('results.searchProgress.title')}
           </h2>
           <p className="text-muted-foreground">
-            Analizuję tysiące kombinacji lotów, aby znaleźć idealne rozwiązanie dla Ciebie
+            {t('results.searchProgress.description')}
           </p>
         </div>
 
         <div className="mb-8">
           <div className="flex items-center justify-between text-sm mb-2">
-            <span className="font-medium">Postęp wyszukiwania</span>
+            <span className="font-medium">{t('results.searchProgress.progressLabel')}</span>
             <span className="text-muted-foreground">{progress}%</span>
           </div>
           <Progress value={progress} className="h-3" />
@@ -85,8 +89,7 @@ export function SearchProgress({ progress }: SearchProgressProps) {
 
         <div className="mt-8 p-4 bg-muted/30 rounded-lg">
           <p className="text-sm text-muted-foreground text-center">
-            💡 <strong>Wskazówka:</strong> Najlepsze wyniki często pojawiają się pod koniec wyszukiwania. 
-            Algorytm uczy się z każdą znalezioną opcją!
+            💡 <strong>{t('results.searchProgress.tipTitle')}</strong> {t('results.searchProgress.tipText')}
           </p>
         </div>
       </Card>

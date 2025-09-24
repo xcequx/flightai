@@ -421,6 +421,78 @@
       "standardFare": "Standard fare",
       "stopoverDays": "{{days}}-day stay in {{city}}",
       "savingsPercent": "{{percent}}% savings"
+    },
+    "searchProgress": {
+      "title": "Searching for the best travel options",
+      "description": "Analyzing thousands of flight combinations to find the perfect solution for you",
+      "progressLabel": "Search progress",
+      "tipTitle": "Tip:",
+      "tipText": "The best results often appear at the end of the search. The algorithm learns from each option found!",
+      "steps": {
+        "analyzing": "Analyzing search parameters",
+        "searching": "Searching flights in databases",
+        "optimizing": "Optimizing layover combinations",
+        "finalizing": "Calculating risk and finalizing results"
+      }
+    },
+    "paretoTabs": {
+      "bestMix": {
+        "label": "Best Mix",
+        "description": "Optimal combination of price, time and risk"
+      },
+      "cheapest": {
+        "label": "Cheapest",
+        "description": "Sorted by price ascending"
+      },
+      "fastest": {
+        "label": "Fastest",
+        "description": "Sorted by travel time"
+      },
+      "safest": {
+        "label": "Safest",
+        "description": "Sorted by risk level"
+      },
+      "info": {
+        "optionsAvailable": "options available",
+        "prices": "Prices"
+      }
+    },
+    "routeMap": {
+      "days": "days",
+      "route": "Route:",
+      "layover": "layover",
+      "layovers": "layovers"
+    },
+    "priceBreakdown": {
+      "title": "Detailed cost breakdown",
+      "baseFare": "Base fare",
+      "taxes": "Taxes",
+      "baggage": "Baggage fee",
+      "fees": "Service fees",
+      "insurance": "Insurance",
+      "total": "TOTAL",
+      "descriptions": {
+        "baseFareDesc": "{{count}} segment",
+        "baseFareDescPlural": "{{count}} segments",
+        "taxesDesc": "Airport fees and taxes",
+        "baggageDesc": "23kg on every flight",
+        "feesDesc": "Booking and service",
+        "insuranceDesc": "Delay insurance"
+      },
+      "riskPremium": "Risk premium",
+      "riskPremiumWarning": "<strong>Risk premium</strong> covers costs of alternative flights in case of delays with self-transfers.",
+      "priceDisclaimer": "💡 <strong>Tip:</strong> All prices are estimates. Final price may vary depending on availability and carrier conditions."
+    },
+    "itineraryCard": {
+      "bookNow": "Book Now",
+      "showDetails": "Show Details",
+      "hideDetails": "Hide Details",
+      "earlierToday": "earlier today",
+      "selfTransferWarning": "Self-transfer warning",
+      "transferRisk": "transfer risk",
+      "attractionsTitle": "Top attractions",
+      "estimatedCosts": "Estimated costs",
+      "perDay": "per day"
     }
   },
   "vacation": {

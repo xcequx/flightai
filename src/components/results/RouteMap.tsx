@@ -1,4 +1,5 @@
 import { MapPin, Plane } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface RouteMapProps {
   segments: Array<{
@@ -13,6 +14,8 @@ interface RouteMapProps {
 }
 
 export function RouteMap({ segments, stopovers }: RouteMapProps) {
+  const { t } = useTranslation();
+  
   // Extract unique airports from segments
   const airports = Array.from(new Set([
     segments[0]?.from,
@@ -54,7 +57,7 @@ export function RouteMap({ segments, stopovers }: RouteMapProps) {
               {/* Stopover info */}
               {isStopover && stopoverInfo && (
                 <div className="text-xs text-muted-foreground mt-1 text-center">
-                  {stopoverInfo.days} dni
+                  {stopoverInfo.days} {t('results.routeMap.days')}
                 </div>
               )}
 
@@ -74,10 +77,10 @@ export function RouteMap({ segments, stopovers }: RouteMapProps) {
       
       {/* Route description */}
       <div className="mt-3 text-xs text-muted-foreground text-center">
-        <span className="font-medium">Trasa:</span> {airports.join(' → ')}
+        <span className="font-medium">{t('results.routeMap.route')}</span> {airports.join(' → ')}
         {stopovers.length > 0 && (
           <span className="ml-2">
-            • {stopovers.length} przesiad{stopovers.length === 1 ? 'ka' : 'ki'}
+            • {stopovers.length} {stopovers.length === 1 ? t('results.routeMap.layover') : t('results.routeMap.layovers')}
           </span>
         )}
       </div>

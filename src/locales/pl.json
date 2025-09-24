@@ -427,6 +427,78 @@
       "standardFare": "Taryfa standardowa",
       "stopoverDays": "{{days}}-dniowy pobyt w {{city}}",
       "savingsPercent": "Oszczędność {{percent}}%"
+    },
+    "searchProgress": {
+      "title": "Wyszukuję najlepsze opcje podróży",
+      "description": "Analizuję tysiące kombinacji lotów, aby znaleźć idealne rozwiązanie dla Ciebie",
+      "progressLabel": "Postęp wyszukiwania",
+      "tipTitle": "Wskazówka:",
+      "tipText": "Najlepsze wyniki często pojawiają się pod koniec wyszukiwania. Algorytm uczy się z każdą znalezioną opcją!",
+      "steps": {
+        "analyzing": "Analizuję parametry wyszukiwania",
+        "searching": "Wyszukuję loty w bazach danych",
+        "optimizing": "Optymalizuję kombinacje przesiadek",
+        "finalizing": "Obliczam ryzyko i finalizuję wyniki"
+      }
+    },
+    "paretoTabs": {
+      "bestMix": {
+        "label": "Najlepszy mix",
+        "description": "Optymalne połączenie ceny, czasu i ryzyka"
+      },
+      "cheapest": {
+        "label": "Najtańsze",
+        "description": "Posortowane według ceny rosnąco"
+      },
+      "fastest": {
+        "label": "Najszybsze",
+        "description": "Posortowane według czasu podróży"
+      },
+      "safest": {
+        "label": "Najbezpieczniejsze",
+        "description": "Posortowane według poziomu ryzyka"
+      },
+      "info": {
+        "optionsAvailable": "opcji dostępnych",
+        "prices": "Ceny"
+      }
+    },
+    "routeMap": {
+      "days": "dni",
+      "route": "Trasa:",
+      "layover": "przesiadka",
+      "layovers": "przesiadki"
+    },
+    "priceBreakdown": {
+      "title": "Szczegółowy rozkład kosztów",
+      "baseFare": "Cena podstawowa",
+      "taxes": "Podatki",
+      "baggage": "Opłata za bagaż",
+      "fees": "Opłaty serwisowe",
+      "insurance": "Ubezpieczenie",
+      "total": "SUMA",
+      "descriptions": {
+        "baseFareDesc": "{{count}} segment",
+        "baseFareDescPlural": "{{count}} segmenty",
+        "taxesDesc": "Opłaty lotniskowe i podatki",
+        "baggageDesc": "23kg na każdym locie",
+        "feesDesc": "Rezerwacja i obsługa",
+        "insuranceDesc": "Ubezpieczenie od opóźnień"
+      },
+      "riskPremium": "Składka ryzyka",
+      "riskPremiumWarning": "<strong>Składka ryzyka</strong> pokrywa koszty alternatywnych lotów w przypadku opóźnień przy samodzielnych przesiadkach.",
+      "priceDisclaimer": "💡 <strong>Wskazówka:</strong> Wszystkie ceny są orientacyjne. Finalna cena może się różnić w zależności od dostępności i warunków przewoźników."
+    },
+    "itineraryCard": {
+      "bookNow": "Rezerwuj teraz",
+      "showDetails": "Pokaż szczegóły",
+      "hideDetails": "Ukryj szczegóły",
+      "earlierToday": "dziś wcześniej",
+      "selfTransferWarning": "Ostrzeżenie o self-transfer",
+      "transferRisk": "ryzyko przesiadki",
+      "attractionsTitle": "Główne atrakcje",
+      "estimatedCosts": "Szacowane koszty",
+      "perDay": "dziennie"
     }
   },
   "vacation": {

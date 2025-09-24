@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ItineraryCard } from "./ItineraryCard";
 import { DollarSign, Clock, Shield, Zap } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface FlightResult {
   id: string;
@@ -26,6 +27,7 @@ interface ParetoTabsProps {
 }
 
 export function ParetoTabs({ results }: ParetoTabsProps) {
+  const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState("best-mix");
 
   // Sort results for different tabs
@@ -44,30 +46,30 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
   const tabsConfig = [
     {
       value: "best-mix",
-      label: "Najlepszy mix",
+      label: t('results.paretoTabs.bestMix.label'),
       icon: Zap,
-      description: "Optymalne połączenie ceny, czasu i ryzyka",
+      description: t('results.paretoTabs.bestMix.description'),
       color: "text-primary",
     },
     {
       value: "cheapest",
-      label: "Najtańsze",
+      label: t('results.paretoTabs.cheapest.label'),
       icon: DollarSign,
-      description: "Posortowane według ceny rosnąco",
+      description: t('results.paretoTabs.cheapest.description'),
       color: "text-success",
     },
     {
       value: "fastest",
-      label: "Najszybsze",
+      label: t('results.paretoTabs.fastest.label'),
       icon: Clock,
-      description: "Posortowane według czasu podróży",
+      description: t('results.paretoTabs.fastest.description'),
       color: "text-primary",
     },
     {
       value: "safest",
-      label: "Najbezpieczniejsze",
+      label: t('results.paretoTabs.safest.label'),
       icon: Shield,
-      description: "Posortowane według poziomu ryzyka",
+      description: t('results.paretoTabs.safest.description'),
       color: "text-warning",
     },
   ];
@@ -113,9 +115,9 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
                 {tabsConfig.find(t => t.value === selectedTab)?.description}
               </p>
               <div className="text-xs text-muted-foreground">
-                <div>📊 <strong>{results.length}</strong> opcji dostępnych</div>
+                <div>📊 <strong>{results.length}</strong> {t('results.paretoTabs.info.optionsAvailable')}</div>
                 <div className="mt-1">
-                  💰 Ceny: {Math.min(...results.map(r => r.price))} - {Math.max(...results.map(r => r.price))} PLN
+                  💰 {t('results.paretoTabs.info.prices')}: {Math.min(...results.map(r => r.price))} - {Math.max(...results.map(r => r.price))} PLN
                 </div>
               </div>
             </div>

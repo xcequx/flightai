@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AlertTriangle, Plane, Briefcase, CreditCard, Shield } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface PriceBreakdownProps {
   price: number;
@@ -9,6 +10,8 @@ interface PriceBreakdownProps {
 }
 
 export function PriceBreakdown({ price, segments, selfTransfer }: PriceBreakdownProps) {
+  const { t } = useTranslation();
+  
   // Calculate mock price breakdown
   const baseFare = Math.round(price * 0.65);
   const taxes = Math.round(price * 0.20);
@@ -18,37 +21,44 @@ export function PriceBreakdown({ price, segments, selfTransfer }: PriceBreakdown
 
   const breakdown = [
     {
-      label: "Podstawowa cena lotów",
+      label: t('results.priceBreakdown.baseFare'),
       amount: baseFare,
       icon: Plane,
-      description: `${segments} segment${segments > 1 ? 'y' : ''}`,
+      description: segments > 1 
+        ? t('results.priceBreakdown.descriptions.baseFareDescPlural', { count: segments })
+        : t('results.priceBreakdown.descriptions.baseFareDesc', { count: segments }),
+      isRisk: false,
     },
     {
-      label: "Podatki i opłaty",
+      label: t('results.priceBreakdown.taxes'),
       amount: taxes, 
       icon: CreditCard,
-      description: "Opłaty lotniskowe i podatki",
+      description: t('results.priceBreakdown.descriptions.taxesDesc'),
+      isRisk: false,
     },
     {
-      label: "Bagaż rejestrowany",
+      label: t('results.priceBreakdown.baggage'),
       amount: baggage,
       icon: Briefcase,
-      description: "23kg na każdym locie",
+      description: t('results.priceBreakdown.descriptions.baggageDesc'),
+      isRisk: false,
     },
     {
-      label: "Opłaty serwisowe",
+      label: t('results.priceBreakdown.fees'),
       amount: fees,
       icon: Shield,
-      description: "Rezerwacja i obsługa",
+      description: t('results.priceBreakdown.descriptions.feesDesc'),
+      isRisk: false,
     },
   ];
 
   if (selfTransfer && riskPremium > 0) {
     breakdown.push({
-      label: "Składka ryzyka",
+      label: t('results.priceBreakdown.insurance'),
       amount: riskPremium,
       icon: AlertTriangle,
-      description: "Ubezpieczenie od opóźnień",
+      description: t('results.priceBreakdown.descriptions.insuranceDesc'),
+      isRisk: true,
     });
   }
 
@@ -58,12 +68,12 @@ export function PriceBreakdown({ price, segments, selfTransfer }: PriceBreakdown
     <Card className="p-4 bg-muted/30 border-0">
       <div className="space-y-3">
         <div className="text-sm font-medium text-muted-foreground mb-3">
-          Szczegółowy rozkład kosztów
+          {t('results.priceBreakdown.title')}
         </div>
         
         {breakdown.map((item, index) => {
           const Icon = item.icon;
-          const isRisk = item.label.includes("ryzyko");
+          const isRisk = item.isRisk;
           
           return (
             <div key={index} className="flex items-center justify-between">
@@ -88,7 +98,7 @@ export function PriceBreakdown({ price, segments, selfTransfer }: PriceBreakdown
         <Separator />
         
         <div className="flex items-center justify-between pt-1">
-          <div className="text-sm font-semibold">Razem</div>
+          <div className="text-sm font-semibold">{t('results.priceBreakdown.total')}</div>
           <div className="text-lg font-bold text-primary">
             {total.toLocaleString('pl-PL')} PLN
           </div>
@@ -98,18 +108,15 @@ export function PriceBreakdown({ price, segments, selfTransfer }: PriceBreakdown
           <div className="mt-3 p-2 bg-warning/10 border border-warning/20 rounded text-xs">
             <div className="flex items-start gap-1">
               <AlertTriangle className="h-3 w-3 text-warning mt-0.5" />
-              <div>
-                <strong>Składka ryzyka</strong> pokrywa koszty alternatywnych lotów w przypadku 
-                opóźnień przy samodzielnych przesiadkach.
-              </div>
+              <div dangerouslySetInnerHTML={{ __html: t('results.priceBreakdown.riskPremiumWarning') }} />
             </div>
           </div>
         )}
 
-        <div className="text-xs text-muted-foreground pt-2 border-t border-muted">
-          💡 <strong>Wskazówka:</strong> Wszystkie ceny są orientacyjne. 
-          Finalna cena może się różnić w zależności od dostępności i warunków przewoźników.
-        </div>
+        <div 
+          className="text-xs text-muted-foreground pt-2 border-t border-muted"
+          dangerouslySetInnerHTML={{ __html: t('results.priceBreakdown.priceDisclaimer') }}
+        />
       </div>
     </Card>
   );
