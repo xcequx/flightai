@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -63,11 +64,54 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
   });
   const [localLoading, setLocalLoading] = useState(false);
 
+  // Helper function to convert Date to YYYY-MM-DD string (timezone-safe)
+  const formatDateForAPI = (date: Date): string => {
+    return format(date, 'yyyy-MM-dd');
+  };
+
+  // Helper function to format validation errors for display
+  const formatValidationErrors = (errors: Array<{field: string, message: string}>): string => {
+    return errors.map(err => `${err.field}: ${err.message}`).join('\n');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validate required fields before sending
+    if (!params.origins.length) {
+      alert(t('search.errorOriginRequired') || 'Please select at least one origin airport');
+      return;
+    }
+    
+    if (!params.destinations.length) {
+      alert(t('search.errorDestinationRequired') || 'Please select at least one destination airport');
+      return;
+    }
+    
+    if (!params.dateRange?.from) {
+      alert(t('search.errorDateRequired') || 'Please select travel dates');
+      return;
+    }
+    
+    setLocalLoading(true);
+    
     try {
-      setLocalLoading(true);
+      // Convert params to API format (convert Date objects to strings)
+      const apiParams = {
+        ...params,
+        dateRange: {
+          from: formatDateForAPI(params.dateRange.from),
+          to: params.dateRange.to ? formatDateForAPI(params.dateRange.to) : undefined
+        }
+      };
+      
+      console.log('🔄 Sending search request with formatted params:', {
+        origins: apiParams.origins,
+        destinations: apiParams.destinations,
+        dateRange: apiParams.dateRange,
+        departureFlex: apiParams.departureFlex,
+        returnFlex: apiParams.returnFlex
+      });
       
       // Call our Express API for flight search using Aviationstack
       const response = await fetch('/api/flights/search', {
@@ -75,7 +119,7 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(params)
+        body: JSON.stringify(apiParams)
       });
 
       const data = await response.json();
@@ -128,6 +172,19 @@ export function SearchBuilder({ onSearch, isLoading = false }: SearchBuilderProp
         });
       } else {
         console.error('❌ Flight search error:', data.error);
+        
+        // Handle validation errors specifically
+        if (data.error === 'Validation failed' && data.details && Array.isArray(data.details)) {
+          console.error('📋 Validation errors:', data.details);
+          
+          // Format validation errors for user display
+          const formattedErrors = formatValidationErrors(data.details);
+          const errorTitle = t('search.errorValidation') || 'Please check your search parameters:';
+          alert(`${errorTitle}\n\n${formattedErrors}`);
+          
+          // Don't fall back to mock data for validation errors - user needs to fix their input
+          return;
+        }
         
         // Show user-friendly error message based on error type
         let errorMessage = t('search.errorDefault');
