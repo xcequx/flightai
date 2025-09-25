@@ -111,23 +111,15 @@ export function Navigation() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuLink 
-                    className={navigationMenuTriggerStyle()}
-                    onClick={() => navigate('/about')}
-                    data-testid="link-about"
-                  >
+                  <Link to="/about" className={navigationMenuTriggerStyle()} data-testid="link-about">
                     {t('nav.about')}
-                  </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuLink 
-                    className={navigationMenuTriggerStyle()}
-                    onClick={() => navigate('/contact')}
-                    data-testid="link-contact"
-                  >
+                  <Link to="/contact" className={navigationMenuTriggerStyle()} data-testid="link-contact">
                     {t('nav.contact')}
-                  </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
