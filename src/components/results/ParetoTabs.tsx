@@ -53,9 +53,12 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
   const { t } = useTranslation();
   const [selectedTab, setSelectedTab] = useState("ai-recommended");
 
+  // Add defensive checks for results array
+  const validResults = Array.isArray(results) ? results : [];
+
   // Sort results for different tabs
   const sortedResults = {
-    "ai-recommended": [...results]
+    "ai-recommended": [...validResults]
       .filter(result => result.aiRecommended)
       .sort((a, b) => {
         // Sort by AI confidence score, then by price
@@ -66,10 +69,10 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
         }
         return a.price - b.price; // Then by price
       }),
-    cheapest: [...results].sort((a, b) => a.price - b.price),
-    fastest: [...results].sort((a, b) => a.totalHours - b.totalHours),
-    safest: [...results].sort((a, b) => a.riskScore - b.riskScore),
-    "best-mix": [...results].sort((a, b) => {
+    cheapest: [...validResults].sort((a, b) => a.price - b.price),
+    fastest: [...validResults].sort((a, b) => a.totalHours - b.totalHours),
+    safest: [...validResults].sort((a, b) => a.riskScore - b.riskScore),
+    "best-mix": [...validResults].sort((a, b) => {
       // Weighted score: 50% price, 30% time, 20% risk
       const scoreA = (a.price / 2000) * 0.5 + (a.totalHours / 48) * 0.3 + a.riskScore * 0.2;
       const scoreB = (b.price / 2000) * 0.5 + (b.totalHours / 48) * 0.3 + b.riskScore * 0.2;
@@ -78,7 +81,7 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
   };
 
   // Count AI recommended flights
-  const aiRecommendedCount = results.filter(r => r.aiRecommended).length;
+  const aiRecommendedCount = validResults.filter(r => r.aiRecommended).length;
   
   const tabsConfig = [
     {
@@ -173,10 +176,12 @@ export function ParetoTabs({ results }: ParetoTabsProps) {
                 {tabsConfig.find(t => t.value === selectedTab)?.description}
               </p>
               <div className="text-xs text-muted-foreground">
-                <div>📊 <strong>{results.length}</strong> {t('results.paretoTabs.info.optionsAvailable')}</div>
-                <div className="mt-1">
-                  💰 {t('results.paretoTabs.info.prices')}: {Math.min(...results.map(r => r.price)).toLocaleString()} - {Math.max(...results.map(r => r.price)).toLocaleString()} {t('results.currency')}
-                </div>
+                <div>📊 <strong>{validResults.length}</strong> {t('results.paretoTabs.info.optionsAvailable')}</div>
+                {validResults.length > 0 && (
+                  <div className="mt-1">
+                    💰 {t('results.paretoTabs.info.prices')}: {Math.min(...validResults.map(r => r.price)).toLocaleString()} - {Math.max(...validResults.map(r => r.price)).toLocaleString()} {t('results.currency')}
+                  </div>
+                )}
               </div>
             </div>
           </div>

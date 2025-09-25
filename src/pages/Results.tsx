@@ -365,7 +365,7 @@ export default function Results() {
                   {t('results.title')}
                 </h1>
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <span>{t('search.foundResults', { count: results.length })}</span>
+                  <span>{t('search.foundResults', { count: Array.isArray(results) ? results.length : 0 })}</span>
                   {dataSource === 'aviationstack' && (
                     <span className="inline-flex items-center gap-1 px-2 py-1 bg-success/10 text-success rounded-full text-xs font-medium">
                       ✈️ {t('results.realTimeData')} (Aviationstack)
@@ -444,10 +444,10 @@ export default function Results() {
           route="Europa → Azja"
         />
         <ParetoTabs 
-          results={results.map(result => ({
+          results={Array.isArray(results) ? results.map(result => ({
             ...result,
             badges: generateBadges(result, t)
-          }))} 
+          })) : []} 
         />
       </main>
     </div>

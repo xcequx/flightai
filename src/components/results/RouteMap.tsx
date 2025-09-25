@@ -16,20 +16,24 @@ interface RouteMapProps {
 export function RouteMap({ segments, stopovers }: RouteMapProps) {
   const { t } = useTranslation();
   
+  // Add defensive checks for segments array
+  const validSegments = Array.isArray(segments) ? segments : [];
+  const validStopovers = Array.isArray(stopovers) ? stopovers : [];
+  
   // Extract unique airports from segments
   const airports = Array.from(new Set([
-    segments[0]?.from,
-    ...segments.map(s => s.to)
+    validSegments[0]?.from,
+    ...validSegments.map(s => s.to)
   ])).filter(Boolean);
 
   return (
     <div className="bg-muted/20 rounded-lg p-4">
       <div className="flex items-center justify-between relative">
         {airports.map((airport, index) => {
-          const isStopover = stopovers.some(s => 
+          const isStopover = validStopovers.some(s => 
             s.city.includes(airport) || airport === "DXB" || airport === "DOH" || airport === "AUH"
           );
-          const stopoverInfo = stopovers.find(s => 
+          const stopoverInfo = validStopovers.find(s => 
             s.city.includes(airport) || airport === "DXB" || airport === "DOH" || airport === "AUH"
           );
 
@@ -78,9 +82,9 @@ export function RouteMap({ segments, stopovers }: RouteMapProps) {
       {/* Route description */}
       <div className="mt-3 text-xs text-muted-foreground text-center">
         <span className="font-medium">{t('results.routeMap.route')}</span> {airports.join(' → ')}
-        {stopovers.length > 0 && (
+        {validStopovers.length > 0 && (
           <span className="ml-2">
-            • {stopovers.length} {stopovers.length === 1 ? t('results.routeMap.layover') : t('results.routeMap.layovers')}
+            • {validStopovers.length} {validStopovers.length === 1 ? t('results.routeMap.layover') : t('results.routeMap.layovers')}
           </span>
         )}
       </div>
