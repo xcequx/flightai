@@ -1,0 +1,101 @@
+index-Bv6_5dE2.js:620 Uncaught TypeError: a(...).map is not a function
+    at zq (index-Bv6_5dE2.js:620:4762)
+    at du (index-Bv6_5dE2.js:143:383)
+    at WL (index-Bv6_5dE2.js:159:9835)
+    at uS (index-Bv6_5dE2.js:161:11862)
+    at HTMLUnknownElement.He (index-Bv6_5dE2.js:78:33002)
+    at Object.X0 (index-Bv6_5dE2.js:78:33341)
+    at lg (index-Bv6_5dE2.js:78:34306)
+    at Sy (index-Bv6_5dE2.js:178:2282)
+    at HS (index-Bv6_5dE2.js:174:22211)
+    at hz (index-Bv6_5dE2.js:174:21793)
+zq @ index-Bv6_5dE2.js:620
+du @ index-Bv6_5dE2.js:143
+WL @ index-Bv6_5dE2.js:159
+uS @ index-Bv6_5dE2.js:161
+He @ index-Bv6_5dE2.js:78
+X0 @ index-Bv6_5dE2.js:78
+lg @ index-Bv6_5dE2.js:78
+Sy @ index-Bv6_5dE2.js:178
+HS @ index-Bv6_5dE2.js:174
+hz @ index-Bv6_5dE2.js:174
+th @ index-Bv6_5dE2.js:174
+IS @ index-Bv6_5dE2.js:174
+Fe @ index-Bv6_5dE2.js:62
+Ie @ index-Bv6_5dE2.js:62
+Un @ index-Bv6_5dE2.js:62Understand this error
+index-Bv6_5dE2.js:620 Uncaught TypeError: a(...).map is not a function
+    at zq (index-Bv6_5dE2.js:620:4762)
+    at du (index-Bv6_5dE2.js:143:383)
+    at WL (index-Bv6_5dE2.js:159:9835)
+    at uS (index-Bv6_5dE2.js:161:11862)
+    at HTMLUnknownElement.He (index-Bv6_5dE2.js:78:33002)
+    at Object.X0 (index-Bv6_5dE2.js:78:33341)
+    at lg (index-Bv6_5dE2.js:78:34306)
+    at Sy (index-Bv6_5dE2.js:178:2282)
+    at HS (index-Bv6_5dE2.js:174:22211)
+    at hz (index-Bv6_5dE2.js:174:21793)
+zq @ index-Bv6_5dE2.js:620
+du @ index-Bv6_5dE2.js:143
+WL @ index-Bv6_5dE2.js:159
+uS @ index-Bv6_5dE2.js:161
+He @ index-Bv6_5dE2.js:78
+X0 @ index-Bv6_5dE2.js:78
+lg @ index-Bv6_5dE2.js:78
+Sy @ index-Bv6_5dE2.js:178
+HS @ index-Bv6_5dE2.js:174
+hz @ index-Bv6_5dE2.js:174
+th @ index-Bv6_5dE2.js:174
+Ny @ index-Bv6_5dE2.js:174
+IS @ index-Bv6_5dE2.js:174
+Fe @ index-Bv6_5dE2.js:62
+Ie @ index-Bv6_5dE2.js:62
+Un @ index-Bv6_5dE2.js:62Understand this error
+index-Bv6_5dE2.js:159 The above error occurred in the <zq> component:
+
+    at zq (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:607:11057)
+    at div
+    at div
+    at div
+    at div
+    at section
+    at div
+    at LQ (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:620:82245)
+    at J$ (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:541:3243)
+    at uB (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:541:8340)
+    at lB (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:541:7446)
+    at kB (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:550:2733)
+    at hZ (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:636:158975)
+    at h (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:225:717)
+    at Qj (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:521:40740)
+    at g$ (https://flightai-pawelbartlewski.replit.app/assets/index-Bv6_5dE2.js:521:74346)
+    at vZ
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+Hx @ index-Bv6_5dE2.js:159
+Hk.u.callback @ index-Bv6_5dE2.js:159
+cL @ index-Bv6_5dE2.js:130
+ok @ index-Bv6_5dE2.js:130
+w2 @ index-Bv6_5dE2.js:174
+cy @ index-Bv6_5dE2.js:174
+CS @ index-Bv6_5dE2.js:174
+P2 @ index-Bv6_5dE2.js:174
+bz @ index-Bv6_5dE2.js:174
+Js @ index-Bv6_5dE2.js:174
+sz @ index-Bv6_5dE2.js:174
+IS @ index-Bv6_5dE2.js:174
+Fe @ index-Bv6_5dE2.js:62
+Ie @ index-Bv6_5dE2.js:62
+Un @ index-Bv6_5dE2.js:62Understand this error
+index-Bv6_5dE2.js:620 Uncaught TypeError: a(...).map is not a function
+    at zq (index-Bv6_5dE2.js:620:4762)
+    at du (index-Bv6_5dE2.js:143:383)
+    at WL (index-Bv6_5dE2.js:159:9835)
+    at uS (index-Bv6_5dE2.js:161:11862)
+    at Sy (index-Bv6_5dE2.js:178:2144)
+    at HS (index-Bv6_5dE2.js:174:22211)
+    at hz (index-Bv6_5dE2.js:174:21793)
+    at th (index-Bv6_5dE2.js:174:21545)
+    at Ny (index-Bv6_5dE2.js:174:18058)
+    at IS (index-Bv6_5dE2.js:174:17613)
