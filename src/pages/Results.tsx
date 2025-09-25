@@ -226,12 +226,13 @@ export default function Results() {
   const searchMeta = location.state?.searchMeta;
 
   useEffect(() => {
-    if (searchData && searchData.flights) {
+    if (searchData && searchData.flights && Array.isArray(searchData.flights)) {
       // Convert Aviationstack/Amadeus API data to our format
       const convertedResults = searchData.flights.map((flight: any, index: number) => {
         // Handle both Aviationstack and legacy Amadeus format
         const isAviationstackFormat = flight.source === 'aviationstack';
-        const segments = flight.itineraries[0].segments.map((segment: any) => ({
+        const segmentsData = flight.itineraries?.[0]?.segments || [];
+        const segments = Array.isArray(segmentsData) ? segmentsData.map((segment: any) => ({
           from: segment.departure.iataCode,
           to: segment.arrival.iataCode,
           departure: segment.departure.at,
@@ -240,10 +241,10 @@ export default function Results() {
           flight: `${segment.carrierCode}${segment.number}`,
           duration: segment.duration,
           terminal: segment.departure.terminal
-        }));
+        })) : [];
 
         // Calculate total duration
-        const totalDuration = flight.itineraries[0].duration;
+        const totalDuration = flight.itineraries?.[0]?.duration;
         const hours = totalDuration ? parseInt(totalDuration.replace('PT', '').replace('H', '').split('M')[0]) : 0;
         const minutes = totalDuration ? parseInt(totalDuration.split('H')[1]?.replace('M', '') || '0') : 0;
         const totalHours = hours + Math.round(minutes / 60);
