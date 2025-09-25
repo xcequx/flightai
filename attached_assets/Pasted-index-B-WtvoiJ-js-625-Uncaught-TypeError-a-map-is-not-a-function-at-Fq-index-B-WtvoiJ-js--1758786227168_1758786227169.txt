@@ -1,0 +1,101 @@
+index-B_WtvoiJ.js:625 Uncaught TypeError: a(...).map is not a function
+    at Fq (index-B_WtvoiJ.js:625:4762)
+    at fu (index-B_WtvoiJ.js:143:383)
+    at Y2 (index-B_WtvoiJ.js:159:9835)
+    at dS (index-B_WtvoiJ.js:161:11862)
+    at HTMLUnknownElement.He (index-B_WtvoiJ.js:78:33002)
+    at Object.J0 (index-B_WtvoiJ.js:78:33341)
+    at cg (index-B_WtvoiJ.js:78:34306)
+    at Cy (index-B_WtvoiJ.js:178:2282)
+    at YS (index-B_WtvoiJ.js:174:22211)
+    at vz (index-B_WtvoiJ.js:174:21793)
+Fq @ index-B_WtvoiJ.js:625
+fu @ index-B_WtvoiJ.js:143
+Y2 @ index-B_WtvoiJ.js:159
+dS @ index-B_WtvoiJ.js:161
+He @ index-B_WtvoiJ.js:78
+J0 @ index-B_WtvoiJ.js:78
+cg @ index-B_WtvoiJ.js:78
+Cy @ index-B_WtvoiJ.js:178
+YS @ index-B_WtvoiJ.js:174
+vz @ index-B_WtvoiJ.js:174
+th @ index-B_WtvoiJ.js:174
+zS @ index-B_WtvoiJ.js:174
+Ae @ index-B_WtvoiJ.js:62
+Le @ index-B_WtvoiJ.js:62
+Hn @ index-B_WtvoiJ.js:62Understand this error
+index-B_WtvoiJ.js:625 Uncaught TypeError: a(...).map is not a function
+    at Fq (index-B_WtvoiJ.js:625:4762)
+    at fu (index-B_WtvoiJ.js:143:383)
+    at Y2 (index-B_WtvoiJ.js:159:9835)
+    at dS (index-B_WtvoiJ.js:161:11862)
+    at HTMLUnknownElement.He (index-B_WtvoiJ.js:78:33002)
+    at Object.J0 (index-B_WtvoiJ.js:78:33341)
+    at cg (index-B_WtvoiJ.js:78:34306)
+    at Cy (index-B_WtvoiJ.js:178:2282)
+    at YS (index-B_WtvoiJ.js:174:22211)
+    at vz (index-B_WtvoiJ.js:174:21793)
+Fq @ index-B_WtvoiJ.js:625
+fu @ index-B_WtvoiJ.js:143
+Y2 @ index-B_WtvoiJ.js:159
+dS @ index-B_WtvoiJ.js:161
+He @ index-B_WtvoiJ.js:78
+J0 @ index-B_WtvoiJ.js:78
+cg @ index-B_WtvoiJ.js:78
+Cy @ index-B_WtvoiJ.js:178
+YS @ index-B_WtvoiJ.js:174
+vz @ index-B_WtvoiJ.js:174
+th @ index-B_WtvoiJ.js:174
+Ey @ index-B_WtvoiJ.js:174
+zS @ index-B_WtvoiJ.js:174
+Ae @ index-B_WtvoiJ.js:62
+Le @ index-B_WtvoiJ.js:62
+Hn @ index-B_WtvoiJ.js:62Understand this error
+index-B_WtvoiJ.js:159 The above error occurred in the <Fq> component:
+
+    at Fq (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:612:11057)
+    at div
+    at div
+    at div
+    at div
+    at section
+    at div
+    at LQ (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:625:82213)
+    at J$ (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:546:3243)
+    at cB (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:546:8340)
+    at uB (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:546:7446)
+    at SB (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:555:2733)
+    at NJ (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:641:179114)
+    at p (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:225:717)
+    at Xj (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:526:40740)
+    at b$ (https://flightai-pawelbartlewski.replit.app/assets/index-B_WtvoiJ.js:526:74346)
+    at wJ
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+Yx @ index-B_WtvoiJ.js:159
+Yk.u.callback @ index-B_WtvoiJ.js:159
+d2 @ index-B_WtvoiJ.js:130
+ik @ index-B_WtvoiJ.js:130
+EL @ index-B_WtvoiJ.js:174
+my @ index-B_WtvoiJ.js:174
+jS @ index-B_WtvoiJ.js:174
+ML @ index-B_WtvoiJ.js:174
+xz @ index-B_WtvoiJ.js:174
+el @ index-B_WtvoiJ.js:174
+lz @ index-B_WtvoiJ.js:174
+zS @ index-B_WtvoiJ.js:174
+Ae @ index-B_WtvoiJ.js:62
+Le @ index-B_WtvoiJ.js:62
+Hn @ index-B_WtvoiJ.js:62Understand this error
+index-B_WtvoiJ.js:625 Uncaught TypeError: a(...).map is not a function
+    at Fq (index-B_WtvoiJ.js:625:4762)
+    at fu (index-B_WtvoiJ.js:143:383)
+    at Y2 (index-B_WtvoiJ.js:159:9835)
+    at dS (index-B_WtvoiJ.js:161:11862)
+    at Cy (index-B_WtvoiJ.js:178:2144)
+    at YS (index-B_WtvoiJ.js:174:22211)
+    at vz (index-B_WtvoiJ.js:174:21793)
+    at th (index-B_WtvoiJ.js:174:21545)
+    at Ey (index-B_WtvoiJ.js:174:18058)
+    at zS (index-B_WtvoiJ.js:174:17613)
