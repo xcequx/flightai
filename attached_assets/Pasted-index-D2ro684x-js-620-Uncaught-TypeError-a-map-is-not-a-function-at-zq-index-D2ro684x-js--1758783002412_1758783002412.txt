@@ -1,0 +1,101 @@
+index-D2ro684x.js:620 Uncaught TypeError: a(...).map is not a function
+    at zq (index-D2ro684x.js:620:4762)
+    at du (index-D2ro684x.js:143:383)
+    at WL (index-D2ro684x.js:159:9835)
+    at uS (index-D2ro684x.js:161:11862)
+    at HTMLUnknownElement.He (index-D2ro684x.js:78:33002)
+    at Object.X0 (index-D2ro684x.js:78:33341)
+    at lg (index-D2ro684x.js:78:34306)
+    at Sy (index-D2ro684x.js:178:2282)
+    at HS (index-D2ro684x.js:174:22211)
+    at hz (index-D2ro684x.js:174:21793)
+zq @ index-D2ro684x.js:620
+du @ index-D2ro684x.js:143
+WL @ index-D2ro684x.js:159
+uS @ index-D2ro684x.js:161
+He @ index-D2ro684x.js:78
+X0 @ index-D2ro684x.js:78
+lg @ index-D2ro684x.js:78
+Sy @ index-D2ro684x.js:178
+HS @ index-D2ro684x.js:174
+hz @ index-D2ro684x.js:174
+th @ index-D2ro684x.js:174
+IS @ index-D2ro684x.js:174
+Oe @ index-D2ro684x.js:62
+Le @ index-D2ro684x.js:62
+Un @ index-D2ro684x.js:62Understand this error
+index-D2ro684x.js:620 Uncaught TypeError: a(...).map is not a function
+    at zq (index-D2ro684x.js:620:4762)
+    at du (index-D2ro684x.js:143:383)
+    at WL (index-D2ro684x.js:159:9835)
+    at uS (index-D2ro684x.js:161:11862)
+    at HTMLUnknownElement.He (index-D2ro684x.js:78:33002)
+    at Object.X0 (index-D2ro684x.js:78:33341)
+    at lg (index-D2ro684x.js:78:34306)
+    at Sy (index-D2ro684x.js:178:2282)
+    at HS (index-D2ro684x.js:174:22211)
+    at hz (index-D2ro684x.js:174:21793)
+zq @ index-D2ro684x.js:620
+du @ index-D2ro684x.js:143
+WL @ index-D2ro684x.js:159
+uS @ index-D2ro684x.js:161
+He @ index-D2ro684x.js:78
+X0 @ index-D2ro684x.js:78
+lg @ index-D2ro684x.js:78
+Sy @ index-D2ro684x.js:178
+HS @ index-D2ro684x.js:174
+hz @ index-D2ro684x.js:174
+th @ index-D2ro684x.js:174
+Ny @ index-D2ro684x.js:174
+IS @ index-D2ro684x.js:174
+Oe @ index-D2ro684x.js:62
+Le @ index-D2ro684x.js:62
+Un @ index-D2ro684x.js:62Understand this error
+index-D2ro684x.js:159 The above error occurred in the <zq> component:
+
+    at zq (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:607:11057)
+    at div
+    at div
+    at div
+    at div
+    at section
+    at div
+    at LQ (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:620:82245)
+    at J$ (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:541:3243)
+    at uB (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:541:8340)
+    at lB (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:541:7446)
+    at kB (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:550:2733)
+    at hZ (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:636:159137)
+    at h (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:225:717)
+    at Qj (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:521:40740)
+    at g$ (https://flightai-pawelbartlewski.replit.app/assets/index-D2ro684x.js:521:74346)
+    at vZ
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+Hx @ index-D2ro684x.js:159
+Hk.u.callback @ index-D2ro684x.js:159
+cL @ index-D2ro684x.js:130
+ok @ index-D2ro684x.js:130
+w2 @ index-D2ro684x.js:174
+cy @ index-D2ro684x.js:174
+CS @ index-D2ro684x.js:174
+P2 @ index-D2ro684x.js:174
+bz @ index-D2ro684x.js:174
+Js @ index-D2ro684x.js:174
+sz @ index-D2ro684x.js:174
+IS @ index-D2ro684x.js:174
+Oe @ index-D2ro684x.js:62
+Le @ index-D2ro684x.js:62
+Un @ index-D2ro684x.js:62Understand this error
+index-D2ro684x.js:620 Uncaught TypeError: a(...).map is not a function
+    at zq (index-D2ro684x.js:620:4762)
+    at du (index-D2ro684x.js:143:383)
+    at WL (index-D2ro684x.js:159:9835)
+    at uS (index-D2ro684x.js:161:11862)
+    at Sy (index-D2ro684x.js:178:2144)
+    at HS (index-D2ro684x.js:174:22211)
+    at hz (index-D2ro684x.js:174:21793)
+    at th (index-D2ro684x.js:174:21545)
+    at Ny (index-D2ro684x.js:174:18058)
+    at IS (index-D2ro684x.js:174:17613)
