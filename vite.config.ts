@@ -13,7 +13,12 @@ export default defineConfig(({ mode }) => ({
   preview: {
     host: "0.0.0.0",
     port: 3001,
-    allowedHosts: true,
+    allowedHosts: [
+      "flightai-pawelbartlewski.replit.app",
+      "localhost",
+      ".replit.app",
+      ".replit.dev"
+    ],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(
     Boolean,
