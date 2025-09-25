@@ -889,6 +889,58 @@
     "flightDetailsPlaceholder": "Detailed information about flight routes and booking strategies will be displayed here soon.",
     "accommodationDetailsPlaceholder": "Detailed information about recommended hotels will be displayed here soon."
   },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Discover the world with the intelligent flight search",
+    "mission": {
+      "title": "Our Mission",
+      "description": "FlightAI is a revolutionary flight search engine that uses artificial intelligence to find the best flight connections with multi-day stopovers. We help travelers save money while discovering new places during their journey."
+    },
+    "features": {
+      "smartSearch": "Smart Search",
+      "smartSearchDesc": "Our AI algorithms analyze millions of flight combinations to find the best routes with stopovers.",
+      "stopovers": "Strategic Stopovers",
+      "stopoversDesc": "Find flights with 2-3 day stopovers in fascinating cities - save money and explore!",
+      "savings": "Maximum Savings",
+      "savingsDesc": "Average 25-40% savings compared to direct flights thanks to intelligent stopovers.",
+      "support": "24/7 Support",
+      "supportDesc": "Our travel expert team is available 24/7 to help you plan."
+    },
+    "stats": {
+      "title": "FlightAI in numbers",
+      "users": "Satisfied users",
+      "savings": "Savings for travelers",
+      "destinations": "Destinations worldwide"
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Have questions? Contact us!",
+    "form": {
+      "title": "Write to us",
+      "name": "Full name",
+      "namePlaceholder": "Your full name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "What would you like to write about?",
+      "message": "Message",
+      "messagePlaceholder": "Describe your question or suggestion...",
+      "submit": "Send message"
+    },
+    "info": {
+      "email": "Email",
+      "emailDesc": "We respond within 24 hours",
+      "phone": "Phone",
+      "phoneDesc": "Mon-Fri 9:00-18:00",
+      "address": "Address"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "desc": "Check answers to the most common questions",
+      "button": "See FAQ"
+    }
+  },
   "footer": {
     "description": "The world's smartest flight search platform with stopovers. Explore the world and save money with artificial intelligence.",
     "quickLinks": "Quick Links",

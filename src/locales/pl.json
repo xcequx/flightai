@@ -890,6 +890,58 @@
     "flightDetailsPlaceholder": "Szczegółowe informacje o trasach lotów i strategii rezerwacji zostaną wkrótce wyświetlone w tym miejscu.",
     "accommodationDetailsPlaceholder": "Szczegółowe informacje o rekomendowanych hotelach zostaną wkrótce wyświetlone w tym miejscu."
   },
+  "about": {
+    "title": "O nas",
+    "subtitle": "Odkrywaj świat z inteligentnym wyszukiwaczem lotów",
+    "mission": {
+      "title": "Nasza Misja",
+      "description": "FlightAI to rewolucyjny wyszukiwacz lotów wykorzystujący sztuczną inteligencję do znajdowania najlepszych połączeń lotniczych z wielodniowymi przystankami. Pomagamy podróżnikom oszczędzać pieniądze i jednocześnie odkrywać nowe miejsca podczas podróży."
+    },
+    "features": {
+      "smartSearch": "Inteligentne Wyszukiwanie",
+      "smartSearchDesc": "Nasze algorytmy AI analizują miliony kombinacji lotów, aby znaleźć najlepsze trasy z przystankami.",
+      "stopovers": "Przystanki Strategiczne",
+      "stopoversDesc": "Znajdź loty z 2-3 dniowymi przystankami w fascynujących miastach - oszczędzaj i odkrywaj!",
+      "savings": "Maksymalne Oszczędności",
+      "savingsDesc": "Średnio 25-40% oszczędności w porównaniu do bezpośrednich lotów dzięki inteligentnym przystankom.",
+      "support": "Wsparcie 24/7",
+      "supportDesc": "Nasz zespek ekspertów ds. podróży jest dostępny całą dobę, aby pomóc Ci w planowaniu."
+    },
+    "stats": {
+      "title": "FlightAI w liczbach",
+      "users": "Zadowolonych użytkowników",
+      "savings": "Oszczędności dla podróżnych",
+      "destinations": "Destynacji na całym świecie"
+    }
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Masz pytania? Skontaktuj się z nami!",
+    "form": {
+      "title": "Napisz do nas",
+      "name": "Imię i nazwisko",
+      "namePlaceholder": "Twoje imię i nazwisko",
+      "email": "Email",
+      "emailPlaceholder": "twoj@email.com",
+      "subject": "Temat",
+      "subjectPlaceholder": "Na jaki temat chcesz napisać?",
+      "message": "Wiadomość",
+      "messagePlaceholder": "Opisz swoje pytanie lub sugestię...",
+      "submit": "Wyślij wiadomość"
+    },
+    "info": {
+      "email": "Email",
+      "emailDesc": "Odpowiadamy w ciągu 24h",
+      "phone": "Telefon",
+      "phoneDesc": "Pon-Pt 9:00-18:00",
+      "address": "Adres"
+    },
+    "faq": {
+      "title": "Często zadawane pytania",
+      "desc": "Sprawdź odpowiedzi na najczęstsze pytania",
+      "button": "Zobacz FAQ"
+    }
+  },
   "footer": {
     "description": "Najinteligentniejsza platforma wyszukiwania lotów z przesiadkami. Odkrywaj świat i oszczędzaj pieniądze dzięki sztucznej inteligencji.",
     "quickLinks": "Szybkie Linki",

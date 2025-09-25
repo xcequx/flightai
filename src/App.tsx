@@ -9,6 +9,8 @@ import Index from "./pages/Index";
 import Results from "./pages/Results";
 import PlanVacation from "./pages/PlanVacation";
 import VacationResults from "./pages/VacationResults";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import "./i18n/index";
 
@@ -63,6 +65,8 @@ const AppContent = () => {
         <Route path="/results/:searchId" element={<Results />} />
         <Route path="/plan-vacation" element={<PlanVacation />} />
         <Route path="/vacation-results" element={<VacationResults />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/" element={<Index />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
